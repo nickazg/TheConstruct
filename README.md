@@ -7,14 +7,14 @@
 <h1 align="center">The Construct</h1>
 
 <p align="center">
-  A dApp library platform run on the **NEO** blockchain. This is the Construct. It's our loading program. We can load anything...
+  A dApp library platform run on the <b>NEO</b> blockchain. This is the Construct. It's our loading program. We can load anything...
 </p>
 
 
 ## Overview
 Sooner than later there will be 1000's of dapps/contracts/projects scattered out in the wild, which will require a single categorised library to search/request/premote and deploy dApp contracts. Similar to how the Apple AppStore and Android PlayStore attract developers and users, something similar will be extremely beneficial in the dApp space as it grows, and what better way than to have it run **NEO** blockchain.
 
-##### Features:
+### Features:
 - Developers have profiles with rating based on associated projects
 - Projects have a rating and review system
 - Searchable metadata associated with projects and contracts
@@ -27,6 +27,7 @@ Sooner than later there will be 1000's of dapps/contracts/projects scattered out
 - Project display active contracts
 - API to interact with the platform and underlaying projects/contracts/developers and users.
 
+## Accounts
 #### Project / dApp:
 Each project will have a dedicated page containing important information about the categorised dApp, and more specifically the contracts associated with the project. Users and developers can review and rate the project. Contracts can be invoked directly from the platform, general stats about contract status will be displayed also.
 
@@ -38,7 +39,7 @@ As a user on the dAppIt platform you will be able to easily search different cat
 
 ---
 
-#### Fee Structure:
+## Fee Structure
 *Doesn't include NEO system fees.*
 
 | Action        | Fee (GAS)     |
