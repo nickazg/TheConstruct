@@ -7,12 +7,12 @@
 <h1 align="center">The Construct</h1>
 
 <p align="center">
-  Decentralised dApp library interface run on the <b>NEO</b> blockchain.
+  A dApp library platform run on the **NEO** blockchain. This is the Construct. It's our loading program. We can load anything...
 </p>
 
 
 ## Overview
-Sooner than later there will be 1000's of dapps/contracts/projects scattered out in the wild, which will require a centralised categorised library to search/request/premote and deploy dApp contracts. Similar to how the Apple AppStore and Android PlayStore attract developers and users, something similar will be extremely beneficial in the dApp space as it grows, and what better way than to have it run <b>NEO</b> blockchain.
+Sooner than later there will be 1000's of dapps/contracts/projects scattered out in the wild, which will require a single categorised library to search/request/premote and deploy dApp contracts. Similar to how the Apple AppStore and Android PlayStore attract developers and users, something similar will be extremely beneficial in the dApp space as it grows, and what better way than to have it run **NEO** blockchain.
 
 ##### Features:
 - Developers have profiles with rating based on associated projects
@@ -36,36 +36,60 @@ As a developer on the dAppIt platform you can create/contribute and promote your
 #### User:
 As a user on the dAppIt platform you will be able to easily search different categorised projects, based on varying filters and ratings. Users will most importantly be able to propose a project or features within a project by creating a bounty fund, and rewarded with a share if completed.
 
-##  Operations
+---
 
-<b>Private:</b> All private operations can only be invoked with an admin key ( aka server-side calls within the platform )
+#### Fee Structure:
+*Doesn't include NEO system fees.*
 
-<b>Public:</b> All public operations can be invoked by anyone
+| Action        | Fee (GAS)     |
+| ------------- |:-------------:|
+| Create Project| 10 |
+| Add Contract| 5 |
+| Create Developer | 1 |
+| Create User | 0 |
+| Create Fund   |  10  |
+| Create CrowdFund   |  5  |
 
-#### Creator:  
-  - add_admin
-  - remove_admin
-  - set_fee
+---
+
+## Contract Operations
+#### *Terminology:*
+
+<i>**Private:** All private operations can only be invoked with an admin key ( aka server-side calls within the platform )
+
+<i>**Public:** All public operations can be invoked by anyone
+
+<i>**CrowdFund:** Funds are sourced from community
+
+<i>**Bounty CrowdFund:** Funds are sourced from community, and released for a specific definitive reason (can be locked in contract)
+
+<i>**Bounty Fund:** Funds are sourced from a project / developer, and released for a specific definitive reason (most likely bug bounty)
+
+#### Creator:
+  - **Hidden:**  
+    - add_admin
+    - remove_admin
+    - set_fee
 
 #### Admin:
-  - <b>Private:</b>
+  - **Private:**
     - remove_project
     - remove_developer
     - remove_user
 
 #### Developer:
-  - <b>Private:</b>
+  - **Private:**
     - create_new_project
     - edit_project_details
     - add_contract_to_project
     - add_dev_to_project
-    - create_bounty_project_fund
+    - create_bounty_fund
     - audit_contract
 
 
 #### User:
 
-  - <b>Public:</b>
+  - **Public:**
     - get_platform_details
     - get_projects
     - get_project_details
@@ -76,6 +100,7 @@ As a user on the dAppIt platform you will be able to easily search different cat
     - get_user_details
 
 
-  - <b>Private:</b>
-    - create_bounty_crowd_fund
+  - **Private:**
+    - create_crowdfund
+    - create_bounty_crowdfund
     - review_project
