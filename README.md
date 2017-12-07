@@ -40,8 +40,13 @@ As a user on the dAppIt platform you will be able to easily search different cat
 #### Admin:
 Admin has total control (except is unable to add/remove other admins and set fee structure)
 
-# Platfrom Segments
-## dApp Projects:
+# Platfrom Pages
+### dApp Library Explore:
+  - Categorises all dApps
+  - Filter dApps based on underlaying details
+### dApp Info:
+### Contract Info:
+### Developer Info:
 
 
 # Fee Structure
