@@ -16,6 +16,8 @@ Currently there is no complete platform avaliable in the blockchain space which 
 
 Introducing The Construct! With a large emphisus on community and crowdfunding in mind, our aim is to create a platform where quaitly dApps will florish and gain the support they need, and allow developers and users to discover these projects painlessly. Not only that our goal to manage the power of crowdfunding to support early projects with great ideas, and also to ensure mature projects remain bug free and have community driven goals using the bounty reward concept. Even non-developers can propose a dApp idea or competition in the form of a crowdfund.
 
+The platfrom will use the **NEO** smart contract to store and verifiy important information and manage funds on the blockchain, to ensure its credibitly and security. The Construct API (javascript) has been implemented to interact directly with the smart contract to seemlessly intergrate in a web environment.
+
 
 ## Features:
 - Categorises all registed dApps deployed on the **NEO** blockchain
@@ -29,7 +31,7 @@ Introducing The Construct! With a large emphisus on community and crowdfunding i
 - Crowdfunded Bounty for new project idea or competition (creator receives reward share)
 - Invokable contract interface
 - Project display active contracts
-- API to interact with the platform and underlaying projects/contracts/developers and users.
+- API to interact with the Smart Contract (javascript)
 
 # Account types:
 
