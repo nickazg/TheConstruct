@@ -14,7 +14,7 @@
 # Overview
 Currently there is no complete platform avaliable in the blockchain space which allows developers and teams to register their dApps within a feature rich marketplace environment such as AppStore or PlayStore. Once we reach a critical point of deployed contracts and dApps on the blockchain it will become increasingly harder to identifiy quality and commitment. Having such a platform will allow projects to become more transparant and connected to their community, benefiting everyone. 
 
-Introducing The Construct! Our aim is to create a platform where quaitly dApps will florish and gain the support they need, and allow developers and users to discover these projects painlessly. Not only that our goal to manage the power of crowdfunding to support early projects with great ideas, and also to ensure mature projects remain bug free and have community driven goals using the bounty reward concept. Even non-developers can propose a dApp idea or competition in the form of a crowdfund.
+Introducing The Construct! With a large emphisus on community and crowdfunding in mind, our aim is to create a platform where quaitly dApps will florish and gain the support they need, and allow developers and users to discover these projects painlessly. Not only that our goal to manage the power of crowdfunding to support early projects with great ideas, and also to ensure mature projects remain bug free and have community driven goals using the bounty reward concept. Even non-developers can propose a dApp idea or competition in the form of a crowdfund.
 
 
 ## Features:
@@ -31,14 +31,14 @@ Introducing The Construct! Our aim is to create a platform where quaitly dApps w
 - Project display active contracts
 - API to interact with the platform and underlaying projects/contracts/developers and users.
 
-## Account types:
+# Account types:
 
-#### User:
+### **User**:
 As a user on the dAppIt platform you will be able to easily search different categorised projects, based on varying filters and ratings. Users will most importantly be able to propose a project or features within a project by creating a bounty fund, and rewarded with a share if completed.
-#### Developer:
+### **Developer**:
 As a developer on the dAppIt platform you can create/contribute and promote your projects. Every developer will have their own rating based directly on their contribution to a project and its rating.
 
-#### Project:
+### **Project**:
 Each project will have a dedicated page containing important information about the categorised dApp, and more specifically the contracts associated with the project. Users and developers can review and rate the project. Contracts can be invoked directly from the platform, general stats about contract status will be displayed also.
 
 
@@ -65,21 +65,6 @@ Each project will have a dedicated page containing important information about t
 ### **Developer Info:**
   - All dApps developer is connected to
   - Developer rating based on dApp contribution and peer-reviews
-
-
-# Fee Structure
-*Doesn't include NEO system fees.*
-
-| Action        | Fee (GAS)     |
-| ------------- |:-------------:|
-| Register Project| 10 |
-| Register Contract| 5 |
-| Register Developer | 1 |
-| Register User | 0 |
-| Create Fund   |  10  |
-| Create CrowdFund   |  5  |
-| Complete Fund   |  1 %  |
-| Complete CrowdFund   |  1 %  |
 
 
 # ​​Contract Operations
@@ -135,3 +120,18 @@ Each project will have a dedicated page containing important information about t
     - create_crowdfund
     - create_bounty_crowdfund
     - review_project
+
+
+# Fee Structure
+*Doesn't include NEO system fees.*
+
+| Action        | Fee (GAS)     |
+| ------------- |:-------------:|
+| Register Project| 10 |
+| Register Contract| 5 |
+| Register Developer | 1 |
+| Register User | 0 |
+| Create Fund   |  10  |
+| Create CrowdFund   |  5  |
+| Complete Fund   |  1 %  |
+| Complete CrowdFund   |  1 %  |
