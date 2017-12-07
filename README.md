@@ -11,13 +11,13 @@
 </p>
 
 
-## Overview
+# Overview
 Sooner than later there will be 1000's of dapps/contracts/projects scattered out in the wild, which will require a single categorised library to search/request/premote and deploy dApp contracts. Similar to how the Apple AppStore and Android PlayStore attract developers and users, something similar will be extremely beneficial in the dApp space as it grows, and what better way than to have it run **NEO** blockchain.
 
-### Features:
+## Features:
 - Developers have profiles with rating based on associated projects
 - Projects have a rating and review system
-- Searchable metadata associated with projects and contracts
+- Searchable project and developer metadata
 - Contracts have verified rating and linked directly to source code
 - Contract Audit Bounty (from verified Developer)
 - Bug Bounty rewards set by developers (or contributed via crowd funding)
@@ -27,7 +27,7 @@ Sooner than later there will be 1000's of dapps/contracts/projects scattered out
 - Project display active contracts
 - API to interact with the platform and underlaying projects/contracts/developers and users.
 
-## Accounts
+## Entities:
 #### Project / dApp:
 Each project will have a dedicated page containing important information about the categorised dApp, and more specifically the contracts associated with the project. Users and developers can review and rate the project. Contracts can be invoked directly from the platform, general stats about contract status will be displayed also.
 
@@ -37,9 +37,14 @@ As a developer on the dAppIt platform you can create/contribute and promote your
 #### User:
 As a user on the dAppIt platform you will be able to easily search different categorised projects, based on varying filters and ratings. Users will most importantly be able to propose a project or features within a project by creating a bounty fund, and rewarded with a share if completed.
 
----
+#### Admin:
+Admin has total control (except is unable to add/remove other admins and set fee structure)
 
-## Fee Structure
+# Platfrom Segments
+## dApp Projects:
+
+
+# Fee Structure
 *Doesn't include NEO system fees.*
 
 | Action        | Fee (GAS)     |
@@ -49,23 +54,25 @@ As a user on the dAppIt platform you will be able to easily search different cat
 | Create Developer | 1 |
 | Create User | 0 |
 | Create Fund   |  10  |
+| Complete Fund   |  1 %  |
 | Create CrowdFund   |  5  |
+| Complete CrowdFund   |  1 %  |
 
----
 
-## Contract Operations
-#### *Terminology:*
+# ​​Contract Operations
+## Definitions:
 
-<i>**Private:** All private operations can only be invoked with an admin key ( aka server-side calls within the platform )
+  - <i>**Private:** All private operations can only be invoked with an admin key ( aka server-side calls within the platform )</i>
 
-<i>**Public:** All public operations can be invoked by anyone
+  - <i>**Public:** All public operations can be invoked by anyone</i>
 
-<i>**CrowdFund:** Funds are sourced from community
+  - <i>**CrowdFund:** Funds are sourced from community</i>
 
-<i>**Bounty CrowdFund:** Funds are sourced from community, and released for a specific definitive reason (can be locked in contract)
+  - <i>**Bounty CrowdFund:** Funds are sourced from community, and released for a specific definitive reason (can be locked in contract)</i>
 
-<i>**Bounty Fund:** Funds are sourced from a project / developer, and released for a specific definitive reason (most likely bug bounty)
+  - <i>**Bounty Fund:** Funds are sourced from a project / developer, and released for a specific definitive reason (most likely bug bounty)</i>
 
+## Invokeable Operations:
 #### Creator:
   - **Hidden:**  
     - add_admin
