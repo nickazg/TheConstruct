@@ -7,46 +7,64 @@
 <h1 align="center">The Construct</h1>
 
 <p align="center">
-  A dApp library platform run on the <b>NEO</b> blockchain. This is the Construct. It's our loading program. We can load anything...
+  A complete dApp library platform run on the <b>NEO</b> blockchain. This is the Construct. It's our loading program. We can load anything...
 </p>
 
 
 # Overview
-Sooner than later there will be 1000's of dapps/contracts/projects scattered out in the wild, which will require a single categorised library to search/request/premote and deploy dApp contracts. Similar to how the Apple AppStore and Android PlayStore attract developers and users, something similar will be extremely beneficial in the dApp space as it grows, and what better way than to have it run **NEO** blockchain.
+Currently there is no complete platform avaliable in the blockchain space which allows developers and teams to register their dApps within a feature rich marketplace environment such as AppStore or PlayStore. Once we reach a critical point of deployed contracts and dApps on the blockchain it will become increasingly harder to identifiy quality and commitment. Having such a platform will allow projects to become more transparant and connected to their community, benefiting everyone. 
+
+Introducing The Construct! Our aim is to create a platform where quaitly dApps will florish and gain the support they need, and allow developers and users to discover these projects painlessly. Not only that our goal to manage the power of crowdfunding to support early projects with great ideas, and also to ensure mature projects remain bug free and have community driven goals using the bounty reward concept. Even non-developers can propose a dApp idea or competition in the form of a crowdfund.
+
 
 ## Features:
-- Developers have profiles with rating based on associated projects
-- Projects have a rating and review system
-- Searchable project and developer metadata
+- Categorises all registed dApps deployed on the **NEO** blockchain
+- Enables Developers a platfrom to be able to interact directly with the community and projects 
+- Developers have profile which will create recognition within the commuinity 
+- Projects and Developers have a rating and review system
 - Contracts have verified rating and linked directly to source code
 - Contract Audit Bounty (from verified Developer)
 - Bug Bounty rewards set by developers (or contributed via crowd funding)
 - Crowdfunded Bounty's for feature updates
-- Crowdfunded Bounty for new project idea (contributors receive project token share)
+- Crowdfunded Bounty for new project idea or competition (creator receives reward share)
 - Invokable contract interface
 - Project display active contracts
 - API to interact with the platform and underlaying projects/contracts/developers and users.
 
-## Entities:
-#### Project / dApp:
-Each project will have a dedicated page containing important information about the categorised dApp, and more specifically the contracts associated with the project. Users and developers can review and rate the project. Contracts can be invoked directly from the platform, general stats about contract status will be displayed also.
-
-#### Developer:
-As a developer on the dAppIt platform you can create/contribute and promote your projects. Every developer will have their own rating based directly on their contribution to a project and its rating.
+## Account types:
 
 #### User:
 As a user on the dAppIt platform you will be able to easily search different categorised projects, based on varying filters and ratings. Users will most importantly be able to propose a project or features within a project by creating a bounty fund, and rewarded with a share if completed.
+#### Developer:
+As a developer on the dAppIt platform you can create/contribute and promote your projects. Every developer will have their own rating based directly on their contribution to a project and its rating.
 
-#### Admin:
-Admin has total control (except is unable to add/remove other admins and set fee structure)
+#### Project:
+Each project will have a dedicated page containing important information about the categorised dApp, and more specifically the contracts associated with the project. Users and developers can review and rate the project. Contracts can be invoked directly from the platform, general stats about contract status will be displayed also.
 
-# Platfrom Pages
-### dApp Library Explore:
+
+# Platform Categories
+### **dApp Library Explorer:**
   - Categorises all dApps
   - Filter dApps based on underlaying details
-### dApp Info:
-### Contract Info:
-### Developer Info:
+  - Displays basic info about dApp
+  - Roadmap, and crowdfunded bountys can be set on milestones 
+
+### **dApp Info:**
+  - Displays all info about dApp
+  - Description overview
+  - Active Smart Contracts
+  - Link to GitHub repo
+  - Review and Rating system
+  - Current funds in progress
+
+### **Contract Info:**
+  - Source Code verified to Script Hash ( compiler version needs to be specified )
+  - Details about audit results
+  - Bug Bounty fund
+
+### **Developer Info:**
+  - All dApps developer is connected to
+  - Developer rating based on dApp contribution and peer-reviews
 
 
 # Fee Structure
@@ -54,13 +72,13 @@ Admin has total control (except is unable to add/remove other admins and set fee
 
 | Action        | Fee (GAS)     |
 | ------------- |:-------------:|
-| Create Project| 10 |
-| Add Contract| 5 |
-| Create Developer | 1 |
-| Create User | 0 |
+| Register Project| 10 |
+| Register Contract| 5 |
+| Register Developer | 1 |
+| Register User | 0 |
 | Create Fund   |  10  |
-| Complete Fund   |  1 %  |
 | Create CrowdFund   |  5  |
+| Complete Fund   |  1 %  |
 | Complete CrowdFund   |  1 %  |
 
 
