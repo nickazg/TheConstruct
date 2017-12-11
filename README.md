@@ -125,7 +125,7 @@ Every funding stage subsequently will liquidate all funds evenly. However early 
 
 <p align="center">
   <img
-    src="/Users/nick/Documents/Git/NeoDev/dAppIt/milestones.png"
+    src="milestones.png"
     >
 </p>
 
