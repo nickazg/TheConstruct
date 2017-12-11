@@ -73,9 +73,6 @@ Each project will have a dedicated page containing important information about t
   - All dApps developer is connected to
   - Developer rating based on dApp contribution and peer-reviews
 
-# Funding Milestones
-# Smart Token Shares
-
 # Token Launch ??
 
 ## Token 
@@ -103,16 +100,14 @@ Token holders will also have the right to a voting share, to guide the direction
 
 # Crowd Funding
 
-Crowd funding plays an fundamental role within in the platform, as it will allow small projects with great ideas to gain capital and recognition rapidly. All projects submitted on the platfrom will be impliemnted via a sub-token model, piggy backing on the Construct (STR) token. 
+Crowd funding plays an fundamental role within in the platform, as it will allow small projects with great ideas to gain capital and recognition rapidly. All projects submitted on the platfrom will have its own **Smart Token Shares**
 
-## ShareToken Model:
-Every registed project will automatically have its own ShareToken, allowing the project to see the investment share distribution, to later reward the early investors. Similar to how an ICO works, but will have the benifit of a faster funding turnaround due to a more intergrated granular milestone based approach, requiring more realisic funding goals.
+# Smart Token Shares
+Every registed project will automatically have its own **Smart Token Shares**, tracking investment share distribution, to later reward the early investors. Similar to how an ICO works, but will have the benifit of a faster funding turnaround due to a more intergrated granular milestone based approach.
 
-However unlike ICO tokens, Sub-Tokens cannot be traded traditionally. Their main goal is to enable shares of the project to be distrubuted to the inital investors/backers fairly, which in turn will allow the "shareholders" potential influence in voting, or tokens in a pre-sale ICO if the project happens to do so. 
+**Smart Token Shares** can be traded OTC, but they arent the same as a traditional token so will require specific exchange support. Their main goal is to enable shares of the project to be distrubuted to the inital investors/backers fairly, which in turn will allow the "shareholders" potential influence in voting, or tokens in a pre-sale ICO if the project happens to do so. 
 
-This is just a share distribution mechanism that the platform provides to enable projects to award their backers fairly. It will still up to the project team and community to enforce this, if not it would essentially be a donation.
-
-### **Technical Implimention:**
+This is just a share distribution mechanism that the platform provides to enable projects to award their backers fairly. It will still require the project team and community to enforce this as flexibility and transparency are our main focus.
 
 #### Project Token Name: 
 
@@ -120,9 +115,19 @@ Every project will have a unique token name, using a 1-10 charater extention to 
 
 #### Project Token Supply: 
 
-Every project will always have the same supply of **1,000,000** tokens. Every funding stage subsequently will liquidate all funds evenly. However early investors generally will still maintain a higher share percentage, as each subsequent funding stage can have a reduced influence percentage set, which would be decided before the first funding stage.
+Every project will always have the same supply of **1,000,000** tokens. 
+
+# Funding Milestones
+
+Every funding stage subsequently will liquidate all funds evenly. However early investors generally will still maintain a higher share percentage, as each subsequent funding stage can have a reduced influence percentage set, which would be decided before the first funding stage.
 
 **For example:**
+
+<p align="center">
+  <img
+    src="/Users/nick/Documents/Git/NeoDev/dAppIt/milestones.png"
+    >
+</p>
 
 | Funding Stage        | Influence (%)     |  Rasied (GAS)   | Investors  | Token Share| Calculation
 | ------------- |:-------------:|:-------------:|:-------------:|:-------------:|:-------------:|
