@@ -119,7 +119,9 @@ Every project will always have the same supply of **1,000,000** tokens.
 
 # Funding Milestones
 
-Every funding stage subsequently will liquidate all funds evenly. However early investors generally will still maintain a higher share percentage, as each subsequent funding stage can have a reduced influence percentage set, which would be decided before the first funding stage.
+Every funding stage subsequently will liquidate all funds evenly as they are essentially a perentage share. However early investors generally will still maintain a higher share percentage, as each subsequent funding stage will have a reduced investor influence rate set. 
+
+*All milestones have to predetermined before investor contribution, any unforseen milestones require a 51% consensus.*
 
 **For example:**
 
