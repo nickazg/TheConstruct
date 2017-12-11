@@ -7,31 +7,31 @@
 <h1 align="center">The Construct</h1>
 
 <p align="center">
-  A complete dApp library platform run on the <b>NEO</b> blockchain. This is the Construct. It's our loading program. We can load anything...
+  A complete dApp registry platform run on the <b>NEO</b> blockchain. This is the Construct. It's our loading program. We can load anything...
 </p>
 
 
 # Overview
-Currently there is no complete platform avaliable in the blockchain space which allows developers and teams to register their dApps within a feature rich marketplace environment. Once we reach a critical point of deployed contracts and dApps on the blockchain it will become increasingly harder to identifiy quality and commitment. Having such a platform will allow projects to become more transparant and connected to their community, benefiting everyone. 
+The aim of **The Construct** is to provide a service to allow developers and users to contribute, collaborate, create, grow and manage dApps in a secure, transparent and feature rich environment. For ICO's to have widespread success regulation and transparency is inevitable and our plan is to create a soild foundation to make the process as simple and efficient as possible.
 
-Introducing The Construct! With a large emphisus on community and crowdfunding in mind, our aim is to create a platform where quaitly dApps will florish and gain the support they need, and allow developers and users to discover these projects easily. Not only that we plan to use the power of crowdfunding to support early projects with great ideas, and also to ensure mature projects remain bug free and have community driven goals using the bounty reward concept. Even non-developers can propose a dApp idea or competition in the form of a crowdfund.
+One problem with the current state of ICO's is that they require very little substance to produce large sum's of capital. Even if the the project is proven to be of high quality, once the ICO has ended the community has a very limited influence on the direction and pace of the project and still largly relies on trust. **The Construct** plans to counter this by implimenting **Funding Milestones** and **Smart Token Shares**. This model will incentivse projects to reach milestones faster and/or have more realistic goals and a generally higher standard of quality.
 
-The platfrom will use the **NEO** smart contract to store and verifiy important information and manage funds on the blockchain, to ensure its credibitly and security. The Construct API (javascript) has been implemented to interact directly with the smart contract to seemlessly intergrate in a web environment.
+**The Construct** will use a **NEO** smart contract to store and verifiy sensitive information related to dApps and manage crowdfunds on the blockchain, to ensure its credibitly and security. **The Construct** API (javascipt/python) has been implemented as an abstract layer ontop of the **NEO** blockchain for convience, speed and realibilty. All of which can be verified externally via traditional contract invocation calls ( operations detailed below )
 
 
-## Features:
-- Categorises all registed dApps deployed on the **NEO** blockchain
-- Enables Developers a platfrom to be able to interact directly with the community and projects 
-- Developers have profile which will create recognition within the commuinity 
-- Projects and Developers have a rating and review system
-- Contracts have verified rating and linked directly to source code
+## Main Features:
+- Impliments **Funding Milestones**, which ensures a dApp maintains its promisies, via incremental crowdfunding
+- **Smart Token Shares** are distributed to investors/backers to incentivise contribution and early adopters.
+- Categorises all registed dApps
+- Feature rich API
+- Enables dApp projects a platfrom rapidly gain community support and capital funds
+- Developers have profiles, creating recognition within the commuinity
+- Rating and review system for both developers and dApps
+- Contracts can be linked to source code and allow for external verification and audit.
 - Contract Audit Bounty (from verified Developer)
 - Bug Bounty rewards set by developers (or contributed via crowd funding)
 - Crowdfunded Bounty's for feature updates
 - Crowdfunded Bounty for new project idea or competition (creator receives reward share)
-- Invokable contract interface
-- Project display active contracts
-- API to interact with the Smart Contract (javascript)
 
 ## Contracts Depolyed:
 - Construct Platform
@@ -73,6 +73,8 @@ Each project will have a dedicated page containing important information about t
   - All dApps developer is connected to
   - Developer rating based on dApp contribution and peer-reviews
 
+# Funding Milestones
+# Smart Token Shares
 
 # Token Launch ??
 
