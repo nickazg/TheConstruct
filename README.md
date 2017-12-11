@@ -33,6 +33,11 @@ The platfrom will use the **NEO** smart contract to store and verifiy important 
 - Project display active contracts
 - API to interact with the Smart Contract (javascript)
 
+## Contracts Depolyed:
+- Construct Platform
+- ShareToken Protocol
+  - Crowd Funding ( Could be implimented within this contract ?? ) 
+
 # Account types
 
 ### **User**:
@@ -69,7 +74,11 @@ Each project will have a dedicated page containing important information about t
   - Developer rating based on dApp contribution and peer-reviews
 
 
-# Token Launch
+# Token Launch ??
+
+## Token 
+
+**STR**
 
 ## Token Summary
 The goal of the token sale is to raise capital to cover any inital overheads including **NEO** deployment fees. To ensure the platform is stable, scalable and flexable a team of developers will be required to meet this demand. Most importantly this platform is built upon community engagement and passion which is why a huge 75% of the supply sold during the ICO.
@@ -92,10 +101,10 @@ Token holders will also have the right to a voting share, to guide the direction
 
 # Crowd Funding
 
-Crowd funding plays an fundamental role within in the platform, as it will allow small projects with great ideas to gain capital and recognition rapidly. All projects submitted on the platfrom will be impliemnted via a sub-token model, essentially piggy backing on the Construct (STR) token. 
+Crowd funding plays an fundamental role within in the platform, as it will allow small projects with great ideas to gain capital and recognition rapidly. All projects submitted on the platfrom will be impliemnted via a sub-token model, piggy backing on the Construct (STR) token. 
 
-## Sub-Token Model:
-Every registed project will automatically have its own sub-token, allowing shares of the project to be distributed to the investors and backers. Similar to how an ICO works, but will have the benifit of a faster funding turnaround due to a more intergrated granular milestone based approach, requiring more realisic funding goals.
+## ShareToken Model:
+Every registed project will automatically have its own ShareToken, allowing the project to see the investment share distribution, to later reward the early investors. Similar to how an ICO works, but will have the benifit of a faster funding turnaround due to a more intergrated granular milestone based approach, requiring more realisic funding goals.
 
 However unlike ICO tokens, Sub-Tokens cannot be traded traditionally. Their main goal is to enable shares of the project to be distrubuted to the inital investors/backers fairly, which in turn will allow the "shareholders" potential influence in voting, or tokens in a pre-sale ICO if the project happens to do so. 
 
@@ -109,7 +118,7 @@ Every project will have a unique token name, using a 1-10 charater extention to 
 
 #### Project Token Supply: 
 
-Every project will always have the same supply of **1,000,000** tokens. Every funding stage subsequently will liquidate all funds evenly. However early investors generally will maintain a higher share percentage, as each subsequent funding stage can have a reduced influence percentage set.
+Every project will always have the same supply of **1,000,000** tokens. Every funding stage subsequently will liquidate all funds evenly. However early investors generally will still maintain a higher share percentage, as each subsequent funding stage can have a reduced influence percentage set, which would be decided before the first funding stage.
 
 **For example:**
 
