@@ -119,15 +119,29 @@ Every project will always have the same supply of **1,000,000** tokens.
 
 # Funding Milestones
 
-Every funding stage subsequently will liquidate all funds evenly as they are essentially a perentage share. However early investors generally will still maintain a higher share percentage, as each subsequent funding stage will have a reduced investor influence rate set. 
+Every funding stage will subsequently liquidate all funds as they are essentially a perentage share. However early investors generally will still maintain a higher share percentage, as each subsequent funding stage will have a reduced investor influence rate set. 
+
+*Projects can also choose between Pre-Milestone or Post-Milestone funding. Generally Post-Milestone funding will result in more funds, but would require the work first*
 
 *All milestones have to predetermined before investor contribution, any unforseen milestones require a 51% consensus approval.*
 
-### **Example Milestone Roadmap:**
+### **Pre-Milestone Funding Roadmap:**
+With **Pre**-Milestone Funding, Milestone completion is only required after the funding process is has completed. However this is still a requirement to progress onto the next funding stage. A **pay** first, **work** later model.
 
+Example:
 <p align="center">
   <img
     src="milestones.png"
+    >
+</p>
+
+### **Post-Milestone Funding Roadmap:**
+With **Post**-Milestone Funding, Milestone completion is required before any funding for the next stage occurs. A **work** first, **pay** later model.
+
+Example:
+<p align="center">
+  <img
+    src="post_milestones.png"
     >
 </p>
 
