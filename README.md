@@ -14,17 +14,18 @@
 # Overview
 The aim of **The Construct** is to provide a service to allow developers and users to contribute, collaborate, create, grow and manage dApps in a secure, transparent and feature rich environment. For ICO's to have widespread success regulation and transparency is inevitable and our plan is to create a soild foundation to make the process as simple and efficient as possible.
 
-One problem with the current state of ICO's is that they require very little substance to produce large sum's of capital. Even if the the project is proven to be of high quality, once the ICO has ended the community has a very limited influence on the direction and pace of the project and still largly relies on trust. **The Construct** plans to counter this by implimenting **Funding Milestones** and **Smart Token Shares**. This model will incentivse projects to reach milestones faster and/or have more realistic goals and a generally higher standard of quality.
+One problem with the current state of ICO's is that they require very little substance to produce large sum's of capital. Even if the the project is proven to be of high quality, once the ICO has ended the community has a very limited influence on the direction and pace of the project and still largly relies on trust. **The Construct** plans to counter this by implimenting **Funding Milestones** and **Smart Token Shares**. This model will incentivse projects to reach milestones faster with more realistic goals and a generally higher standard of quality.
 
-**The Construct** will use a **NEO** smart contract to store and verifiy sensitive information related to dApps and manage crowdfunds on the blockchain, to ensure its credibitly and security. **The Construct** API (javascipt/python) has been implemented as an abstract layer ontop of the **NEO** blockchain for convience, speed and realibilty. All of which can be verified externally via traditional contract invocation calls ( operations detailed below )
+**The Construct** will use a **NEO** smart contract to store and verifiy sensitive information related to dApps and manage crowdfunds on the blockchain, to ensure its credibitly and security. **The Construct** API (javascipt/python) has been implemented as an abstract layer ontop of the **NEO** blockchain for convience, speed and realibilty. All of which can be verified externally via manual contract invocation calls ( operations detailed below )
 
 
 ## Main Features:
 - Impliments **Funding Milestones**, which ensures a dApp maintains its promisies, via incremental crowdfunding
 - **Smart Token Shares** are distributed to investors/backers to incentivise contribution and early adopters.
+- Automatically distribute offical tokens from **Smart Token Shares**  
 - Categorises all registed dApps
 - Feature rich API
-- Enables dApp projects a platfrom rapidly gain community support and capital funds
+- Enables dApp projects a platfrom to rapidly gain community support and funds
 - Developers have profiles, creating recognition within the commuinity
 - Rating and review system for both developers and dApps
 - Contracts can be linked to source code and allow for external verification and audit.
@@ -36,17 +37,37 @@ One problem with the current state of ICO's is that they require very little sub
 ## Contracts Depolyed:
 - Construct Platform
 - ShareToken Protocol
+  - Funding Milestones
   - Crowd Funding ( Could be implimented within this contract ?? ) 
 
-# Account types
+## Contract Requirements
+- Store and Create Projects
+  - Unique Name
+  - Milestone Hashes
+  - Contract Hashes
+  - Developer Hashes
+  - Fund Hashes
+- Store and Create Developers
+  - Address Hash
+  - Display Name
+  - Project Hashes 
+- Verify and Audit Contacts
+- Store and Create Milestones
+  - Roadmap Hash
+  - Milestone Hash
+  - Project Hash
+  - Stage Index
+  - Fund Hash (Pre Milestone Fund)
+- Store, Create, Manage Distribute Funds
+  - Fund Hash
+  - Project Hash
+  - Fund Limits
+  - Fund Goal
+  - Milestone Hash
+  - Contributor Hashes
+  - Contributor Contributions 
+  - Distribute or Refund Funds
 
-### **User**:
-As a user on the dAppIt platform you will be able to easily search different categorised projects, based on varying filters and ratings. Users will most importantly be able to propose a project or features within a project by creating a bounty fund, and rewarded with a share if completed.
-### **Developer**:
-As a developer on the dAppIt platform you can create/contribute and promote your projects. Every developer will have their own rating based directly on their contribution to a project and its rating.
-
-### **Project**:
-Each project will have a dedicated page containing important information about the categorised dApp, and more specifically the contracts associated with the project. Users and developers can review and rate the project. Contracts can be invoked directly from the platform, general stats about contract status will be displayed also.
 
 
 # Platform Categories
@@ -117,14 +138,14 @@ Every project will have a unique token name, using a 1-10 charater extention to 
 
 Every project will always have the same supply of **1,000,000** tokens. 
 
-#### Smart Token Shares to Offical Token:
+#### Transfer Smart Token Shares to Offical Token:
 If the project releases an offical Token, **The Construct** will be able to distribute a specific amount of input tokens to investors based on **Smart Token Shares**. This requires the project admin to invoke this operation, however the process will be transparent and verifiable.
 
 # Funding Milestones
 
 Every funding stage will subsequently liquidate all funds as they are essentially a perentage share. However early investors generally will still maintain a higher share percentage, as each subsequent funding stage will have a reduced investor influence rate set. 
 
-*All milestones have to predetermined before investor contribution, any unforseen milestones require a 51% consensus approval.*
+**All milestones have to predetermined before investor contribution, any unforseen milestones require a 51% consensus approval.*
 
 ### **Pre-Milestone Funding Roadmap:**
 With **Pre**-Milestone Funding, Milestone completion is only required after the funding process is has completed. However this is still a requirement to progress onto the next funding stage. A **pay** first, **work** later model.
@@ -144,6 +165,17 @@ Example:
 | Stage 2 | 50  | 1000 | 10 (20 total) | 25,000 | ( 1,000,000 / 20 ) / 50% = 25,000
 | Stage 3  | 25  | 1000 | 10 (30 total) | 8,333 | ( 1,000,000 / 30 ) / 25% = 8,333
 | And so on ...  | --  | -- | -- | -- | --
+
+# Account types
+
+### **User**:
+As a user on the dAppIt platform you will be able to easily search different categorised projects, based on varying filters and ratings. Users will most importantly be able to propose a project or features within a project by creating a bounty fund, and rewarded with a share if completed.
+### **Developer**:
+As a developer on the dAppIt platform you can create/contribute and promote your projects. Every developer will have their own rating based directly on their contribution to a project and its rating.
+
+### **Project**:
+Each project will have a dedicated page containing important information about the categorised dApp, and more specifically the contracts associated with the project. Users and developers can review and rate the project. Contracts can be invoked directly from the platform, general stats about contract status will be displayed also.
+
 
 # ​​Contract Operations
 ## Definitions:
