@@ -103,9 +103,9 @@ Token holders will also have the right to a voting share, to guide the direction
 Crowd funding plays an fundamental role within in the platform, as it will allow small projects with great ideas to gain capital and recognition rapidly. All projects submitted on the platfrom will have its own **Smart Token Shares**
 
 # Smart Token Shares
-Every registed project will automatically have its own **Smart Token Shares**, tracking investment share distribution, to later reward the early investors. Similar to how an ICO works, but will have the benifit of a faster funding turnaround due to a more intergrated granular milestone based approach.
+Every registed project will automatically have its own **Smart Token Shares**, tracking investment share distribution to later reward the early investors. Similar to how an ICO works, but will have the benifit of a guided milestone based approach.
 
-**Smart Token Shares** can be traded OTC, but they arent the same as a traditional token so will require specific exchange support. Their main goal is to enable shares of the project to be distrubuted to the inital investors/backers fairly, which in turn will allow the "shareholders" potential influence in voting, or tokens in a pre-sale ICO if the project happens to do so. 
+**Smart Token Shares** can be traded OTC, but they arent the same as a traditional token so will require specific exchange support. Their main goal is to enable shares of the project to be distrubuted to the inital investors fairly, which in turn will allow the "shareholders" potential influence in voting, or tokens in a pre-sale ICO if the project happens to do so. 
 
 This is just a share distribution mechanism that the platform provides to enable projects to award their backers fairly. It will still require the project team and community to enforce this as flexibility and transparency are our main focus.
 
@@ -117,11 +117,12 @@ Every project will have a unique token name, using a 1-10 charater extention to 
 
 Every project will always have the same supply of **1,000,000** tokens. 
 
+#### Smart Token Shares to Offical Token:
+If the project releases an offical Token, **The Construct** will be able to distribute a specific amount of input tokens to investors based on **Smart Token Shares**. This requires the project admin to invoke this operation, however the process will be transparent and verifiable.
+
 # Funding Milestones
 
 Every funding stage will subsequently liquidate all funds as they are essentially a perentage share. However early investors generally will still maintain a higher share percentage, as each subsequent funding stage will have a reduced investor influence rate set. 
-
-*Projects can also choose between Pre-Milestone or Post-Milestone funding. Generally Post-Milestone funding will result in more funds, but would require the work first*
 
 *All milestones have to predetermined before investor contribution, any unforseen milestones require a 51% consensus approval.*
 
@@ -132,16 +133,6 @@ Example:
 <p align="center">
   <img
     src="milestones.png"
-    >
-</p>
-
-### **Post-Milestone Funding Roadmap:**
-With **Post**-Milestone Funding, Milestone completion is required before any funding for the next stage occurs. A **work** first, **pay** later model.
-
-Example:
-<p align="center">
-  <img
-    src="post_milestones.png"
     >
 </p>
 
