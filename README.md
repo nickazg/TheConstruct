@@ -121,9 +121,9 @@ Every project will always have the same supply of **1,000,000** tokens.
 
 Every funding stage subsequently will liquidate all funds evenly as they are essentially a perentage share. However early investors generally will still maintain a higher share percentage, as each subsequent funding stage will have a reduced investor influence rate set. 
 
-*All milestones have to predetermined before investor contribution, any unforseen milestones require a 51% consensus.*
+*All milestones have to predetermined before investor contribution, any unforseen milestones require a 51% consensus approval.*
 
-**For example:**
+### **Example Milestone Roadmap:**
 
 <p align="center">
   <img
@@ -131,11 +131,13 @@ Every funding stage subsequently will liquidate all funds evenly as they are ess
     >
 </p>
 
+### **Share Distribution Breakdown:**
+
 | Funding Stage        | Influence (%)     |  Rasied (GAS)   | Investors  | Token Share| Calculation
 | ------------- |:-------------:|:-------------:|:-------------:|:-------------:|:-------------:|
-| Inital | 100 | 1000 | 10 | 100,000 | 1,000,000 / 10 = 100,000
-| Second | 50  | 1000 | 10 (20 total) | 25,000 | ( 1,000,000 / 20 ) / 50% = 25,000
-| Third  | 25  | 1000 | 10 (30 total) | 8,333 | ( 1,000,000 / 30 ) / 25% = 8,333
+| Stage 1 | 100 | 1000 | 10 | 100,000 | 1,000,000 / 10 = 100,000
+| Stage 2 | 50  | 1000 | 10 (20 total) | 25,000 | ( 1,000,000 / 20 ) / 50% = 25,000
+| Stage 3  | 25  | 1000 | 10 (30 total) | 8,333 | ( 1,000,000 / 30 ) / 25% = 8,333
 | And so on ...  | --  | -- | -- | -- | --
 
 # ​​Contract Operations
