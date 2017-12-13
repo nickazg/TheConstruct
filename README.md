@@ -51,9 +51,10 @@ While the platform is designed primaraly for developers, it will be capable of s
   - Fund Hashes
 - Store and Create Accounts
   - Address Hash
-  - Type (Generic, Investor, Developer)
+  - Type ( Generic, Developer )
   - Display Name
   - Project Hashes
+  - Fund Hashes
 - Verify and Audit Contacts
   - Store verification signatures
 - Store and Create Milestones
@@ -61,12 +62,13 @@ While the platform is designed primaraly for developers, it will be capable of s
   - Milestone Hash
   - Project Hash
   - Stage Index
-  - Fund Hash (Pre Milestone Fund)
+  - Fund Hash (Milestone Fund)
 - Store, Create, Manage Distribute Funds
   - Fund Hash
   - Project Hash
   - Fund Limits
   - Fund Goal
+  - Token Share Supply
   - Milestone Hash
   - Contributor Hashes
   - Contributor Contributions 
@@ -78,19 +80,22 @@ While the platform is designed primaraly for developers, it will be capable of s
 
 
 # Platform Categories
-### **dApp Library Explorer:**
-  - Categorises all dApps
-  - Filter dApps based on underlaying details
-  - Displays basic info about dApp
-  - Roadmap, and crowdfunded bountys can be set on milestones 
+### **Project Library Explorer:**
+  - Categorises all Projects
+  - Filter Projects based on underlaying details
+  - Displays basic info about the Project
+    - Rating
+    - Current Fund Progress
 
-### **dApp Info:**
-  - Displays all info about dApp
+### **Project Info:**
+  - Displays all info about project
   - Description overview
   - Active Smart Contracts
   - Link to GitHub repo
   - Review and Rating system
-  - Current funds in progress
+  - Roadmap, and Funding Milestones
+  - Smart Token Shares Breakdown
+  - Current Fund Progress
 
 ### **Contract Info:**
   - Source Code verified to Script Hash ( compiler version needs to be specified )
@@ -98,8 +103,8 @@ While the platform is designed primaraly for developers, it will be capable of s
   - Bug Bounty fund
 
 ### **Developer Info:**
-  - All dApps developer is connected to
-  - Developer rating based on dApp contribution and peer-reviews
+  - All Projects developer is connected to
+  - Developer rating based on project contribution and peer-reviews
 
 # Crowd Funding
 
@@ -123,9 +128,9 @@ Crowd funding plays an fundamental role within in the platform, as it will allow
 
 Every registered project will automatically have its own **Smart Token Shares**. This will enable investment shares in the project to be incrementally distributed during the **Funding Milestone** process.
 
-Once all the **Funding Milestones** have been completed sucessfully, an ICO can be created internally and all the shares can be automatically converted to the project **NEP5** token [( details )](#TokenShareTransfer)
+Once all the **Funding Milestones** have been completed sucessfully, an ICO can be created internally and all the shares can be automatically converted to the project **NEP5** token. An external ICO can also manually invoke a method to distribute the funds; [( details )](#TokenShareTransfer)
 
-**Smart Token Shares** cannont be traded until the an offical **NEP5** token is created.
+**Smart Token Shares** right now cannont be traded until the an offical **NEP5** token is created.
 
 *This is just a share distribution mechanism that the platform provides to enable projects to award their backers fairly. It will still require the project team and community to enforce this as flexibility and transparency are our main focus.*
 
@@ -186,20 +191,33 @@ Every funding stage will have a predetermined supply of [**Smart Token Shares**]
 </p>
 <br><br>
 
-# Account types - *TODO
+# Project Proposal
+A Project Proposal is designed to encourage people with only an idea to present them publicly to the community, recieveing a bonus if successfull.
+
+Once an idea is proposed, an open-ended **14 day fund** will begin. The minimum requirement for a proposal is an idea, and the first Proof-of-Work milestone. 
+
+Once the fund has completed, anyone can submit a Proof-of-Work of the milestone (incl a short "pick me!" message). After 7 days submissions will close, and all the fund contributors can vote for the preferred Proof-of-Work submission (51%). The Project and fund will then transfered to winning submission creator.
+
+**If there are no submissions, the proposal will fail and all funds will be returned*
+
+
+# Account types
 
 
 ### **Generic**:
-All accounts be default will be of the generic type
+All accounts by default will be of the generic type. This is the base account which can do everything from invest, propose or contribute projects as a project-member, but will remain uncategorised. 
 
-### **User**:
-As a user on the dAppIt platform you will be able to easily search different categorised projects, based on varying filters and ratings. Users will most importantly be able to propose a project or features within a project by creating a bounty fund, and rewarded with a share if completed.
+A generic account can be classed as a **Project Admin** for specific projects, either from creating or being assigned a project.
+
+Every account will have its own address, which can either be imported (Private Key, Json) or generated automatically and saved locally
+
+**The Construct will not store private keys, and will not be responsible for any loss*
+
 ### **Developer**:
-As a developer on the dAppIt platform you can create/contribute and promote your projects. Every developer will have their own rating based directly on their contribution to a project and its rating.
+A Developer is based off a Generic account so can do everything they can do, however only developers can submit code to projects, audit contracts and peer review other developers. Every developer will also have their own rating. Developers will need to pass a registration process.
 
-### **Project**:
-Each project will have a dedicated page containing important information about the categorised dApp, and more specifically the contracts associated with the project. Users and developers can review and rate the project. Contracts can be invoked directly from the platform, general stats about contract status will be displayed also.
-
+### ***Project Admin:***
+Specific to a certain project, an assigned Project Admin is allowed to edit all muteable parameters of the project. Only the original Project Admin can add/remove other admins.
 
 # ​​Contract Operations
 ## Definitions:
