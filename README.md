@@ -101,31 +101,6 @@ While the platform is designed primaraly for developers, it will be capable of s
   - All dApps developer is connected to
   - Developer rating based on dApp contribution and peer-reviews
 
-# Token Launch ??
-
-## Token 
-
-**STR**
-
-## Token Summary
-The goal of the token sale is to raise capital to cover any inital overheads including **NEO** deployment fees. To ensure the platform is stable, scalable and flexable a team of developers will be required to meet this demand. Most importantly this platform is built upon community engagement and passion which is why a huge 75% of the supply sold during the ICO.
-
-Token holders will also recieve a dividend payout (in GAS) of combined system fees, which would automatically occur quarterly, regardless of token price.
-
-Token holders will also have the right to a voting share, to guide the direction of the platform and have direct control over specific details such as fees. 
-
-## Token Distribution
-
-
-| Contribution | Allocation (%)     
-| ------------- |:-------------:|
-| Pre-Sale ICO  | 5
-| Main ICO      | 65
-| System Fees   | 5
-| Development   | 10
-| Admin         | 5
-| Contingency   | 5
-
 # Crowd Funding
 
 Crowd funding plays an fundamental role within in the platform, as it will allow small projects with great ideas to gain capital and recognition rapidly. All projects submitted on the platfrom will have its own **Smart Token Shares**
@@ -163,14 +138,28 @@ Every funding stage will subsequently liquidate all funds as they are essentiall
 ### **Pre-Milestone Funding Roadmap:**
 With **Pre**-Milestone Funding, Milestone completion is only required after the funding process is has completed. However this is still a requirement to progress onto the next funding stage. A **pay** first, **work** later model.
 
-Example:
+## **Example:**
+### *Current Fund Stage Progress:*
+<p align="center">
+  <img
+    src="progress_bar.png"
+    >
+</p>
+
 <p align="center">
   <img
     src="milestones.png"
     >
 </p>
 
+<p align="center">
+  <img
+    src="share_bar.png"
+    >
+</p>
+
 ### **Share Distribution Breakdown:**
+
 
 | Funding Stage        | Influence (%)     |  Rasied (GAS)   | Investors  | Token Share| Calculation
 | ------------- |:-------------:|:-------------:|:-------------:|:-------------:|:-------------:|
