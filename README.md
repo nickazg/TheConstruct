@@ -194,9 +194,15 @@ Every funding stage will have a predetermined supply of [**Smart Token Shares**]
 # Project Proposal
 A Project Proposal is designed to encourage people with only an idea to present them publicly to the community, recieveing a bonus if successfull.
 
+<p align="center">
+  <img
+    src="project_proposal.png"
+    >
+</p>
+
 Once an idea is proposed, an open-ended **14 day fund** will begin. The minimum requirement for a proposal is an idea, and the first Proof-of-Work milestone. 
 
-Once the fund has completed, anyone can submit a Proof-of-Work of the milestone (incl a short "pick me!" message). After 7 days submissions will close, and all the fund contributors can vote for the preferred Proof-of-Work submission (51%). The Project and fund will then transfered to winning submission creator.
+Once the fund has completed, anyone can submit a Proof-of-Work of the milestone (incl a short "pick me!" message). After 7 days submissions will close, and all the fund contributors can vote for the preferred Proof-of-Work submission. The Project and fund will then transfered to winning (51%) submission creator.
 
 **If there are no submissions, the proposal will fail and all funds will be returned*
 
@@ -205,7 +211,7 @@ Once the fund has completed, anyone can submit a Proof-of-Work of the milestone 
 
 
 ### **Generic**:
-All accounts by default will be of the generic type. This is the base account which can do everything from invest, propose or contribute projects as a project-member, but will remain uncategorised. 
+All accounts by default will be of the generic type. This is the base account which can do everything from invest, propose, create or contribute projects as a project-member, but will remain uncategorised. 
 
 A generic account can be classed as a **Project Admin** for specific projects, either from creating or being assigned a project.
 
