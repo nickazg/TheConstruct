@@ -19,6 +19,8 @@ One problem with the current state of ICO's is that they require very little sub
 **The Construct** will use a **NEO** smart contract to store and verifiy sensitive information related to dApps and manage crowdfunds on the blockchain, to ensure its credibitly and security. **The Construct** API (javascipt/python) has been implemented as an abstract layer ontop of the **NEO** blockchain for convience, speed and realibilty. All of which can be verified externally via manual contract invocation calls ( operations detailed below )
 
 
+While the platform is designed primaraly for developers, it will be capable of supporting any sort of project using any sort of currency (That can be exchanged for GAS)
+
 ## Main Features:
 - Impliments **Funding Milestones**, which ensures a dApp maintains its promisies, via incremental crowdfunding
 - **Smart Token Shares** are distributed to investors/backers to incentivise contribution and early adopters.
@@ -47,11 +49,13 @@ One problem with the current state of ICO's is that they require very little sub
   - Contract Hashes
   - Developer Hashes
   - Fund Hashes
-- Store and Create Developers
+- Store and Create Accounts
   - Address Hash
+  - Type (Generic, Investor, Developer)
   - Display Name
-  - Project Hashes 
+  - Project Hashes
 - Verify and Audit Contacts
+  - Store verification signatures
 - Store and Create Milestones
   - Roadmap Hash
   - Milestone Hash
@@ -67,7 +71,10 @@ One problem with the current state of ICO's is that they require very little sub
   - Contributor Hashes
   - Contributor Contributions 
   - Distribute or Refund Funds
-
+- Store and Distribute Smart Token Shares
+  - Project Hash
+  - Token Name
+  - Registry of Shareholders (Address Hashes)
 
 
 # Platform Categories
@@ -147,6 +154,12 @@ Every funding stage will subsequently liquidate all funds as they are essentiall
 
 **All milestones have to predetermined before investor contribution, any unforseen milestones require a 51% consensus approval.*
 
+**Milestones can be combined*
+
+1. Seed Funding ( Inital high risk funding )
+2. Series # Funding ( Predetermined Milestone Funding stages )
+3. ICO Funding ( If more capital is required ICO is created )
+
 ### **Pre-Milestone Funding Roadmap:**
 With **Pre**-Milestone Funding, Milestone completion is only required after the funding process is has completed. However this is still a requirement to progress onto the next funding stage. A **pay** first, **work** later model.
 
@@ -166,7 +179,11 @@ Example:
 | Stage 3  | 25  | 1000 | 10 (30 total) | 8,333 | ( 1,000,000 / 30 ) / 25% = 8,333
 | And so on ...  | --  | -- | -- | -- | --
 
-# Account types
+# Account types - *TODO
+
+
+### **Generic**:
+All accounts be default will be of the generic type
 
 ### **User**:
 As a user on the dAppIt platform you will be able to easily search different categorised projects, based on varying filters and ratings. Users will most importantly be able to propose a project or features within a project by creating a bounty fund, and rewarded with a share if completed.
