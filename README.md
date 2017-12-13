@@ -103,54 +103,17 @@ While the platform is designed primaraly for developers, it will be capable of s
 
 # Crowd Funding
 
-Crowd funding plays an fundamental role within in the platform, as it will allow small projects with great ideas to gain capital and recognition rapidly. All projects submitted on the platfrom will have its own **Smart Token Shares**
-
-# Smart Token Shares
-Every registed project will automatically have its own **Smart Token Shares**, tracking investment share distribution to later reward the early investors. Similar to how an ICO works, but will have the benifit of a guided milestone based approach.
-
-**Smart Token Shares** can be traded OTC, but they arent the same as a traditional token so will require specific exchange support. Their main goal is to enable shares of the project to be distrubuted to the inital investors fairly, which in turn will allow the "shareholders" potential influence in voting, or tokens in a pre-sale ICO if the project happens to do so. 
-
-This is just a share distribution mechanism that the platform provides to enable projects to award their backers fairly. It will still require the project team and community to enforce this as flexibility and transparency are our main focus.
-
-#### Project Token Name: 
-
-Every project will have a unique token name, using a 1-10 charater extention to the platform STR token, eg: **STR-PROJECT**
-
-#### Project Token Supply: 
-
-Every project will always have the same supply of **1,000,000** tokens. 
-
-#### Transfer Smart Token Shares to Offical Token:
-If the project releases an offical Token, **The Construct** will be able to distribute a specific amount of input tokens to investors based on **Smart Token Shares**. This requires the project admin to invoke this operation, however the process will be transparent and verifiable.
-
-# Funding Milestones
-
-Every funding stage will subsequently liquidate all funds as they are essentially a perentage share. However early investors generally will still maintain a higher share percentage, as each subsequent funding stage will have a reduced investor influence rate set. 
-
-**All milestones have to predetermined before investor contribution, any unforseen milestones require a 51% consensus approval.*
-
-**Milestones can be combined*
-
-1. Seed Funding ( Inital high risk funding )
-2. Series # Funding ( Predetermined Milestone Funding stages )
-3. ICO Funding ( If more capital is required ICO is created )
-
-### **Pre-Milestone Funding Roadmap:**
-With **Pre**-Milestone Funding, Milestone completion is only required after the funding process is has completed. However this is still a requirement to progress onto the next funding stage. A **pay** first, **work** later model.
-
-## **Example:**
-### *Current Fund Stage Progress:*
 <p align="center">
   <img
     src="progress_bar.png"
     >
 </p>
 
-<p align="center">
-  <img
-    src="milestones.png"
-    >
-</p>
+Crowd funding plays an fundamental role within in the platform, as it will allow small projects with great ideas to gain capital and recognition rapidly. All projects submitted on the platfrom will have its own 
+**Smart Token Shares**
+
+<a name="SmartTokenShares"></a>
+# Smart Token Shares
 
 <p align="center">
   <img
@@ -158,15 +121,64 @@ With **Pre**-Milestone Funding, Milestone completion is only required after the 
     >
 </p>
 
-### **Share Distribution Breakdown:**
+Every registered project will automatically have its own **Smart Token Shares**. This will enable investment shares in the project to be incrementally distributed during the **Funding Milestone** process.
 
+Once all the **Funding Milestones** have been completed sucessfully, an ICO can be created internally and all the shares can be automatically converted to the project **NEP5** token [( details )](#TokenShareTransfer)
 
-| Funding Stage        | Influence (%)     |  Rasied (GAS)   | Investors  | Token Share| Calculation
-| ------------- |:-------------:|:-------------:|:-------------:|:-------------:|:-------------:|
-| Stage 1 | 100 | 1000 | 10 | 100,000 | 1,000,000 / 10 = 100,000
-| Stage 2 | 50  | 1000 | 10 (20 total) | 25,000 | ( 1,000,000 / 20 ) / 50% = 25,000
-| Stage 3  | 25  | 1000 | 10 (30 total) | 8,333 | ( 1,000,000 / 30 ) / 25% = 8,333
-| And so on ...  | --  | -- | -- | -- | --
+**Smart Token Shares** cannont be traded until the an offical **NEP5** token is created.
+
+*This is just a share distribution mechanism that the platform provides to enable projects to award their backers fairly. It will still require the project team and community to enforce this as flexibility and transparency are our main focus.*
+
+#### Project Token Supply: 
+
+Every project will always have the same supply of **1,000,000** tokens. 
+
+<a name="TokenShareTransfer"></a>
+#### Transfer Smart Token Shares to Offical Token:
+If the project releases an offical Token, **The Construct** will be able to distribute a specific amount of input tokens to investors based on **Smart Token Shares**. This requires the project admin to invoke this operation, however the process will be transparent and verifiable.
+
+# Funding Milestones
+
+Funding Milestones allows us to break down the funding process to a more granular level. A single Milestone fund only needs to raise enough capital to complete the proposed milestone task. Once completed the next milestone fund in the chain can begin, and so on.. 
+
+Every funding stage will have a predetermined supply of [**Smart Token Shares**](#SmartTokenShares), generally the supply will be higher in the early stages, or if large amounts of funds are needed.  
+
+**Milestones can be combined if the funding process takes too long, or to reduce unnecessary funding*
+
+**Milestones can be forked if tasks need to be run simultaneously or if addional unforseen funds or tasks need to be created*
+
+**Funds can be re-run as many times as needed to reach the goal (eg add more shares on 2nd try)*
+
+## **Example:**
+#### *Milestone Roadmap:*
+<p align="center">
+  <img
+    src="milestones.png"
+    >
+</p>
+
+#### *Share Distribution Breakdown:*
+<p align="center">
+  <img
+    src="share_bar.png"
+    >
+</p>
+
+| Funding Stage        | Supply (Tokens)     |  Rasied (GAS)   | 
+| ------------- |:-------------:|:-------------:|:-------------:
+| **Seed Fund** | 100,000 | 1000 
+| **Stage 2** | 100,000  | 1000 
+| **Stage 3**  | 100,000  | 1000 
+| **Stage 4** | 100,000  | 1000 
+| *ICO*  | *400,000*  | -- 
+| *Reserved*  | *200,000*  | -- 
+
+#### *Current Fund Progress:*
+<p align="center">
+  <img
+    src="progress_bar.png"
+    >
+</p>
 
 # Account types - *TODO
 
