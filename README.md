@@ -206,6 +206,8 @@ Once the fund has completed, anyone can submit a Proof-of-Work of the milestone 
 
 **If there are no submissions, the proposal will fail and all funds will be returned*
 
+# KYC
+For a potential for an ICO token sale, a KYC process is required for all investors who plan to recieve tokens from an ICO.
 
 # Account types
 
