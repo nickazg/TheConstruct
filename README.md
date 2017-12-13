@@ -164,8 +164,8 @@ Every funding stage will have a predetermined supply of [**Smart Token Shares**]
     >
 </p>
 
-| Funding Stage        | Supply (Tokens)     |  Rasied (GAS)   | 
-| ------------- |:-------------:|:-------------:|:-------------:
+| Funding Stage        | Supply (Tokens)     |  Rasied (GAS)   
+| ------------- |:-------------:|:-------------:
 | **Seed Fund** | 100,000 | 1000 
 | **Stage 2** | 100,000  | 1000 
 | **Stage 3**  | 100,000  | 1000 
