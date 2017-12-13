@@ -164,6 +164,8 @@ Every funding stage will have a predetermined supply of [**Smart Token Shares**]
     >
 </p>
 
+<center>
+
 | Funding Stage        | Supply (Tokens)     |  Rasied (GAS)   
 | ------------- |:-------------:|:-------------:
 | **Seed Fund** | 100,000 | 1000 
@@ -173,12 +175,16 @@ Every funding stage will have a predetermined supply of [**Smart Token Shares**]
 | *ICO*  | *400,000*  | -- 
 | *Reserved*  | *200,000*  | -- 
 
+</center>
+<br>
+
 #### *Current Fund Progress:*
 <p align="center">
   <img
     src="progress_bar.png"
     >
 </p>
+<br><br>
 
 # Account types - *TODO
 
