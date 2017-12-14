@@ -79,6 +79,9 @@ While the platform is designed primaraly for developers, it will be capable of s
   - Project Hash
   - Token Name
   - Registry of Shareholders (Address Hashes)
+- KYC Store and Check Hashes
+  - Info Hashes
+  - KYC Status
 
 <br>
 <br>
@@ -144,7 +147,7 @@ Once all the **Funding Milestones** in the project have been completed sucessful
 
 <a name="ProjectPromise"></a>
 ## Project Promise:
-A project promise, is an arbitrary promise the project can make to its investors during the seed funding phase. This relies on the trust and reputation of the project team, however this will allow for a much more flexible approach and not relying on Token/ICO's.
+A project promise, is an arbitrary promise the project can make to its investors during the project creation. This relies on the trust and reputation of the project team, however this will allow for a much more flexible approach and not relying on Token/ICO's.
 
 **To note, all project creators/admins require a KYC*  
 
@@ -185,14 +188,14 @@ Every funding stage will have a predetermined supply of [**Smart Token Shares**]
 **Funds can be re-run as many times as needed to reach the goal (eg add more shares on 2nd try)*
 
 ## **Example:**
-#### *Milestone Roadmap:*
+### *Milestone Roadmap:*
 <p align="center">
   <img
     src="milestones.png"
     >
 </p>
 
-#### *Share Distribution Breakdown:*
+### *Share Distribution Breakdown:*
 <p align="center">
   <img
     src="share_bar.png"
@@ -213,7 +216,7 @@ Every funding stage will have a predetermined supply of [**Smart Token Shares**]
 </center>
 <br>
 
-#### *Current Fund Progress:*
+### *Current Fund Progress:*
 <p align="center">
   <img
     src="progress_bar.png"
@@ -231,9 +234,9 @@ A Project Proposal is designed to encourage people with only an idea to present 
     >
 </p>
 
-Once an idea is proposed, an open-ended **14 day fund** will begin. The minimum requirement for a proposal is an idea, and the first Proof-of-Work milestone. 
+Once an idea is proposed, an open-ended **14 day fund** will begin. The minimum requirement for a proposal is a rough whitepaper, and the first Proof-of-Work milestone requirements. 
 
-Once the fund has completed, anyone can submit a Proof-of-Work of the milestone (incl a short "pick me!" message). After 7 days submissions will close, and all the fund contributors can vote for the preferred Proof-of-Work submission. The Project and fund will then transfered to winning (51%) submission creator.
+Once the fund has completed, anyone can submit a Proof-of-Work of the milestone (incl a short "pick me!" message). After **7 days** submissions will close, and all the fund contributors can vote for the preferred Proof-of-Work submission. The Project and fund will then transfered to winning (51%) submission creator.
 
 **If there are no submissions, the proposal will fail and all funds will be returned*
 
@@ -241,7 +244,7 @@ Once the fund has completed, anyone can submit a Proof-of-Work of the milestone 
 <br>
 
 # KYC (Know Your Customer)
-For a potential for an ICO token sale, a KYC process is required for all investors and project admins involved.
+For a potential for an ICO token sale, a KYC approval is required for all investors and project admins involved.
 
 All information required for a KYC approval will be assessed and approved by The Construct, stored on secure on private servers. Hashes of all the information, along with the account detials (address etc) will be saved in the contract, allowing the information to be verified by both parties.
 
