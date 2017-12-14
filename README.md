@@ -10,6 +10,8 @@
   A complete dApp registry platform run on the <b>NEO</b> blockchain. This is the Construct. It's our loading program. We can load anything...
 </p>
 
+<br>
+<br>
 
 # Overview
 The aim of **The Construct** is to provide a service to allow developers and users to contribute, collaborate, create, grow and manage dApps in a secure, transparent and feature rich environment. For ICO's to have widespread success regulation and transparency is inevitable and our plan is to create a soild foundation to make the process as simple and efficient as possible.
@@ -78,6 +80,8 @@ While the platform is designed primaraly for developers, it will be capable of s
   - Token Name
   - Registry of Shareholders (Address Hashes)
 
+<br>
+<br>
 
 # Platform Categories
 ### **Project Library Explorer:**
@@ -106,6 +110,9 @@ While the platform is designed primaraly for developers, it will be capable of s
   - All Projects developer is connected to
   - Developer rating based on project contribution and peer-reviews
 
+<br>
+<br>
+
 # Crowd Funding
 
 <p align="center">
@@ -116,6 +123,9 @@ While the platform is designed primaraly for developers, it will be capable of s
 
 Crowd funding plays an fundamental role within in the platform, as it will allow small projects with great ideas to gain capital and recognition rapidly. All projects submitted on the platfrom will have its own 
 **Smart Token Shares**
+
+<br>
+<br>
 
 <a name="SmartTokenShares"></a>
 # Smart Token Shares
@@ -158,6 +168,9 @@ Every project will always have the same supply of **1,000,000** tokens.
 <br> 
 
 **This is just a share distribution mechanism that the platform provides to enable projects to award their backers fairly. It will still require the project team and community to enforce this as flexibility and transparency are our main focus.*
+
+<br>
+<br>
 
 # Funding Milestones
 
@@ -206,7 +219,8 @@ Every funding stage will have a predetermined supply of [**Smart Token Shares**]
     src="progress_bar.png"
     >
 </p>
-<br><br>
+<br>
+<br>
 
 # Project Proposal
 A Project Proposal is designed to encourage people with only an idea to present them publicly to the community, recieveing a bonus if successfull.
@@ -223,12 +237,18 @@ Once the fund has completed, anyone can submit a Proof-of-Work of the milestone 
 
 **If there are no submissions, the proposal will fail and all funds will be returned*
 
-# KYC
-For a potential for an ICO token sale, a KYC process is required for all investors who plan to recieve tokens from an ICO.
+<br>
+<br>
+
+# KYC (Know Your Customer)
+For a potential for an ICO token sale, a KYC process is required for all investors and project admins involved.
+
+All information required for a KYC approval will be assessed and approved by The Construct, stored on secure on private servers. Hashes of all the information, along with the account detials (address etc) will be saved in the contract, allowing the information to be verified by both parties.
+
+<br>
+<br>
 
 # Account types
-
-
 ### **Generic**:
 All accounts by default will be of the generic type. This is the base account which can do everything from invest, propose, create or contribute projects as a project-member, but will remain uncategorised. 
 
@@ -243,6 +263,9 @@ A Developer is based off a Generic account so can do everything they can do, how
 
 ### ***Project Admin:***
 Specific to a certain project, an assigned Project Admin is allowed to edit all muteable parameters of the project. Only the original Project Admin can add/remove other admins. A requirement for a Project Admin is that they pass the KYC process
+
+<br>
+<br>
 
 # ​​Contract Operations
 ## Definitions:
@@ -298,6 +321,8 @@ Specific to a certain project, an assigned Project Admin is allowed to edit all 
     - create_bounty_crowdfund
     - review_project
 
+<br>
+<br>
 
 # Fee Structure
 *Doesn't include NEO system fees.*
