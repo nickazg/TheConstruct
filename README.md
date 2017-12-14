@@ -207,10 +207,10 @@ Once the fund has completed, anyone can submit a Proof-of-Work of the milestone 
 **If there are no submissions, the proposal will fail and all funds will be returned*
 
 # KYC
-For a potential for an ICO token sale, a KYC process is required for all investors who plan to recieve tokens from an ICO.
+With a potential for an ICO token sale, a KYC process is required for all investors who plan to recieve tokens from an ICO.
 
 # Account types
-
+Accounts can be a combination of multipule types
 
 ### **Generic**:
 All accounts by default will be of the generic type. This is the base account which can do everything from invest, propose, create or contribute projects as a project-member, but will remain uncategorised. 
@@ -220,6 +220,9 @@ A generic account can be classed as a **Project Admin** for specific projects, e
 Every account will have its own address, which can either be imported (Private Key, Json) or generated automatically and saved locally
 
 **The Construct will not store private keys, and will not be responsible for any loss*
+
+### **Investor**:
+An Invester account is required to recieve tokens distributed for an ICO. A registered investor needs to pass the KYC process.
 
 ### **Developer**:
 A Developer is based off a Generic account so can do everything they can do, however only developers can submit code to projects, audit contracts and peer review other developers. Every developer will also have their own rating. Developers will need to pass a registration process.
