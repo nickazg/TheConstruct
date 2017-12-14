@@ -128,19 +128,36 @@ Crowd funding plays an fundamental role within in the platform, as it will allow
 
 Every registered project will automatically have its own **Smart Token Shares**. This will enable investment shares in the project to be incrementally distributed during the **Funding Milestone** process.
 
-Once all the **Funding Milestones** have been completed sucessfully, an ICO can be created internally and all the shares can be automatically converted to the project **NEP5** token. An external ICO can also manually invoke a method to distribute the funds; [( details )](#TokenShareTransfer)
+Once all the **Funding Milestones** in the project have been completed sucessfully either a [**Project Promise**](#ProjectPromise) or a [**Token Share Transfer**](#TokenShareTransfer) can be awarded to investors.
 
-**Smart Token Shares** right now cannont be traded until the an offical **NEP5** token is created.
+<br>
 
-*This is just a share distribution mechanism that the platform provides to enable projects to award their backers fairly. It will still require the project team and community to enforce this as flexibility and transparency are our main focus.*
+<a name="ProjectPromise"></a>
+## Project Promise:
+A project promise, is an arbitrary promise the project can make to its investors during the seed funding phase. This relies on the trust and reputation of the project team, however this will allow for a much more flexible approach and not relying on Token/ICO's.
 
-#### Project Token Supply: 
+**To note, all project creators/admins require a KYC*  
 
-Every project will always have the same supply of **1,000,000** tokens. 
+<br>
 
 <a name="TokenShareTransfer"></a>
-#### Transfer Smart Token Shares to Offical Token:
+## Token Share Transfer:
 If the project releases an offical Token, **The Construct** will be able to distribute a specific amount of input tokens to investors based on **Smart Token Shares**. This requires the project admin to invoke this operation, however the process will be transparent and verifiable.
+
+An ICO can be created internally, upon token minting all **Smart Token Shares** can be automatically converted to the project **NEP5** token. An external ICO can also manually invoke a method to distribute the funds.
+
+****Smart Token Shares** right now cannont be traded until the an offical **NEP5** token is created.*
+
+<br>
+
+## Project Token Supply: 
+
+Every project will always have the same supply of **1,000,000** tokens.
+
+<br>
+<br> 
+
+**This is just a share distribution mechanism that the platform provides to enable projects to award their backers fairly. It will still require the project team and community to enforce this as flexibility and transparency are our main focus.*
 
 # Funding Milestones
 
@@ -225,7 +242,7 @@ Every account will have its own address, which can either be imported (Private K
 A Developer is based off a Generic account so can do everything they can do, however only developers can submit code to projects, audit contracts and peer review other developers. Every developer will also have their own rating. Developers will need to pass a registration process.
 
 ### ***Project Admin:***
-Specific to a certain project, an assigned Project Admin is allowed to edit all muteable parameters of the project. Only the original Project Admin can add/remove other admins.
+Specific to a certain project, an assigned Project Admin is allowed to edit all muteable parameters of the project. Only the original Project Admin can add/remove other admins. A requirement for a Project Admin is that they pass the KYC process
 
 # ​​Contract Operations
 ## Definitions:
