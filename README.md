@@ -42,39 +42,39 @@ While the platform is designed primaraly for developers, it will be capable of s
 <!-- TOC -->
 
 - [1. Introducing Construct](#1-introducing-construct)
-  - [1.1. Main Features:](#11-main-features)
+    - [1.1. Main Features:](#11-main-features)
 - [2. Index](#2-index)
 - [3. Crowd Funding](#3-crowd-funding)
 - [4. Smart Token Shares](#4-smart-token-shares)
-  - [4.1. Project Promise:](#41-project-promise)
-  - [4.2. Token Share Transfer:](#42-token-share-transfer)
-  - [4.3. Project Token Supply:](#43-project-token-supply)
+    - [4.1. Project Promise:](#41-project-promise)
+    - [4.2. Token Share Transfer:](#42-token-share-transfer)
+    - [4.3. Project Token Supply:](#43-project-token-supply)
 - [5. Funding Milestones](#5-funding-milestones)
-  - [5.1. Example:](#51-example)
-    - [5.1.1. *Milestone Roadmap:*](#511-milestone-roadmap)
-    - [5.1.2. *Share Distribution Breakdown:*](#512-share-distribution-breakdown)
-    - [5.1.3. *Current Fund Progress:*](#513-current-fund-progress)
+    - [5.1. Example:](#51-example)
+        - [5.1.1. *Milestone Roadmap:*](#511-milestone-roadmap)
+        - [5.1.2. *Share Distribution Breakdown:*](#512-share-distribution-breakdown)
+        - [5.1.3. *Current Fund Progress:*](#513-current-fund-progress)
 - [6. Project Proposal](#6-project-proposal)
 - [7. KYC (Know Your Customer)](#7-kyc-know-your-customer)
 - [8. Account types](#8-account-types)
-  - [8.1. Generic:](#81-generic)
-    - [**Investor**:](#investor)
-    - [**Developer**:](#developer)
-  - [8.3. *Project Admin:*](#83-project-admin)
+    - [8.1. Generic:](#81-generic)
+    - [8.2. Investor:](#82-investor)
+    - [8.3. Developer:](#83-developer)
+    - [8.4. *Project Admin:*](#84-project-admin)
 - [9. Platform Categories](#9-platform-categories)
-  - [9.1. Project Library Explorer:](#91-project-library-explorer)
-  - [9.2. Project Info:](#92-project-info)
-  - [9.3. Contract Info:](#93-contract-info)
-  - [9.4. Developer Info:](#94-developer-info)
+    - [9.1. Project Library Explorer:](#91-project-library-explorer)
+    - [9.2. Project Info:](#92-project-info)
+    - [9.3. Contract Info:](#93-contract-info)
+    - [9.4. Developer Info:](#94-developer-info)
 - [10. ​​Smart Contract Details](#10-%E2%80%8B%E2%80%8Bsmart-contract-details)
-  - [10.1. Contracts Depolyed:](#101-contracts-depolyed)
-  - [10.2. Contract Requirements](#102-contract-requirements)
-  - [10.3. Definitions:](#103-definitions)
-  - [10.4. Invokeable Operations:](#104-invokeable-operations)
-    - [10.4.1. **Creator:**](#1041-creator)
-    - [10.4.2. **Admin:**](#1042-admin)
-    - [10.4.3. **Developer:**](#1043-developer)
-    - [10.4.4. **Generic:**](#1044-generic)
+    - [10.1. Contracts Depolyed:](#101-contracts-depolyed)
+    - [10.2. Contract Requirements](#102-contract-requirements)
+    - [10.3. Definitions:](#103-definitions)
+    - [10.4. Invokeable Operations:](#104-invokeable-operations)
+        - [10.4.1. **Creator:**](#1041-creator)
+        - [10.4.2. **Admin:**](#1042-admin)
+        - [10.4.3. **Developer:**](#1043-developer)
+        - [10.4.4. **Generic:**](#1044-generic)
 - [11. Fee Structure](#11-fee-structure)
 
 <!-- /TOC -->
@@ -211,6 +211,7 @@ All information required for a KYC approval will be assessed and approved by The
 <br>
 
 # 8. Account types
+Accounts can be a combination of multipule types
 ## 8.1. Generic:
 All accounts by default will be of the generic type. This is the base account which can do everything from invest, propose, create or contribute projects as a project-member, but will remain uncategorised. 
 
@@ -220,13 +221,13 @@ Every account will have its own address, which can either be imported (Private K
 
 **The Construct will not store private keys, and will not be responsible for any loss*
 
-### **Investor**:
+## 8.2. Investor:
 An Invester account is required to recieve tokens distributed for an ICO. A registered investor needs to pass the KYC process.
 
-### **Developer**:
+## 8.3. Developer:
 A Developer is based off a Generic account so can do everything they can do, however only developers can submit code to projects, audit contracts and peer review other developers. Every developer will also have their own rating. Developers will need to pass a registration process.
 
-## 8.3. *Project Admin:*
+## 8.4. *Project Admin:*
 Specific to a certain project, an assigned Project Admin is allowed to edit all muteable parameters of the project. Only the original Project Admin can add/remove other admins. A requirement for a Project Admin is that they pass the KYC process
 
 <br>
