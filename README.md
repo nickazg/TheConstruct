@@ -10,7 +10,7 @@
 <br>
 <br>
 
-# 1. Introducing Construct
+# Introducing Construct
 
 The aim of **The Construct** is to provide a service to allow anyone to contribute, collaborate, create, grow and manage projects in a secure, transparent environment. For the blockchain ecosystem to have widespread success regulation and transparency is inevitable and our plan is to create a soild foundation to make the process as simple and efficient as possible.
 
@@ -20,7 +20,7 @@ One problem with the current state of ICO's is that they require very little sub
 
 While the platform is designed primaraly for developers, it will be capable of supporting any sort of project using any sort of currency (That can be exchanged for NEOGas)
 
-## 1.1. Main Features:
+## Main Features:
 - Impliments **Funding Milestones**, which ensures a dApp maintains its promisies, via incremental crowdfunding
 - **Smart Token Shares** are distributed to investors/backers to incentivise contribution and early adopters.
 - Automatically distribute offical tokens from **Smart Token Shares**  
@@ -38,62 +38,23 @@ While the platform is designed primaraly for developers, it will be capable of s
 <br>
 <br>
 
-# 2. Index
-<!-- TOC -->
+# Index
 
-- [1. Introducing Construct](#1-introducing-construct)
-    - [1.1. Main Features:](#11-main-features)
-- [2. Index](#2-index)
-- [3. Crowd Funding](#3-crowd-funding)
-- [4. Smart Token Shares](#4-smart-token-shares)
-    - [4.1. Project Promise:](#41-project-promise)
-    - [4.2. Token Share Transfer:](#42-token-share-transfer)
-    - [4.3. Project Token Supply:](#43-project-token-supply)
-- [5. Funding Milestones](#5-funding-milestones)
-    - [5.1. Example:](#51-example)
-        - [5.1.1. *Milestone Roadmap:*](#511-milestone-roadmap)
-        - [5.1.2. *Share Distribution Breakdown:*](#512-share-distribution-breakdown)
-        - [5.1.3. *Current Fund Progress:*](#513-current-fund-progress)
-- [6. Project Proposal](#6-project-proposal)
-- [7. KYC (Know Your Customer)](#7-kyc-know-your-customer)
-- [8. Account types](#8-account-types)
-    - [8.1. Generic:](#81-generic)
-    - [8.2. Investor:](#82-investor)
-    - [8.3. Developer:](#83-developer)
-    - [8.4. *Project Admin:*](#84-project-admin)
-- [9. Platform Categories](#9-platform-categories)
-    - [9.1. Project Library Explorer:](#91-project-library-explorer)
-    - [9.2. Project Info:](#92-project-info)
-    - [9.3. Contract Info:](#93-contract-info)
-    - [9.4. Developer Info:](#94-developer-info)
-- [10. ​​Smart Contract Details (Mockup)](#10-%E2%80%8B%E2%80%8Bsmart-contract-details-mockup)
-    - [10.1. Contracts Depolyed:](#101-contracts-depolyed)
-    - [10.2. Contract Requirements](#102-contract-requirements)
-    - [10.3. Definitions:](#103-definitions)
-    - [10.4. Invokeable Operations:](#104-invokeable-operations)
-        - [10.4.1. **Creator:**](#1041-creator)
-        - [10.4.2. **Admin:**](#1042-admin)
-        - [10.4.3. **Developer:**](#1043-developer)
-        - [10.4.4. **Generic:**](#1044-generic)
-- [11. Fee Structure](#11-fee-structure)
 
-<!-- /TOC -->
+# Investment Crowd Funding
 
-# 3. Crowd Funding
+Crowd funding plays a fundamental role within in The Construct platform. It will allow startup projects to gain the necessary funds when required to develop and grow the project. 
 
-<p align="center">
-  <img
-    src="progress_bar.png"
-    style="width: 1000px;"
-    >
-</p>
+Crowd Investment Funding on The Construct is broken down into 3 main categories:
 
-Crowd funding plays an fundamental role within in the platform, as it will allow small projects with great ideas to gain capital and recognition rapidly. All projects submitted on the platfrom will have its own [**Smart Token Shares**](#4-smart-token-shares)
+- Smart Token Shares
+- Funding Milestones
+- Funding Roadmap
 
 <br>
 <br>
 
-# 4. Smart Token Shares
+# Smart Token Shares
 
 <p align="center">
   <img
@@ -108,14 +69,14 @@ Once all the **Funding Milestones** in the project have been completed sucessful
 
 <br>
 
-## 4.1. Project Promise:
+## Project Promise:
 A project promise, is an arbitrary promise the project can make to its investors during the project creation. This relies on the trust and reputation of the project team, however this will allow for a much more flexible approach and not relying on Token/ICO's.
 
 **To note, all project creators/admins require a KYC*  
 
 <br>
 
-## 4.2. Token Share Transfer:
+## Token Share Transfer:
 If the project releases an offical Token, **The Construct** will be able to distribute a specific amount of input tokens to investors based on **Smart Token Shares**. This requires the project admin to invoke this operation, however the process will be transparent and verifiable.
 
 An ICO can be created internally, upon token minting all **Smart Token Shares** can be automatically converted to the project **NEP5** token. An external ICO can also manually invoke a method to distribute the funds.
@@ -124,7 +85,7 @@ An ICO can be created internally, upon token minting all **Smart Token Shares** 
 
 <br>
 
-## 4.3. Project Token Supply: 
+## Project Token Supply: 
 
 Every project will always have the same supply of **1,000,000** tokens.
 
@@ -136,7 +97,7 @@ Every project will always have the same supply of **1,000,000** tokens.
 <br>
 <br>
 
-# 5. Funding Milestones
+# Funding Milestones
 
 Funding Milestones allows us to break down the funding process to a more granular level. A single Milestone fund only needs to raise enough capital to complete the proposed milestone task. Once completed the next milestone fund in the chain can begin, and so on.. 
 
@@ -148,8 +109,8 @@ Every funding stage will have a predetermined supply of [**Smart Token Shares**]
 
 **Funds can be re-run as many times as needed to reach the goal (eg add more shares on 2nd try)*
 
-## 5.1. Example:
-### 5.1.1. *Milestone Roadmap:*
+## Example:
+### *Milestone Roadmap:*
 <p align="center">
   <img
     src="milestones.png"
@@ -157,7 +118,7 @@ Every funding stage will have a predetermined supply of [**Smart Token Shares**]
     >
 </p>
 
-### 5.1.2. *Share Distribution Breakdown:*
+### *Share Distribution Breakdown:*
 <p align="center">
   <img
     src="share_bar.png"
@@ -179,7 +140,7 @@ Every funding stage will have a predetermined supply of [**Smart Token Shares**]
 </center>
 <br>
 
-### 5.1.3. *Current Fund Progress:*
+### *Current Fund Progress:*
 <p align="center">
   <img
     src="progress_bar.png"
@@ -189,7 +150,7 @@ Every funding stage will have a predetermined supply of [**Smart Token Shares**]
 <br>
 <br>
 
-# 6. Project Proposal
+# Project Proposal
 A Project Proposal is designed to encourage people with only an idea to present them publicly to the community, recieveing a bonus if successfull.
 
 <p align="center">
@@ -208,7 +169,7 @@ Once the fund has completed, anyone can submit a Proof-of-Work of the milestone 
 <br>
 <br>
 
-# 7. KYC (Know Your Customer)
+# KYC (Know Your Customer)
 For a potential for an ICO token sale, a KYC approval is required for all investors and project admins involved.
 
 All information required for a KYC approval will be assessed and approved by The Construct, stored on secure on private servers. Hashes of all the information, along with the account detials (address etc) will be saved in the contract, allowing the information to be verified by both parties.
@@ -216,9 +177,9 @@ All information required for a KYC approval will be assessed and approved by The
 <br>
 <br>
 
-# 8. Account types
+# Account types
 Accounts can be a combination of multipule types
-## 8.1. Generic:
+## Generic:
 All accounts by default will be of the generic type. This is the base account which can do everything from invest, propose, create or contribute projects as a project-member, but will remain uncategorised. 
 
 A generic account can be classed as a **Project Admin** for specific projects, either from creating or being assigned a project.
@@ -227,27 +188,27 @@ Every account will have its own address, which can either be imported (Private K
 
 **The Construct will not store private keys, and will not be responsible for any loss*
 
-## 8.2. Investor:
+## Investor:
 An Invester account is required to recieve tokens distributed for an ICO. A registered investor needs to pass the KYC process.
 
-## 8.3. Developer:
+## Developer:
 A Developer is based off a Generic account so can do everything they can do, however only developers can submit code to projects, audit contracts and peer review other developers. Every developer will also have their own rating. Developers will need to pass a registration process.
 
-## 8.4. *Project Admin:*
+## *Project Admin:*
 Specific to a certain project, an assigned Project Admin is allowed to edit all muteable parameters of the project. Only the original Project Admin can add/remove other admins. A requirement for a Project Admin is that they pass the KYC process
 
 <br>
 <br>
 
-# 9. Platform Categories
-## 9.1. Project Library Explorer:
+# Platform Categories
+## Project Library Explorer:
   - Categorises all Projects
   - Filter Projects based on underlaying details
   - Displays basic info about the Project
     - Rating
     - Current Fund Progress
 
-## 9.2. Project Info:
+## Project Info:
   - Displays all info about project
   - Description overview
   - Active Smart Contracts
@@ -257,26 +218,26 @@ Specific to a certain project, an assigned Project Admin is allowed to edit all 
   - Smart Token Shares Breakdown
   - Current Fund Progress
 
-## 9.3. Contract Info:
+## Contract Info:
   - Source Code verified to Script Hash ( compiler version needs to be specified )
   - Details about audit results
   - Bug Bounty fund
 
-## 9.4. Developer Info:
+## Developer Info:
   - All Projects developer is connected to
   - Developer rating based on project contribution and peer-reviews
 
 <br>
 <br>
 
-# 10. ​​Smart Contract Details (Mockup)
-## 10.1. Contracts Depolyed:
+# ​​Smart Contract Details (Mockup)
+## Contracts Depolyed:
 - Construct Platform
 - ShareToken Protocol
   - Funding Milestones
   - Crowd Funding ( Could be implimented within this contract ?? ) 
 
-## 10.2. Contract Requirements
+## Contract Requirements
 - Store and Create Projects
   - Unique Name
   - Milestone Hashes
@@ -316,7 +277,7 @@ Specific to a certain project, an assigned Project Admin is allowed to edit all 
   - KYC Status
 
 
-## 10.3. Definitions:
+## Definitions:
 
   - <i>**Private:** All private operations can only be invoked with an admin key ( aka server-side calls within the platform )</i>
 
@@ -328,20 +289,20 @@ Specific to a certain project, an assigned Project Admin is allowed to edit all 
 
   - <i>**Bounty Fund:** Funds are sourced from a project / developer, and released for a specific definitive reason (most likely bug bounty)</i>
 
-## 10.4. Invokeable Operations:
-### 10.4.1. **Creator:**
+## Invokeable Operations:
+### **Creator:**
   - **Hidden:**  
     - add_admin
     - remove_admin
     - set_fee
 
-### 10.4.2. **Admin:**
+### **Admin:**
   - **Private:**
     - remove_project
     - remove_developer
     - remove_user
 
-### 10.4.3. **Developer:**
+### **Developer:**
   - **Private:**
     - create_new_project
     - edit_project_details
@@ -351,7 +312,7 @@ Specific to a certain project, an assigned Project Admin is allowed to edit all 
     - audit_contract
 
 
-### 10.4.4. **Generic:**
+### **Generic:**
 
   - **Public:**
     - get_platform_details
@@ -372,7 +333,7 @@ Specific to a certain project, an assigned Project Admin is allowed to edit all 
 <br>
 <br>
 
-# 11. Fee Structure
+# Fee Structure
 *Doesn't include NEO system fees.*
 
 | Action        | Fee (GAS)     |
