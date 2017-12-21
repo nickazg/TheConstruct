@@ -41,7 +41,7 @@ While the platform is designed primaraly for developers, it will be capable of s
 # Index
 
 
-# Investment Crowd Funding
+# Crowd Funding
 
 Crowd funding plays a fundamental role within in The Construct platform. It will allow startup projects to gain the necessary funds when required to develop and grow the project. 
 
