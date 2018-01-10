@@ -1,12 +1,12 @@
+<p align="center" style="font-size:60px; line-height:10px">The Construct</p>
 <p align="center">
   <img
-    src="https://mysterium.network/wp-content/uploads/2017/04/1.png"
-    width="125px;">
+    src="construct_logo_blue.png"
+    width="250px;">
 </p>
 
-<h1 align="center">The Construct</h1>
 
-<p align="center">A decentralized milestone funding and community engagement platform. For startups, existing projects and investors.
+<p align="center" style="font-size:15px; font-weight:bold">A decentralized milestone funding and community engagement platform. For startups, existing projects and investors.
 <br>
 <br>
 
