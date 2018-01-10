@@ -20,7 +20,7 @@
 
 # 1. Introducing The Construct
 
-**The Construct** provides a platform enabling anyone to contribute, collaborate, create and grow projects in a secure, transparent decentralized environment using blockchain technology. Ultimately, this enhances project growth and adoption in a global fair market, and attracts both entrepreneurs and investors unseen on any existing platforms.
+**The Construct** provides a platform enabling anyone to contribute, collaborate, create and crowdfund projects in a secure, transparent decentralized environment using blockchain technology. Ultimately, this enhances project growth and adoption in a global fair market, and attracts both entrepreneurs and investors unseen on any existing platforms.
 
 <br>
 
@@ -54,7 +54,9 @@ Another exciting feature **The Construct** implements is something called **Brai
             - [3.1.2.1. Milestones Visualized:](#3121-milestones-visualized)
         - [3.1.3. **Funding Stages**](#313-funding-stages)
             - [3.1.3.1. Funding Stages Visualized:](#3131-funding-stages-visualized)
-        - [3.1.4. Funding Roadmap Example:](#314-funding-roadmap-example)
+        - [3.1.4. **Funding Roadmap Forking**](#314-funding-roadmap-forking)
+            - [3.1.4.1. Roadmap Forking Visualized:](#3141-roadmap-forking-visualized)
+        - [3.1.5. Funding Roadmap Example:](#315-funding-roadmap-example)
 - [4. Brain Tree *TODO](#4-brain-tree-todo)
 - [5. KYC (Know Your Customer)](#5-kyc-know-your-customer)
 - [6. Account types](#6-account-types)
@@ -75,7 +77,7 @@ Crowdfunding plays a fundamental role within in The Construct platform, and impl
 
 
 ## 3.1. Funding Roadmap
-A **Funding Roadmap** is an overview of all the milestones/goals and funding stages proposed by a project. To maintain investor interest something of value needs to be traded. Within a Funding Roadmap this is done by trading funds for a predetermined share/stake in the project we call this **Smart Token Shares**. 
+A **Funding Roadmap** is an overview of all the milestones/goals and funding stages proposed by a project. To maintain investor interest something of value needs to be traded. Within a Funding Roadmap this is done by trading funds for a predetermined share/stake in the project, we call this **Smart Token Shares**. 
 
 ### 3.1.1. **Smart Token Shares**
 Every registered project will automatically have its own Smart Token Shares. Smart Token Shares will be distributed in whatever means necessary, which is decided by the project admins, and displayed publicly. 
@@ -131,7 +133,7 @@ Visualizing a single Funding Stage. Where green represents amount raised, and re
 </p>
 
 
-Or within the contex of a Funding Roadmap. Where we have the amount of shares associated with the fund (100k), The fund goal (1K GAS), and the name of the fund:
+Or within the contex of a Funding Roadmap. Where we have the amount of shares associated with the fund (100k), The fund goal (1K GAS), and the name of the fund. The green dot and bar indicate its progression:
 <p align="center">
   <img
     src="fundingstage.png"
@@ -141,9 +143,21 @@ Or within the contex of a Funding Roadmap. Where we have the amount of shares as
 
 The Funding Roadmap will only allow the project to start another Funding Stage when all preceding Funding Stages and Milestones are completed sucessfully. 
 
+### 3.1.4. **Funding Roadmap Forking**
+It is possible to split a roadmap's path into two different directions at any stage called **Forking**. This is important as it will allow unrelated Milestones to be completed in parallel, otherwise it could severely limit the project's productivity and ablity to scale.
 
-### 3.1.4. Funding Roadmap Example:
-A combination of both Milestones and Funding Stages
+#### 3.1.4.1. Roadmap Forking Visualized:
+Here we can see the current path of the roadmap splits into two different directions, "Front End Web Interface" and "Team Expansion". Now the Project can achieve these milestones separately as each require a different timeframe and in this case aren't reliant on each other.
+
+<p align="center">
+  <img
+    src="forking.png"
+    width="400"
+    >
+</p>
+
+### 3.1.5. Funding Roadmap Example:
+A combination of both Milestones and Funding Stages can be visualized like so (Heading left to right)
 <p align="center">
   <img
     src="milestones.png"
