@@ -140,6 +140,7 @@ A combination of both Milestones and Funding Stages
     >
 </p>
 
+Funding Roadmap, breakdown:
 <center>
 
 | Funding Stage        | Supply (Tokens)     |  Rasied (GAS)   
