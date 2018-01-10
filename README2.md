@@ -155,6 +155,23 @@ A combination of both Milestones and Funding Stages
 
 
 # 4. Brain Tree *TODO
+Brain Tree is designed to encourage people with only an idea to present them publicly to the community, recieveing a bonus if successfull.
+
+<p align="center">
+  <img
+    src="project_proposal.png"
+    style="width: 500px;"
+    >
+</p>
+
+Once an idea is proposed, an open-ended **14 day fund** will begin. The minimum requirement for a proposal is a rough whitepaper, and the first Proof-of-Work milestone requirements. 
+
+Once the fund has completed, anyone can submit a Proof-of-Work of the milestone (incl a short "pick me!" message). After **7 days** submissions will close, and all the fund contributors can vote for the preferred Proof-of-Work submission. The Project and fund will then transfered to winning (51%) submission creator.
+
+**If there are no submissions, the proposal will fail and all funds will be returned*
+
+<br>
+<br>
 
 # 5. KYC (Know Your Customer)
 With a potential for an ICO token sale, a KYC approval is required for all investors and project admins involved.
