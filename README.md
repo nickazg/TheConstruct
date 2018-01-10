@@ -5,14 +5,18 @@
 </p>
 
 <p align="center">
-  <sup align="center" style="font-size:60px; font-weight:bold; line-height:10px;">The Construct</sup>
+  <img
+    src="title.png">
 </p>
-<p align="center">
-  <sup align="center" style="font-size:20px">A decentralized milestone funding and community engagement platform.</sup>
-</p>
+</br>
 
+<!---
+<p align="center" style="font-size:60px; font-weight:bold; line-height:10px;">The Construct</p>
+
+<p align="center" style="font-size:20px">A decentralized milestone funding and community engagement platform.</p>
 <br>
 <br>
+--->
 
 # 1. Introducing The Construct
 
