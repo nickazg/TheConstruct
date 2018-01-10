@@ -105,10 +105,10 @@ A Milestone is represented as a circle with a title, icon, and description. Like
 <p align="center">
    <img
     src="milestone.png"
-    style="width: 150px;"
+    width="150"
     ><img
     src="milestone_completed.png"
-    style="width: 150px;"
+    width="150"
     > 
 </p>
 
@@ -126,7 +126,7 @@ Visualizing a single Funding Stage. Where green represents amount raised, and re
 <p align="center">
   <img
     src="progress_bar.png"
-    style="width: 800px;"
+    width="800"
     >
 </p>
 
@@ -135,7 +135,7 @@ Or within the contex of a Funding Roadmap. Where we have the amount of shares as
 <p align="center">
   <img
     src="fundingstage.png"
-    style="width: 300px;"
+    width="300"
     >
 </p>
 
@@ -147,7 +147,7 @@ A combination of both Milestones and Funding Stages
 <p align="center">
   <img
     src="milestones.png"
-    style="width: 1000px;"
+    width="1000"
     >
 </p>
 
@@ -172,7 +172,7 @@ Brain Tree is designed to encourage people with only an idea to present them pub
 <p align="center">
   <img
     src="project_proposal.png"
-    style="width: 500px;"
+    width="500"
     >
 </p>
 
