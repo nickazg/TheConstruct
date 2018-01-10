@@ -27,8 +27,9 @@ However, Initial Coin offerings (ICO's) have enabled vast sums of capital to be 
 **The Construct** implements a unique funding structure, backed by blockchain technology.
 The use of blockchain technology is essential, as it will allow us to work in a global, secure, transparent and trustless environment. While there will be system fees, **The Construct** core has a decentralised ownership model, meaning it can never be deleted and will always remain self sustainable. Any funds or sensitive information stored on the blockchain will have predetermined access rights, so no other entity ( including us ) can obtain this without permission.
 
-**The Construct** implements a unique funding structure which relies on a planned project **Funding Roadmap**, specifying the exact process the project will take to reach the proposed outcome.
-A **Funding Roadmap** will be broken down into a series of **Milestones** representing a significant task or goal which requires some sort of funding to complete, known as **Funding Stages**. A chain of alternating Milestones and Funding Stages essentially becoming the structure of the **Funding Roadmap**.
+**The Construct** unique funding structure relies on a planned project **Funding Roadmap**, specifying the exact process the project will take to reach the proposed outcome.
+A **Funding Roadmap** will be broken down into a series of **Milestones** representing a significant task or goal which requires some sort of funding to complete, known as **Funding Stages**. A chain of alternating Milestones and Funding Stages will essentially become the structure of the **Funding Roadmap**.
+
 Another exciting feature **The Construct** implements is something called **Brain Tree**, which ultimately tires to incentivise great ideas to become a reality, via a crowd funded competition. Anyone with just an idea can propose it to the global community, contributors show interest by investing into a fund and entrepreneurs/creators submit proof of work to potentially inherit the project+funds if chosen. While the original person who submitted the idea will get a portion of the winnings.
 
 # 2. Index
