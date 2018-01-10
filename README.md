@@ -105,10 +105,10 @@ A Milestone is represented as a circle with a title, icon, and description. Like
 <p align="center">
    <img
     src="milestone.png"
-    width="150"
+    width="200"
     ><img
     src="milestone_completed.png"
-    width="150"
+    width="200"
     > 
 </p>
 
@@ -135,7 +135,7 @@ Or within the contex of a Funding Roadmap. Where we have the amount of shares as
 <p align="center">
   <img
     src="fundingstage.png"
-    width="300"
+    width="400"
     >
 </p>
 
