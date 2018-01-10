@@ -104,8 +104,8 @@ The funding process will be visulised like so:
 In detail:
 <p align="center">
   <img
-    src="progress_bar.png"
-    style="width: 800px;"
+    src="fundingstage.png"
+    style="width: 300px;"
     >
 </p>
 
@@ -113,8 +113,8 @@ In detail:
 Or within the the Funing Roadmap:
 <p align="center">
   <img
-    src="fundingstage.png"
-    style="width: 300px;"
+    src="progress_bar.png"
+    style="width: 800px;"
     >
 </p>
 
