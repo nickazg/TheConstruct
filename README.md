@@ -64,6 +64,7 @@ Another exciting feature **The Construct** implements is something called **Brai
     - [6.2. Investor:](#62-investor)
     - [6.3. Developer:](#63-developer)
     - [6.4. *Project Admin:*](#64-project-admin)
+- [The Construct Requirements *TODO](#the-construct-requirements-todo)
 - [7. ​​Smart Contract Details (Mockup)](#7-%E2%80%8B%E2%80%8Bsmart-contract-details-mockup)
     - [7.1. Contracts Depolyed:](#71-contracts-depolyed)
     - [7.2. Contract Requirements](#72-contract-requirements)
@@ -230,6 +231,45 @@ Specific to a certain project, an assigned Project Admin is allowed to edit all 
 
 <br>
 <br>
+
+# The Construct Requirements *TODO
+
+- Smart Contract
+  - Smart Token Shares
+    - Associated Project
+    - Supply
+    - Ownership Balances
+  - Funding Roadmap
+    - Milestone Indexes and Fork Index
+    - Funding Stage Indexes and Fork Index
+  - Funding Stage
+    - Goal
+    - End Timestamp
+    - Total Shares 
+    - Balance
+    - Desciption
+  - Milestone
+    - Status
+    - Progress
+    - Desciption
+  - Project Registry
+    - Projects
+      - Name
+      - Admins
+      - Funding Roadmap
+  - User Registry
+    - Users
+      - Name
+      - Invested Projects
+      - Admin Projects
+  - KYC
+- Website
+  - Client Side
+  - Server Side
+
+
+
+
 
 
 # 7. ​​Smart Contract Details (Mockup)
