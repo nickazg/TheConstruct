@@ -3,8 +3,14 @@
     src="construct_logo_blue.png"
     width="250px;">
 </p>
-<sup><p align="center" style="font-size:60px; font-weight:bold; line-height:10px;">The Construct</p></sup>
-<sup><p align="center" style="font-size:20px">A decentralized milestone funding and community engagement platform.</p></sup>
+
+<p align="center">
+  <sup align="center" style="font-size:60px; font-weight:bold; line-height:10px;">The Construct</sup>
+</p>
+<p align="center">
+  <sup align="center" style="font-size:20px">A decentralized milestone funding and community engagement platform.</sup>
+</p>
+
 <br>
 <br>
 
