@@ -54,6 +54,9 @@ Another exciting feature **The Construct** implements is something called **Brai
     - [6.2. Investor:](#62-investor)
     - [6.3. Developer:](#63-developer)
     - [6.4. *Project Admin:*](#64-project-admin)
+- [7. ​​Smart Contract Details (Mockup)](#7-%E2%80%8B%E2%80%8Bsmart-contract-details-mockup)
+    - [7.1. Contracts Depolyed:](#71-contracts-depolyed)
+    - [7.2. Contract Requirements](#72-contract-requirements)
 
 <!-- /TOC -->
 
@@ -205,3 +208,50 @@ Specific to a certain project, an assigned Project Admin is allowed to edit all 
 
 <br>
 <br>
+
+
+# 7. ​​Smart Contract Details (Mockup)
+## 7.1. Contracts Depolyed:
+- Construct Platform
+- ShareToken Protocol
+  - Funding Milestones
+  - Crowd Funding ( Could be implimented within this contract ?? ) 
+
+## 7.2. Contract Requirements
+- Store and Create Projects
+  - Unique Name
+  - Milestone Hashes
+  - Contract Hashes
+  - Developer Hashes
+  - Fund Hashes
+- Store and Create Accounts
+  - Address Hash
+  - Type ( Generic, Developer )
+  - Display Name
+  - Project Hashes
+  - Fund Hashes
+- Verify and Audit Contacts
+  - Store verification signatures
+- Store and Create Milestones
+  - Roadmap Hash
+  - Milestone Hash
+  - Project Hash
+  - Stage Index
+  - Fund Hash (Milestone Fund)
+- Store, Create, Manage Distribute Funds
+  - Fund Hash
+  - Project Hash
+  - Fund Limits
+  - Fund Goal
+  - Token Share Supply
+  - Milestone Hash
+  - Contributor Hashes
+  - Contributor Contributions 
+  - Distribute or Refund Funds
+- Store and Distribute Smart Token Shares
+  - Project Hash
+  - Token Name
+  - Registry of Shareholders (Address Hashes)
+- KYC Store and Check Hashes
+  - Info Hashes
+  - KYC Status
