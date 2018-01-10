@@ -1,12 +1,10 @@
-<p align="center" style="font-size:60px; line-height:10px">The Construct</p>
-<p align="center">
+<p align="center" style="font-size:60px; line-height:10px">
   <img
     src="construct_logo_blue.png"
     width="250px;">
 </p>
-
-
-<p align="center" style="font-size:15px; font-weight:bold">A decentralized milestone funding and community engagement platform. For startups, existing projects and investors.
+<p align="center" style="font-size:60px; font-weight:bold; line-height:10px;">The Construct</p>
+<p align="center" style="font-size:20px">A decentralized milestone funding and community engagement platform. 
 <br>
 <br>
 
