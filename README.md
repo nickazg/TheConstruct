@@ -64,10 +64,11 @@ Another exciting feature **The Construct** implements is something called **Brai
     - [6.2. Investor:](#62-investor)
     - [6.3. Developer:](#63-developer)
     - [6.4. *Project Admin:*](#64-project-admin)
-- [The Construct Requirements *TODO](#the-construct-requirements-todo)
-- [7. ​​Smart Contract Details (Mockup)](#7-%E2%80%8B%E2%80%8Bsmart-contract-details-mockup)
-    - [7.1. Contracts Depolyed:](#71-contracts-depolyed)
-    - [7.2. Contract Requirements](#72-contract-requirements)
+- [7. The Construct Requirements *TODO](#7-the-construct-requirements-todo)
+- [8. Fee Structure](#8-fee-structure)
+- [9. ​​Smart Contract Invoke Operations (Mockup)](#9-%E2%80%8B%E2%80%8Bsmart-contract-invoke-operations-mockup)
+    - [9.1. Contracts Depolyed:](#91-contracts-depolyed)
+    - [9.2. Contract Requirements](#92-contract-requirements)
 
 <!-- /TOC -->
 
@@ -232,54 +233,93 @@ Specific to a certain project, an assigned Project Admin is allowed to edit all 
 <br>
 <br>
 
-# The Construct Requirements *TODO
+# 7. The Construct Requirements *TODO
 
-- Smart Contract
-  - Smart Token Shares
-    - Associated Project
-    - Supply
-    - Ownership Balances
-  - Funding Roadmap
-    - Milestone Indexes and Fork Index
-    - Funding Stage Indexes and Fork Index
-  - Funding Stage
-    - Goal
-    - End Timestamp
-    - Total Shares 
-    - Balance
-    - Desciption
-  - Milestone
-    - Status
-    - Progress
-    - Desciption
-  - Project Registry
-    - Projects
-      - Name
-      - Admins
-      - Funding Roadmap
-  - User Registry
-    - Users
-      - Name
-      - Invested Projects
-      - Admin Projects
-  - KYC
-- Website
-  - Client Side
-  - Server Side
+- [ ] **Whitepaper**
+  - [x] Summary
+  - [x] Investment Crowd Funding
+  - [ ] Brain Tree
+  - [ ] KYC
+  - [x] Account types
+  - [ ] Smart Contract Invoke Operations
+- [ ] **Smart Contract**
+  - [ ] **Smart Token Shares**
+    - [ ] Associated Project
+    - [ ] Supply
+    - [ ] Ownership Balances
+  - [ ] **Funding Roadmap**
+    - [ ] Milestone Indexes and Fork Index
+    - [ ] Funding Stage Indexes and Fork Index
+  - [ ] **Funding Stage**
+    - [ ] Goal
+    - [ ] End Timestamp
+    - [ ] Total Shares 
+    - [ ] Balance
+    - [ ] Desciption
+  - [ ] **Milestone**
+    - [ ] Status
+    - [ ] Progress
+    - [ ] Desciption
+  - [ ] **Project Registry**
+    - [ ] Projects
+      - [ ] Name
+      - [ ] Admins
+      - [ ] Funding Roadmap
+  - [ ] **User Registry**
+    - [ ] Users
+      - [ ] Name
+      - [ ] Invested Projects
+      - [ ] Admin Projects
+  - [ ] **KYC**
+    - [ ] Associated User
+    - [ ] Status
+    - [ ] Hash of documents
+- [ ] **Website**
+  - [ ] **Client Side**
+    - [ ] Graphic User Interface
+      - [ ] Local NEO Node and Wallet, connecting directly to NEO
+        - [ ] Deposits
+        - [ ] Withdrawls
+        - [ ] Share Transfers
+        - [ ] Data Verification
+        - [ ] Wallets/Accounts are stored and opened locally
+      - [ ] Connections to Realtime Server 
+        - [ ] All Images
+        - [ ] All Website files
+  - [ ] **Server Side**
+    - [ ] Realtime Database of all public storage from Smart Contract
+      - [ ] Projects
+      - [ ] Users
+      - [ ] Roadmaps
+        - [ ] Milestones
+        - [ ] Funding Stage
+    - [ ] Realtime Storage of all files, public and private (with Hashes stored on smart contract)
+      - [ ] Images
+      - [ ] Large data files
+    - [ ] Periodic data analysis and stats of all systems 
+
+# 8. Fee Structure
+*Doesn't include NEO system fees.*
+
+| Action        | Fee (GAS)     |
+| ------------- |:-------------:|
+| Register Project| 10 |
+| Register Contract| 5 |
+| Register Developer | 1 |
+| Register User | 0 |
+| Create Fund   |  10  |
+| Create CrowdFund   |  5  |
+| Complete Fund   |  1 %  |
+| Complete CrowdFund   |  1 %  |
 
 
 
-
-
-
-# 7. ​​Smart Contract Details (Mockup)
-## 7.1. Contracts Depolyed:
+# 9. ​​Smart Contract Invoke Operations (Mockup)
+## 9.1. Contracts Depolyed:
 - Construct Platform
-- ShareToken Protocol
-  - Funding Milestones
-  - Crowd Funding ( Could be implimented within this contract ?? ) 
 
-## 7.2. Contract Requirements
+
+## 9.2. Contract Requirements
 - Store and Create Projects
   - Unique Name
   - Milestone Hashes
