@@ -19,32 +19,49 @@
 --->
 
 # 1. Introducing The Construct
+**The Construct** provides a platfrom for entrepreneurs and investors to collaborate, fund and grow projects in a secure, transparent and creative environment backed by blockchain technology. The Construct holds project legitimacy and accountability right at the core of its function, ensuring the production of high quality and trusted projects. 
 
-**The Construct** provides a platform enabling anyone to contribute, collaborate, create and crowdfund projects in a secure, transparent decentralized environment using blockchain technology. Ultimately, this enhances project growth and adoption in a global fair market, and attracts both entrepreneurs and investors unseen on any existing platforms.
+The Construct Breaks down the process into coherent **Milestones**. Only projects who can sucessfully complete these Milestones will recieve the necessary funding, requiring projects to achieve their promises and have accountability to its investors. Utimately building trust within the community.
+
+
+
+<!-- 
+-	The Construct gives **legitimacy**, as potential investors can **transparently** follow the progress of the project.
+-	**Breaks down** the process into **coherent milestones**, indicating continuous or incremental success (or not). 
+-	**Alleviates FUD** on whether or not to invest, makes the decision easier based on current and previous progress. 
+
+- So many options to choose from, this makes it easier and **high performing projects** will stand out
+-	Introduces the concept of **accountability** in projects and ICOs. Not hitting the project milestones or targets = not getting the funding. Project admins must follow through on their **project promise**
+
+-	Enables a process to expand on the initial resources, networks and capability by natural demand and interest. Project members might not have the experstise/time/funds nesseary to launch an ICO.
+
+- Massive potential for projects in their early stages, allowing time for the project to mature organically without relying on recieving funding from an ICO too early. -->
 
 <br>
 
-## 1.1. Problem
-While traditional crowdfunding platforms provide a great service for project-community engagement, the current issue is that they rely on donations or at best consumer pre-purchases. This provides little incentives for investors as they will not receive any ownership stake over the project resulting in a minimal return-on-investment (ROI). Ultimately this will limit the growth of the project, and engagement from the community. The centralized nature of the platform and reliance on a single currency also restricts projects to certain countries and creates unwanted fees.
+## 1.1. What problem are we solving?
 
-However, Initial Coin offerings (ICO's) have enabled vast sums of capital to be raised in a very short amount of time, (often in the range USD$10 million - USD$100 million). The problem with the current state of ICO's is that they require very little true substance to raise these funds. This lack of structure attracts scammers and inherently doesn't allow enough transparency to its investors. Even if the the project is proven to be of high quality, once the ICO has ended the community has a very limited influence on the direction and pace of the project and it still largely relies on trust. It is not guaranteed that the ICO project will follow through on the delivery of their concept or product therefore leading to an element of skepticism. **The Construct** aims to alleviate this issue.
+
+Initial Coin offerings (ICO's) have enabled vast sums of capital to be raised in a very short amount of time, (often in the range USD$10 million - USD$100 million). The problem with the current state of ICO's is that they require very little true substance to raise these funds. This lack of structure attracts scammers and inherently doesn't allow enough transparency to its investors. Even if the the project is proven to be of high quality, once the ICO has ended the community has a very limited influence on the direction and pace of the project and it still largely relies on trust. It is not guaranteed that the ICO project will follow through on the delivery of their concept or product therefore leading to an element of skepticism. **The Construct** aims to alleviate this issue.
+
+While traditional crowdfunding platforms provide a great service for project-community engagement, the current issue is that they rely on donations or at best consumer pre-purchases. This provides little incentives for investors as they will not receive any ownership stake over the project resulting in a minimal return-on-investment (ROI). Ultimately this will limit the growth of the project, and engagement from the community. The centralized nature of the platform and reliance on a single currency also restricts projects to certain countries and creates unwanted fees.
 
 <br>
 
 ## 1.2. Solution
 **The Construct** implements a unique funding structure, backed by blockchain technology.
-The use of blockchain technology is essential, as it will allow us to work in a global, secure, transparent and trustless environment. While there will be system fees, **The Construct** core has a decentralised ownership model, meaning it can never be deleted and will always remain self sustainable. Any funds or sensitive information stored on the blockchain will have predetermined access rights, so no other entity ( including us ) can obtain this without permission.
+The use of blockchain technology is essential, as it will allow us to work in a global, secure, transparent and trustless environment. **The Construct** core has a decentralised ownership model, meaning it can never be deleted and will always remain self sustainable. Any funds or sensitive information stored on the blockchain will have predetermined access rights, so no other entity ( including us ) can obtain this without permission.
 
 **The Construct** unique funding structure relies on a planned project **Funding Roadmap**, specifying the exact process the project will take to reach the proposed outcome.
 A **Funding Roadmap** will be broken down into a series of **Milestones** representing a significant task or goal which requires some sort of funding to complete, known as **Funding Stages**. A chain of alternating Milestones and Funding Stages will essentially become the structure of the **Funding Roadmap**.
 
-Another exciting feature **The Construct** implements is something called **Brain Tree**, which ultimately tires to incentivise great ideas to become a reality, via a crowd funded competition. Anyone with just an idea can propose it to the global community, contributors show interest by investing into a fund and entrepreneurs/creators submit proof of work to potentially inherit the project+funds if chosen. While the original person who submitted the idea will get a portion of the winnings.
+**The Construct’s** unique funding structure is enabled by a planned project **Funding Roadmap**, specifying the exact process the project will take to reach the proposed outcome. A **Funding Roadmap** will be broken down into a series of Milestones representing a significant task or goal which requires some sort of funding to complete, known as **Funding Stages**. A chain of alternating Milestones and Funding Stages will essentially become the structure of the **Funding Roadmap**.
 
 # 2. Index
 <!-- TOC -->
 
 - [1. Introducing The Construct](#1-introducing-the-construct)
-    - [1.1. Problem](#11-problem)
+    - [1.1. What problem are we solving?](#11-what-problem-are-we-solving)
     - [1.2. Solution](#12-solution)
 - [2. Index](#2-index)
 - [3. Investment Crowd Funding](#3-investment-crowd-funding)
@@ -57,7 +74,6 @@ Another exciting feature **The Construct** implements is something called **Brai
         - [3.1.4. **Funding Roadmap Forking**](#314-funding-roadmap-forking)
             - [3.1.4.1. Roadmap Forking Visualized:](#3141-roadmap-forking-visualized)
         - [3.1.5. Funding Roadmap Example:](#315-funding-roadmap-example)
-- [4. Brain Tree *TODO](#4-brain-tree-todo)
 - [5. KYC (Know Your Customer)](#5-kyc-know-your-customer)
 - [6. Account types](#6-account-types)
     - [6.1. Generic:](#61-generic)
@@ -79,7 +95,16 @@ Crowdfunding plays a fundamental role within in The Construct platform, and impl
 
 
 ## 3.1. Funding Roadmap
-A **Funding Roadmap** is an overview of all the milestones/goals and funding stages proposed by a project. To maintain investor interest something of value needs to be traded. Within a Funding Roadmap this is done by trading funds for a predetermined share/stake in the project, we call this **Smart Token Shares**. 
+A proposed project will have a series of pre-determined milestones and fundings stages which make up the **Funding Roadmap**. This information is publicly accessible and this process aims for transparency.
+To maintain investor interest, something of value needs to be tradedable . Within a Funding Roadmap this is done by trading funds for a predetermined share/stake in the project, we call this **Smart Token Shares**.
+
+<p align="center">
+  <img
+    src="milestones.png"
+    width="1000"
+    >
+</p>
+
 
 ### 3.1.1. **Smart Token Shares**
 Every registered project will automatically have its own Smart Token Shares. Smart Token Shares will be distributed in whatever means necessary, which is decided by the project admins, and displayed publicly. 
@@ -167,40 +192,6 @@ A combination of both Milestones and Funding Stages can be visualized like so (H
     >
 </p>
 
-Funding Roadmap, breakdown:
-<center>
-
-| Funding Stage        | Supply (Tokens)     |  Rasied (GAS)   
-| ------------- |:-------------:|:-------------:
-| **Seed Fund** | 100,000 | 1000 
-| **Stage 2** | 100,000  | 1000 
-| **Stage 3**  | 100,000  | 1000 
-| **Stage 4** | 100,000  | 1000 
-| *ICO*  | *400,000*  | -- 
-| *Reserved*  | *200,000*  | -- 
-
-</center>
-
-
-# 4. Brain Tree *TODO
-Brain Tree is designed to encourage people with only an idea to present them publicly to the community, recieveing a bonus if successfull.
-
-<p align="center">
-  <img
-    src="project_proposal.png"
-    width="500"
-    >
-</p>
-
-Once an idea is proposed, an open-ended **14 day fund** will begin. The minimum requirement for a proposal is a rough whitepaper, and the first Proof-of-Work milestone requirements. 
-
-Once the fund has completed, anyone can submit a Proof-of-Work of the milestone (incl a short "pick me!" message). After **7 days** submissions will close, and all the fund contributors can vote for the preferred Proof-of-Work submission. The Project and fund will then transfered to winning (51%) submission creator.
-
-**If there are no submissions, the proposal will fail and all funds will be returned*
-
-<br>
-<br>
-
 # 5. KYC (Know Your Customer)
 With a potential for an ICO token sale, a KYC approval is required for all investors and project admins involved.
 
@@ -235,7 +226,8 @@ Specific to a certain project, an assigned Project Admin is allowed to edit all 
 
 # 7. The Construct Requirements *TODO
 
-- [ ] **Whitepaper**
+*Key: [ Number of days ]*
+- [ ] **Whitepaper [ 2 ]**
   - [x] Summary
   - [x] Investment Crowd Funding
   - [ ] Brain Tree
@@ -243,39 +235,39 @@ Specific to a certain project, an assigned Project Admin is allowed to edit all 
   - [x] Account types
   - [ ] Smart Contract Invoke Operations
 - [ ] **Smart Contract**
-  - [ ] **Smart Token Shares**
+  - [ ] **Smart Token Shares [ 3 ]**
     - [ ] Associated Project
     - [ ] Supply
     - [ ] Ownership Balances
-  - [ ] **Funding Roadmap**
+  - [ ] **Funding Roadmap [ 3 ]**
     - [ ] Milestone Indexes and Fork Index
     - [ ] Funding Stage Indexes and Fork Index
-  - [ ] **Funding Stage**
+  - [ ] **Funding Stage [ 4 ]**
     - [ ] Goal
     - [ ] End Timestamp
     - [ ] Total Shares 
     - [ ] Balance
     - [ ] Desciption
-  - [ ] **Milestone**
+  - [ ] **Milestone [ 3 ]**
     - [ ] Status
     - [ ] Progress
     - [ ] Desciption
-  - [ ] **Project Registry**
+  - [ ] **Project Registry [ 4 ]**
     - [ ] Projects
       - [ ] Name
       - [ ] Admins
       - [ ] Funding Roadmap
-  - [ ] **User Registry**
+  - [ ] **User Registry [ 3 ]**
     - [ ] Users
       - [ ] Name
       - [ ] Invested Projects
       - [ ] Admin Projects
-  - [ ] **KYC**
+  - [ ] **KYC  [ 2 ]**
     - [ ] Associated User
     - [ ] Status
     - [ ] Hash of documents
 - [ ] **Website**
-  - [ ] **Client Side**
+  - [ ] **Client Side [ 14 ]**
     - [ ] Graphic User Interface
       - [ ] Local NEO Node and Wallet, connecting directly to NEO
         - [ ] Deposits
@@ -286,7 +278,7 @@ Specific to a certain project, an assigned Project Admin is allowed to edit all 
       - [ ] Connections to Realtime Server 
         - [ ] All Images
         - [ ] All Website files
-  - [ ] **Server Side**
+  - [ ] **Server Side [ 14 ]**
     - [ ] Realtime Database of all public storage from Smart Contract
       - [ ] Projects
       - [ ] Users
