@@ -19,7 +19,7 @@
 --->
 
 # 1. Introducing The Construct
-**The Construct** provides a platfrom for entrepreneurs and investors to collaborate, fund and grow projects in a secure, transparent and creative environment backed by blockchain technology. The Construct holds project legitimacy and accountability right at the core of its function, ensuring the production of high quality and trusted projects. 
+**The Construct** provides a platfrom for entrepreneurs and investors to collaborate, fund and grow projects in a secure, transparent and creative environment backed by blockchain technology. The Construct holds project legitimacy and accountability right at the core of its function, ensuring the production of high quality and trusted projects is the standard. 
 
 The Construct Breaks down the process into coherent **Milestones**. Only projects who can sucessfully complete these Milestones will recieve the necessary funding, requiring projects to achieve their promises and to have accountability. Utimately building trust within the community.
 
@@ -37,6 +37,7 @@ The Construct Breaks down the process into coherent **Milestones**. Only project
 
 - Massive potential for projects in their early stages, allowing time for the project to mature organically without relying on recieving funding from an ICO too early. -->
 
+
 <br>
 
 ## 1.1. What problem are we solving?
@@ -44,13 +45,16 @@ The Construct Breaks down the process into coherent **Milestones**. Only project
 
 Initial Coin offerings (ICO's) have enabled vast sums of capital to be raised in a very short amount of time, (often in the range USD$10 million - USD$100 million). The problem with the current state of ICO's is that they require very little true substance to raise these funds. This lack of structure attracts scammers and inherently doesn't allow enough transparency to its investors. Even if the the project is proven to be of high quality, once the ICO has ended the community has a very limited influence on the direction and pace of the project and it still largely relies on trust. It is not guaranteed that the ICO project will follow through on the delivery of their concept or product therefore leading to an element of skepticism. **The Construct** aims to alleviate this issue.
 
-While traditional crowdfunding platforms provide a great service for project-community engagement, the current issue is that they rely on donations or at best consumer pre-purchases. This provides little incentives for investors as they will not receive any ownership stake over the project resulting in a minimal return-on-investment (ROI). Ultimately this will limit the growth of the project, and engagement from the community. The centralized nature of the platform and reliance on a single currency also restricts projects to certain countries and creates unwanted fees.
+There is also the issue of good projects being released too early to gain funding via ICO's, while often generating too much hype by promising too much and potentially harming the project's crediblity long term. This is becuase a project will generally only get one opportunity to recieve public funding via an ICO, forcing an all-or-nothing scenario. Projects need a way to incrementally recieve funding based on demand and interest to allow for natrual growth of the initial resources, team and capability.
+
+
+<!-- While traditional crowdfunding platforms provide a great service for project-community engagement, the current issue is that they rely on donations or at best consumer pre-purchases. This provides little incentives for investors as they will not receive any ownership stake over the project resulting in a minimal return-on-investment (ROI). Ultimately this will limit the growth of the project, and engagement from the community. The centralized nature of the platform and reliance on a single currency also restricts projects to certain countries and creates unwanted fees. -->
 
 <br>
 
 ## 1.2. Solution
-**The Construct** implements a unique funding structure, backed by blockchain technology.
-The use of blockchain technology is essential, as it will allow us to work in a global, secure, transparent and trustless environment. **The Construct** core has a decentralised ownership model, meaning it can never be deleted and will always remain self sustainable. Any funds or sensitive information stored on the blockchain will have predetermined access rights, so no other entity ( including us ) can obtain this without permission.
+**The Construct** implements a unique funding structure, backed by NEO blockchain technology.
+The use of blockchain technology is essential, as it will allow us to work in a global, secure, transparent and trustless environment. The Construct core has a decentralised ownership model, meaning it can never be deleted and will always remain self sustainable. Any funds or sensitive information stored on the blockchain will have predetermined access rights, so no other entity ( including us ) can obtain this without permission.
 
 **The Construct** unique funding structure relies on a planned project **Funding Roadmap**, specifying the exact process the project will take to reach the proposed outcome.
 A **Funding Roadmap** will be broken down into a series of **Milestones** representing a significant task or goal which requires some sort of funding to complete, known as **Funding Stages**. A chain of alternating Milestones and Funding Stages will essentially become the structure of the **Funding Roadmap**.
@@ -61,30 +65,30 @@ A **Funding Roadmap** will be broken down into a series of **Milestones** repres
 <!-- TOC -->
 
 - [1. Introducing The Construct](#1-introducing-the-construct)
-    - [1.1. What problem are we solving?](#11-what-problem-are-we-solving)
-    - [1.2. Solution](#12-solution)
+  - [1.1. What problem are we solving?](#11-what-problem-are-we-solving)
+  - [1.2. Solution](#12-solution)
 - [2. Index](#2-index)
 - [3. Investment Crowd Funding](#3-investment-crowd-funding)
-    - [3.1. Funding Roadmap](#31-funding-roadmap)
-        - [3.1.1. **Smart Token Shares**](#311-smart-token-shares)
-        - [3.1.2. **Milestones**](#312-milestones)
-            - [3.1.2.1. Milestones Visualized:](#3121-milestones-visualized)
-        - [3.1.3. **Funding Stages**](#313-funding-stages)
-            - [3.1.3.1. Funding Stages Visualized:](#3131-funding-stages-visualized)
-        - [3.1.4. **Funding Roadmap Forking**](#314-funding-roadmap-forking)
-            - [3.1.4.1. Roadmap Forking Visualized:](#3141-roadmap-forking-visualized)
-        - [3.1.5. Funding Roadmap Example:](#315-funding-roadmap-example)
+  - [3.1. Funding Roadmap](#31-funding-roadmap)
+    - [3.1.1. **Smart Token Shares**](#311-smart-token-shares)
+    - [3.1.2. **Milestones**](#312-milestones)
+      - [3.1.2.1. Milestones Visualized:](#3121-milestones-visualized)
+    - [3.1.3. **Funding Stages**](#313-funding-stages)
+      - [3.1.3.1. Funding Stages Visualized:](#3131-funding-stages-visualized)
+    - [3.1.4. **Funding Roadmap Forking**](#314-funding-roadmap-forking)
+      - [3.1.4.1. Roadmap Forking Visualized:](#3141-roadmap-forking-visualized)
+    - [3.1.5. Funding Roadmap Example:](#315-funding-roadmap-example)
 - [5. KYC (Know Your Customer)](#5-kyc-know-your-customer)
 - [6. Account types](#6-account-types)
-    - [6.1. Generic:](#61-generic)
-    - [6.2. Investor:](#62-investor)
-    - [6.3. Developer:](#63-developer)
-    - [6.4. *Project Admin:*](#64-project-admin)
+  - [6.1. Generic:](#61-generic)
+  - [6.2. Investor:](#62-investor)
+  - [6.3. Developer:](#63-developer)
+  - [6.4. *Project Admin:*](#64-project-admin)
 - [7. The Construct Requirements *TODO](#7-the-construct-requirements-todo)
 - [8. Fee Structure](#8-fee-structure)
 - [9. ​​Smart Contract Invoke Operations (Mockup)](#9-%E2%80%8B%E2%80%8Bsmart-contract-invoke-operations-mockup)
-    - [9.1. Contracts Depolyed:](#91-contracts-depolyed)
-    - [9.2. Contract Requirements](#92-contract-requirements)
+  - [9.1. Contracts Depolyed:](#91-contracts-depolyed)
+  - [9.2. Contract Requirements](#92-contract-requirements)
 
 <!-- /TOC -->
 
