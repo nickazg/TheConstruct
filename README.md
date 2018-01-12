@@ -21,7 +21,7 @@
 # 1. Introducing The Construct
 **The Construct** provides a platfrom for entrepreneurs and investors to collaborate, fund and grow projects in a secure, transparent and creative environment backed by blockchain technology. The Construct holds project legitimacy and accountability right at the core of its function, ensuring the production of high quality and trusted projects. 
 
-The Construct Breaks down the process into coherent **Milestones**. Only projects who can sucessfully complete these Milestones will recieve the necessary funding, requiring projects to achieve their promises and have accountability to its investors. Utimately building trust within the community.
+The Construct Breaks down the process into coherent **Milestones**. Only projects who can sucessfully complete these Milestones will recieve the necessary funding, requiring projects to achieve their promises and to have accountability. Utimately building trust within the community.
 
 
 
