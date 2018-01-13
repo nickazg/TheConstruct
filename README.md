@@ -44,16 +44,13 @@ Initial Coin offerings (ICO's) have enabled vast sums of capital to be raised in
 
 Another looming issue is often good projects are being released too early to gain funding via ICO's, generating too much hype by promising too much and potentially harming the project's crediblity long term. A project will generally only get one opportunity to recieve public funding via an ICO, forcing an all-or-nothing scenario. Projects need a way to incrementally recieve funding based on demand and interest to allow for natrual growth of the initial resources, team and capability.
 
-
-<!-- While traditional crowdfunding platforms provide a great service for project-community engagement, the current issue is that they rely on donations or at best consumer pre-purchases. This provides little incentives for investors as they will not receive any ownership stake over the project resulting in a minimal return-on-investment (ROI). Ultimately this will limit the growth of the project, and engagement from the community. The centralized nature of the platform and reliance on a single currency also restricts projects to certain countries and creates unwanted fees. -->
-
 <br>
 
 ## 1.2. Solution
 
 
 
-**The Construct** implements a unique funding structure which relies on a planned project **Funding Roadmap**, specifying the exact process the project will take to reach the proposed outcome.A **Funding Roadmap** will be broken down into a series of **Milestones** representing a significant task or goal which requires some sort of funding to complete, known as **Funding Stages**. A chain of alternating Milestones and Funding Stages will essentially become the structure of the **Funding Roadmap**.
+**The Construct** implements a unique funding structure which relies on a planned project **Funding Roadmap**, specifying the exact process the project will take to reach the proposed outcome.A **Funding Roadmap** will be broken down into a series of **Milestones** representing a significant task or goal which requires some sort of funding to complete, known as **Milestone Crowdfunds**. A chain of alternating Milestones and Milestone Crowdfunds will essentially become the structure of the **Funding Roadmap**.
 
 <p align="center">
   <img
@@ -79,7 +76,7 @@ Another looming issue is often good projects are being released too early to gai
     - [3.1. Funding Roadmap](#31-funding-roadmap)
         - [3.1.1. **Smart Token Shares**](#311-smart-token-shares)
         - [3.1.2. **Milestones**](#312-milestones)
-        - [3.1.3. **Funding Stages**](#313-funding-stages)
+        - [3.1.3. **Milestone Crowdfunds**](#313-milestone-crowdfunds)
         - [3.1.4. **Funding Roadmap Forking**](#314-funding-roadmap-forking)
         - [3.1.5. Funding Roadmap Example:](#315-funding-roadmap-example)
 - [4. KYC (Know Your Customer)](#4-kyc-know-your-customer)
@@ -132,9 +129,9 @@ For example, within a project, the founders have chosen to reserve a 20% shareho
 <br>
 
 ### 3.1.2. **Milestones**
-A Milestone is a project goal or checkpoint that can be defined and tangibly proven as complete. The project administrator determines the amount of Milestones, and the activities undertaken at each point. A Milestone is deemed as completed unless there is rejection, the investors from the preceding Funding Stage have the opportunity to reject its completion. If there is a 51% rejection the Milestone will need to be resubmitted or the Funding Stage is refunded back to its investors. This opt-in approach is designed to maintain momentum while still holding accountability.
+A Milestone is a project goal or checkpoint that can be defined and tangibly proven as complete. The project administrator determines the amount of Milestones, and the activities undertaken at each point. A Milestone is deemed as completed unless there is rejection, the investors from the preceding Milestone Crowdfund have the opportunity to reject its completion. If there is a 51% rejection the Milestone will need to be resubmitted or the Milestone Crowdfund is refunded back to its investors. This opt-in approach is designed to maintain momentum while still holding accountability.
 
-Within a Funding Roadmap there can be an unlimited number of Milestones, however every milestone will always require a preceding Funding Stage.
+Within a Funding Roadmap there can be an unlimited number of Milestones, however every milestone will always require a preceding Milestone Crowdfund.
 
 <p align="center">
    <img
@@ -147,10 +144,10 @@ Within a Funding Roadmap there can be an unlimited number of Milestones, however
 </p>
 
 
-### 3.1.3. **Funding Stages**
-A Funding Stage within a Funding Roadmap is simply a crowdfund, with a defined fund goal, a timeframe for how long the funding should take and how many Smart Token Shares will be distributed. 
+### 3.1.3. **Milestone Crowdfunds**
+A Milestone Crowdfund within a Funding Roadmap is simply a crowdfund, with a defined fund goal, a timeframe for how long the funding should take and how many Smart Token Shares will be distributed. 
 
-If the raised funds goal **is** met or surpassed within the predetermined timeframe this will declare the Funding Stage a success and all the predetermined Smart Token Shares will be distributed accordingly (based on investor contribution). 
+If the raised funds goal **is** met or surpassed within the predetermined timeframe this will declare the Milestone Crowdfund a success and all the predetermined Smart Token Shares will be distributed accordingly (based on investor contribution). 
 
 If however the raised funds goal **is not** met within the predetermined timeframe, all funds that had been contributed by investors will be refunded (excluding any system fees)
 
@@ -224,8 +221,7 @@ Specific to a certain project, an assigned Project Admin is allowed to edit all 
 - [ ] **Whitepaper [ 2 ]**
   - [x] Summary
   - [x] Investment Crowd Funding
-  - [ ] Brain Tree
-  - [ ] KYC
+  - [x] KYC
   - [x] Account types
   - [ ] Smart Contract Invoke Operations
 - [ ] **Smart Contract**
@@ -235,8 +231,8 @@ Specific to a certain project, an assigned Project Admin is allowed to edit all 
     - [ ] Ownership Balances
   - [ ] **Funding Roadmap [ 3 ]**
     - [ ] Milestone Indexes and Fork Index
-    - [ ] Funding Stage Indexes and Fork Index
-  - [ ] **Funding Stage [ 4 ]**
+    - [ ] Milestone Crowdfund Indexes and Fork Index
+  - [ ] **Milestone Crowdfund [ 4 ]**
     - [ ] Goal
     - [ ] End Timestamp
     - [ ] Total Shares 
@@ -278,7 +274,7 @@ Specific to a certain project, an assigned Project Admin is allowed to edit all 
       - [ ] Users
       - [ ] Roadmaps
         - [ ] Milestones
-        - [ ] Funding Stage
+        - [ ] Milestone Crowdfund
     - [ ] Realtime Storage of all files, public and private (with Hashes stored on smart contract)
       - [ ] Images
       - [ ] Large data files
