@@ -80,16 +80,17 @@ Another looming issue is often good projects are being released too early to gai
         - [3.1.4. **Funding Roadmap Forking**](#314-funding-roadmap-forking)
         - [3.1.5. Funding Roadmap Example:](#315-funding-roadmap-example)
 - [4. KYC (Know Your Customer)](#4-kyc-know-your-customer)
-- [5. Account types](#5-account-types)
-    - [5.1. Generic:](#51-generic)
-    - [5.2. Investor:](#52-investor)
-    - [5.3. Developer:](#53-developer)
-    - [5.4. *Project Admin:*](#54-project-admin)
-- [6. The Construct Requirements *TODO](#6-the-construct-requirements-todo)
-- [7. Fee Structure](#7-fee-structure)
-- [8. ​​Smart Contract Invoke Operations (Mockup)](#8-%E2%80%8B%E2%80%8Bsmart-contract-invoke-operations-mockup)
-    - [8.1. Contracts Depolyed:](#81-contracts-depolyed)
-    - [8.2. Contract Requirements](#82-contract-requirements)
+- [5. Platfrom Structure](#5-platfrom-structure)
+- [6. Account types](#6-account-types)
+    - [6.1. Generic:](#61-generic)
+    - [6.2. Investor:](#62-investor)
+    - [6.3. Developer:](#63-developer)
+    - [6.4. *Project Admin:*](#64-project-admin)
+- [7. The Construct Requirements *TODO](#7-the-construct-requirements-todo)
+- [8. Fee Structure](#8-fee-structure)
+- [9. ​​Smart Contract Invoke Operations (Mockup)](#9-%E2%80%8B%E2%80%8Bsmart-contract-invoke-operations-mockup)
+    - [9.1. Contracts Depolyed:](#91-contracts-depolyed)
+    - [9.2. Contract Requirements](#92-contract-requirements)
 
 <!-- /TOC -->
 
@@ -191,10 +192,19 @@ All information required for a KYC approval will be assessed and approved by The
 <br>
 <br>
 
+# 5. Platfrom Structure
+<p align="center">
+  <img
+    src="structure.png"
+    width="1000"
+    >
+</p>
 
-# 5. Account types
+
+
+# 6. Account types
 Accounts can be a combination of multipule types
-## 5.1. Generic:
+## 6.1. Generic:
 All accounts by default will be of the generic type. This is the base account which can do everything from invest, propose, create or contribute projects as a project-member, but will remain uncategorised. 
 
 A generic account can be classed as a **Project Admin** for specific projects, either from creating or being assigned a project.
@@ -203,19 +213,19 @@ Every account will have its own address, which can either be imported (Private K
 
 **The Construct will not store private keys, and will not be responsible for any loss*
 
-## 5.2. Investor:
+## 6.2. Investor:
 An Invester account is required to recieve tokens distributed for an ICO. A registered investor needs to pass the KYC process.
 
-## 5.3. Developer:
+## 6.3. Developer:
 A Developer is based off a Generic account so can do everything they can do, however only developers can submit code to projects, audit contracts and peer review other developers. Every developer will also have their own rating. Developers will need to pass a registration process.
 
-## 5.4. *Project Admin:*
+## 6.4. *Project Admin:*
 Specific to a certain project, an assigned Project Admin is allowed to edit all muteable parameters of the project. Only the original Project Admin can add/remove other admins. A requirement for a Project Admin is that they pass the KYC process
 
 <br>
 <br>
 
-# 6. The Construct Requirements *TODO
+# 7. The Construct Requirements *TODO
 
 *Key: [ Number of days ]*
 - [ ] **Whitepaper [ 2 ]**
@@ -280,7 +290,7 @@ Specific to a certain project, an assigned Project Admin is allowed to edit all 
       - [ ] Large data files
     - [ ] Periodic data analysis and stats of all systems 
 
-# 7. Fee Structure
+# 8. Fee Structure
 *Doesn't include NEO system fees.*
 
 | Action        | Fee (GAS)     |
@@ -296,12 +306,12 @@ Specific to a certain project, an assigned Project Admin is allowed to edit all 
 
 
 
-# 8. ​​Smart Contract Invoke Operations (Mockup)
-## 8.1. Contracts Depolyed:
+# 9. ​​Smart Contract Invoke Operations (Mockup)
+## 9.1. Contracts Depolyed:
 - Construct Platform
 
 
-## 8.2. Contract Requirements
+## 9.2. Contract Requirements
 - Store and Create Projects
   - Unique Name
   - Milestone Hashes
