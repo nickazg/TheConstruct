@@ -193,6 +193,7 @@ All information required for a KYC approval will be assessed and approved by The
 <br>
 
 # 5. Platfrom Structure
+
 <p align="center">
   <img
     src="structure.png"
