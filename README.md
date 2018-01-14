@@ -195,14 +195,17 @@ All information required for a KYC approval will be assessed and approved by The
 # 5. Platfrom Structure
 We have designed **The Constructs** platform to be built upon the the NEO blockchain. Using NEO has been a conscious choise over other platforms for multiple reasons. 
 
-First of all, NEO is fast and will only get faster as more nodes are added to the network. It has proven to maintain this speed under heavy system load (seen during ICO's). Neo uses a unique dBFT protocol (Delegated Byzantine Fault Tolerance) which only requires transactions to have one confirmation, and uses substantially less power than a Proof-of-work protocol (used by Etherum and Bitcoin). These advantages create a stable, fast, cheap and secure decentralized network for everyone.
+First of all, NEO is fast and will only get faster as more nodes are added to the network. It has proven to maintain this speed under heavy system load (seen during ICO's). Neo uses a unique dBFT protocol (Delegated Byzantine Fault Tolerance) which only requires transactions one confirmation for 100% certainty, and uses substantially less power than a Proof-of-work protocol (used by Etherum and Bitcoin). These advantages create a stable, fast, cheap and secure decentralized network for everyone.
 
 Below is our platfrom configuration model we use to communicate between the NEO blockchain and the end-users:
 <p align="center">
-  <img
+   <img
     src="structure.png"
-    width="1000"
-    >
+    width="400"
+    ><img
+    src="structure_text.png"
+    width="400"
+    > 
 </p>
 
 
