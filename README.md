@@ -54,7 +54,7 @@ Another looming issue is often good projects are being released too early to gai
 
 <p align="center">
   <img
-    src="milestones.png"
+    src="funding_roadmap.png"
     width="1000"
     >
 </p>
@@ -202,7 +202,7 @@ All information required for a KYC approval will be assessed and approved by The
 
 
 
-# 6. Account types
+# 6. Account types  
 Accounts can be a combination of multipule types
 ## 6.1. Generic:
 All accounts by default will be of the generic type. This is the base account which can do everything from invest, propose, create or contribute projects as a project-member, but will remain uncategorised. 
