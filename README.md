@@ -94,6 +94,7 @@ In the current ICO space, a project generally only gets one opportunity to recei
 - [9. ​​Smart Contract Invoke Operations (Mockup)](#9-%E2%80%8B%E2%80%8Bsmart-contract-invoke-operations-mockup)
   - [9.1. Contracts Deployed:](#91-contracts-deployed)
   - [9.2. Contract Requirements](#92-contract-requirements)
+- [10. References](#10-references)
 
 <!-- /TOC -->
 
@@ -357,3 +358,7 @@ Specific to a certain project, an assigned Project Admin is allowed to edit all 
 - KYC Store and Check Hashes
   - Info Hashes
   - KYC Status
+
+# 10. References
+
+[1] https://icowatchlist.com/statistics/year/2017, 2017
