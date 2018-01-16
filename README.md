@@ -81,7 +81,6 @@ In the current ICO space, a project generally only gets one opportunity to recei
     - [3.1.2. **Milestones**](#312-milestones)
     - [3.1.3. **Funding Stages**](#313-funding-stages)
     - [3.1.4. **Funding Roadmap Forking**](#314-funding-roadmap-forking)
-    - [3.1.5. Funding Roadmap Example:](#315-funding-roadmap-example)
 - [4. KYC (Know Your Customer)](#4-kyc-know-your-customer)
 - [5. Platfrom Structure](#5-platfrom-structure)
 - [6. Account types](#6-account-types)
@@ -111,7 +110,7 @@ At the project proposal stage, project creators will pre-determine milestones an
 **Outdated image:*
 <p align="center">
   <img
-    src="milestones.png"
+    src="funding_roadmap3.png"
     width="1000"
     >
 </p>
@@ -139,7 +138,14 @@ For example, within a project, the founders have chosen to reserve a 20% shareho
 ### 3.1.2. **Milestones**
 A **Milestone** is a project goal or checkpoint that can be defined and tangibly proven as complete. The project creators determine the amount of Milestones and the activities undertaken at each point, while investors support or negate Milestone completion. In order to reach the next stage of funding, project creators give the investors from the preceding funding stage the opportunity to reject its completion. A Milestone is deemed as completed unless there is 51% rejection. In this case, the Milestone will need to be resubmitted or the Milestone Crowdfund is refunded back to its investors. This opt-in approach is designed to maintain efficient project momentum while still holding project creators accountable. 
 
-**Outdated image:*
+<p align="center">
+  <img
+    src="milestones.png"
+    style="width: 1000px;"
+    >
+</p>
+
+<!-- **Outdated image:*
 <p align="center">
    <img
     src="milestone.png"
@@ -148,7 +154,7 @@ A **Milestone** is a project goal or checkpoint that can be defined and tangibly
     src="milestone_completed.png"
     width="200"
     > 
-</p>
+</p> -->
 
 
 ### 3.1.3. **Funding Stages**
@@ -156,40 +162,40 @@ A Funding Stage within a Funding Roadmap is a crowdfund with a defined fund goal
 
 For each Funding Stage, when the funds goal is met or surpassed within the predetermined time-frame, the funding goal is a success. The predetermined Smart Token Shares will then be distributed according to investor contribution. If, however the funds goal is not met within the predetermined time-frame, the contributed investor funds will be refunded.
 
-**Outdated image:*
+<!-- **Outdated image:*
 <p align="center">
   <img
     src="progress_bar.png"
     width="800"
     >
-</p>
+</p> -->
 
 <p align="center">
   <img
-    src="fundingstage.png"
-    width="400"
+    src="funding_stages.png"
+    width="800"
     >
 </p>
 
 ### 3.1.4. **Funding Roadmap Forking**
 A Roadmap path can be split into two different directions at any stage, this is called **Forking**. This allows unrelated Milestones to be completed in parallel. The new Roadmap Fork will have its own source of funding, and is not interdependent on one another's completion for funding. Once a fork is completed, it will continue along the Funding Roadmap.
 
-**Outdated image:*
+<!-- **Outdated image:*
 <p align="center">
   <img
     src="forking.png"
     width="400"
     >
-</p>
+</p> -->
 
-### 3.1.5. Funding Roadmap Example:
+<!-- ### 3.1.5. Funding Roadmap Example:
 **Outdated image:*
 <p align="center">
   <img
     src="milestones.png"
     width="1000"
     >
-</p>
+</p> -->
 
 # 4. KYC (Know Your Customer)
 With a potential for an ICO token sale, a KYC approval is required for all investors and project admins involved.
