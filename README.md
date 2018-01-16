@@ -108,6 +108,7 @@ Crowdfunding underpins The Construct’s platform by segregating a traditional f
 ## 3.1. Funding Roadmap
 At the project proposal stage, project creators will pre-determine milestones and fundings stages which make up the development of the product. This makes up the **Funding Roadmap**. The Funding Roadmap is publicly accessible to potential investors and the general public, aiming for transparency along the process. Crowdfunding underpins the Funding Roadmap, as funds are traded for a predetermined financial stake in the project, we call this Smart Token Shares.
 
+**Outdated image:*
 <p align="center">
   <img
     src="milestones.png"
@@ -123,6 +124,7 @@ Once the project Milestones have all been successfully completed, the shares can
 
 For example, within a project, the founders have chosen to reserve a 20% shareholding of their Smart Token Shares, 40% will be distributed to investors along the Funding Roadmap and the remaining 40% will distributed in the ICO at the end of the Funding Roadmap.
 
+**Outdated image:*
 <p align="center">
   <img
     src="share_bar.png"
@@ -137,6 +139,7 @@ For example, within a project, the founders have chosen to reserve a 20% shareho
 ### 3.1.2. **Milestones**
 A **Milestone** is a project goal or checkpoint that can be defined and tangibly proven as complete. The project creators determine the amount of Milestones and the activities undertaken at each point, while investors support or negate Milestone completion. In order to reach the next stage of funding, project creators give the investors from the preceding funding stage the opportunity to reject its completion. A Milestone is deemed as completed unless there is 51% rejection. In this case, the Milestone will need to be resubmitted or the Milestone Crowdfund is refunded back to its investors. This opt-in approach is designed to maintain efficient project momentum while still holding project creators accountable. 
 
+**Outdated image:*
 <p align="center">
    <img
     src="milestone.png"
@@ -153,6 +156,7 @@ A Funding Stage within a Funding Roadmap is a crowdfund with a defined fund goal
 
 For each Funding Stage, when the funds goal is met or surpassed within the predetermined time-frame, the funding goal is a success. The predetermined Smart Token Shares will then be distributed according to investor contribution. If, however the funds goal is not met within the predetermined time-frame, the contributed investor funds will be refunded.
 
+**Outdated image:*
 <p align="center">
   <img
     src="progress_bar.png"
@@ -170,6 +174,7 @@ For each Funding Stage, when the funds goal is met or surpassed within the prede
 ### 3.1.4. **Funding Roadmap Forking**
 A Roadmap path can be split into two different directions at any stage, this is called **Forking**. This allows unrelated Milestones to be completed in parallel. The new Roadmap Fork will have its own source of funding, and is not interdependent on one another's completion for funding. Once a fork is completed, it will continue along the Funding Roadmap.
 
+**Outdated image:*
 <p align="center">
   <img
     src="forking.png"
@@ -178,6 +183,7 @@ A Roadmap path can be split into two different directions at any stage, this is 
 </p>
 
 ### 3.1.5. Funding Roadmap Example:
+**Outdated image:*
 <p align="center">
   <img
     src="milestones.png"
