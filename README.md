@@ -19,7 +19,7 @@
 --->
 
 # 1. Introducing The Construct
-**The Construct ** provides a platform for entrepreneurs and investors to collaborate, fund and grow projects in a secure and transparent environment backed by blockchain technology. The Construct holds project legitimacy and accountability right at the core of its function, ensuring the production of high quality and trusted projects.
+**The Construct** provides a platform for entrepreneurs and investors to collaborate, fund and grow projects in a secure and transparent environment backed by blockchain technology. The Construct holds project legitimacy and accountability right at the core of its function, ensuring the production of high quality and trusted projects.
 
 
 <!-- 
