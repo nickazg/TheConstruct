@@ -56,7 +56,7 @@ In the current ICO space, a project generally only gets one opportunity to recei
 
 <p align="center">
   <img
-    src="funding_roadmap.png"
+    src="funding_roadmap2.png"
     width="1000"
     >
 </p>
