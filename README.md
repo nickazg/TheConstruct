@@ -1,12 +1,12 @@
 <p align="center" style="font-size:60px; line-height:10px">
   <img
-    src="construct_logo_blue.png"
+    src="resources/images/construct_logo_blue.png"
     width="250px;">
 </p>
 
 <p align="center">
   <img
-    src="title.png">
+    src="resources/images/title.png">
 </p>
 </br>
 
@@ -56,7 +56,7 @@ In the current ICO space, a project generally only gets one opportunity to recei
 
 <p align="center">
   <img
-    src="funding_roadmap3.png"
+    src="resources/images/funding_roadmap3.png"
     width="1000"
     >
 </p>
@@ -107,10 +107,9 @@ Crowdfunding underpins The Construct’s platform by segregating a traditional f
 ## 3.1. Funding Roadmap
 At the project proposal stage, project creators will pre-determine milestones and fundings stages which make up the development of the product. This makes up the **Funding Roadmap**. The Funding Roadmap is publicly accessible to potential investors and the general public, aiming for transparency along the process. Crowdfunding underpins the Funding Roadmap, as funds are traded for a predetermined financial stake in the project, we call this Smart Token Shares.
 
-**Outdated image:*
 <p align="center">
   <img
-    src="funding_roadmap3.png"
+    src="resources/images/funding_roadmap3.png"
     width="1000"
     >
 </p>
@@ -126,7 +125,7 @@ For example, within a project, the founders have chosen to reserve a 20% shareho
 **Outdated image:*
 <p align="center">
   <img
-    src="share_bar.png"
+    src="resources/images/share_bar.png"
     style="width: 1000px;"
     >
 </p>
@@ -140,7 +139,7 @@ A **Milestone** is a project goal or checkpoint that can be defined and tangibly
 
 <p align="center">
   <img
-    src="milestones.png"
+    src="resources/images/milestones.png"
     style="width: 1000px;"
     >
 </p>
@@ -172,7 +171,7 @@ For each Funding Stage, when the funds goal is met or surpassed within the prede
 
 <p align="center">
   <img
-    src="funding_stages.png"
+    src="resources/images/funding_stages.png"
     width="800"
     >
 </p>
@@ -213,10 +212,10 @@ First of all, NEO is fast and will only get faster as more nodes are added to th
 Below is our platform configuration model we use to communicate between the NEO blockchain and the end-users:
 <p align="center">
    <img
-    src="structure.png"
+    src="resources/images/structure.png"
     width="400"
     ><img
-    src="structure_text.png"
+    src="resources/images/structure_text.png"
     width="400"
     > 
 </p>
