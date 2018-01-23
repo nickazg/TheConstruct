@@ -48,7 +48,7 @@ def Main(operation, args):
         print("operation: ", operation)
         
         if operation == 'create':
-            sts.deploy_new_project_sts("MyProjID", sts.owner, 'FST', 8)
+            sts.deploy_new_project_sts("MyProjID", sts.owner, 'FST')
         
         if operation == 'start_new_crowdfund':  
             sts.start_new_crowdfund("MyProjID", 1, 100000, 1000, 100)
@@ -62,4 +62,6 @@ def Main(operation, args):
         print(sts.project_id)
         print(sts.total_supply)
         print("DEBUG ## ")
+
+        return True
         
