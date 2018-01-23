@@ -18,8 +18,11 @@ VERSION = "0.0.1"
 from boa.blockchain.vm.Neo.Runtime import GetTrigger, CheckWitness
 from boa.blockchain.vm.Neo.TriggerType import Application, Verification
 
+from construct.platform.SmartTokenShare import SmartTokenShare
+
+
 OWNER = b''
-# GAS_ASSET_ID = b'\xe7\x2d\x28\x69\x79\xee\x6c\xb1\xb7\xe6\x5d\xfd\xdf\xb2\xe3\x84\x10\x0b\x8d\x14\x8e\x77\x58\xde\x42\xe4\x16\x8b\x71\x79\x2c\x60'
+GAS_ASSET_ID = b'\xe7\x2d\x28\x69\x79\xee\x6c\xb1\xb7\xe6\x5d\xfd\xdf\xb2\xe3\x84\x10\x0b\x8d\x14\x8e\x77\x58\xde\x42\xe4\x16\x8b\x71\x79\x2c\x60'
 
 def Main(operation, args):
     """Entry point for the smart contract.
@@ -32,14 +35,31 @@ def Main(operation, args):
         (int): status code representing if execution was a success.
     """    
     
+    sts = SmartTokenShare()
+
     # Gets the transaction trigger
     trigger = GetTrigger()
     
-    print("args", args)
     
     if trigger == Verification:
-        return CheckWitness(OWNER)
+        return True
 
     elif trigger == Application:
         print("operation: ", operation)
+        
+        if operation == 'create':
+            sts.deploy_new_project_sts("MyProjID", sts.owner, 'FST', 8)
+        
+        if operation == 'start_new_crowdfund':  
+            sts.start_new_crowdfund("MyProjID", 1, 100000, 1000, 100)
+        
+        if operation == 'check':  
+            sts.get_project("MyProjID")
+    
+        print("## DEBUG")
+        print(sts.symbol)
+        print(sts.current_tokens_per_gas)
+        print(sts.project_id)
+        print(sts.total_supply)
+        print("DEBUG ## ")
         
