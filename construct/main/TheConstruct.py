@@ -19,6 +19,7 @@ from boa.blockchain.vm.Neo.Runtime import GetTrigger, CheckWitness
 from boa.blockchain.vm.Neo.TriggerType import Application, Verification
 
 from construct.platform.SmartTokenShare import SmartTokenShare
+from construct.platform.SmartTokenShareHandler import SmartTokenShareHandler
 
 
 OWNER = b''
@@ -32,36 +33,57 @@ def Main(operation, args):
         args (str):
             UUID used as the second part of the key for Storage.Put().
     Return:
-        (int): status code representing if execution was a success.
+        (bytearray): The result of the operation
     """    
     
-    sts = SmartTokenShare()
-
     # Gets the transaction trigger
     trigger = GetTrigger()
-    
     
     if trigger == Verification:
         return True
 
     elif trigger == Application:
-        print("operation: ", operation)
         
-        if operation == 'create':
-            sts.deploy_new_project_sts("MyProjID", sts.owner, 'FST')
-        
-        if operation == 'start_new_crowdfund':  
-            sts.start_new_crowdfund("MyProjID", 1, 100000, 1000, 100)
-        
-        if operation == 'check':  
-            sts.get_project("MyProjID")
-    
-        print("## DEBUG")
-        print(sts.symbol)
-        print(sts.current_tokens_per_gas)
-        print(sts.project_id)
-        print(sts.total_supply)
-        print("DEBUG ## ")
+        if operation != None and len(args) > 0:
+            
+            sts = SmartTokenShare()
+            sts_handler = SmartTokenShareHandler()
 
-        return True
+            # project_id always first arg
+            project_id = args[0]
+
+            # Pulling info from storeage
+            sts.get_project_info(project_id)        
+
+            for handler_op in sts_handler.get_methods():
+                if operation == handler_op:
+                    return sts_handler.handle_sts(operation, args, sts)
+
+            # TEST
+            if operation == 'create':
+                symbol = args[2]
+                owner = args[1]
+                sts.deploy_new_sts(project_id, owner, symbol)
+            
+            # # TEST
+            # if operation == 'start_new_crowdfund':  
+            #     sts.start_new_crowdfund("MyProjID", 1, 100000, 1000, 100)
+
         
+            # print("## DEBUG")
+            # print(sts.symbol)
+            # print(sts.current_tokens_per_gas)
+            # print(sts.project_id)
+            # print(sts.total_supply)
+            # print("DEBUG ## ")
+
+            return True
+            
+            # TODO - Dont forget ;) 
+            # Fork contract to new version, all storage is transferred.
+            # See: https://github.com/neo-project/neo/blob/master/neo/SmartContract/StateMachine.cs#L210
+            if operation == 'contract_migrate':
+
+                # Check if the invoker is the owner of this contract
+                if CheckWitness(OWNER):
+                    print("Migrate Contract!")

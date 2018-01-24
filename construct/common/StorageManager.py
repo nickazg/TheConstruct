@@ -3,7 +3,7 @@ from boa.code.builtins import concat
 
 class StorageManager():
     """
-    Wrapper for the storage api
+    Wrapper for the storage api and adds convenient functionality
     """
     ctx = GetContext()
 
@@ -27,3 +27,14 @@ class StorageManager():
     def delete_type(self, key_type, key):
         storage_key = concat(key_type, key)
         return self.delete(storage_key)
+
+    # Serialization
+    # https://github.com/CityOfZion/neo-boa/blob/master/boa/tests/src/SerializationTest.py
+    # ability to combine multiple key-value stores into one object
+    def flatten_storage(self):
+        pass
+    
+    # Deserialization
+    # ability to to expand flattened storage back into its respective key-value stores   
+    def expand_storage(self):
+        pass

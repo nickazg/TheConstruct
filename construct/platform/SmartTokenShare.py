@@ -1,9 +1,9 @@
 from construct.common.StorageManager import StorageManager
-from boa.code.builtins import concat
 
 class SmartTokenShare():
     """
-    Basic template for a Smart Token Share (STS), based on NEP5 token.
+    A Template for a Smart Token Share (STS), based on NEP5 token however all variables 
+    are stored in the contract storage.
     """    
     symbol = ''
 
@@ -27,9 +27,8 @@ class SmartTokenShare():
 
     # when to end the initial limited round
     current_sale_end_block = 1000
-
-    # Create new project token
-    def deploy_new_project_sts(self, project_id:str, owner:bytes, symbol:str):
+    
+    def deploy_new_sts(self, project_id:str, owner:bytes, symbol:str):
         """Method to Deploy a new project Smart Token Share
         Args:
             project_id (str):
@@ -58,7 +57,7 @@ class SmartTokenShare():
         else:
             return 0    
     
-    def get_project(self, project_id:str):
+    def get_project_info(self, project_id:str):
         """Method to pull and populate SmartTokenShare object
         Args:
             project_id (str):
@@ -70,14 +69,18 @@ class SmartTokenShare():
         # Pulling variables from contract storage
         storage = StorageManager()
         symbol = storage.get_type('STS_symbol', project_id)
-        owner = storage.get_type('STS_owner', project_id)
-        current_sale_start_block = storage.get_type('STS_current_sale_start_block', project_id)
-        current_sale_end_block = storage.put_type('STS_current_sale_end_block', project_id)
-        current_supply = storage.put_type('STS_current_supply', project_id)
-        current_tokens_per_gas = storage.put_type('STS_current_tokens_per_gas', project_id)
+        print('### symbol')
+        print(symbol)
+        print('symbol ###')
 
         # Will return with status code 0 if project doesnt exist.
         if symbol:
+            print("made it!")
+            owner = storage.get_type('STS_owner', project_id)
+            current_sale_start_block = storage.get_type('STS_current_sale_start_block', project_id)
+            current_sale_end_block = storage.get_type('STS_current_sale_end_block', project_id)
+            current_supply = storage.get_type('STS_current_supply', project_id)
+            current_tokens_per_gas = storage.get_type('STS_current_tokens_per_gas', project_id)
 
             # Updates STS object with values from contract storage
             self.symbol = symbol
@@ -88,11 +91,9 @@ class SmartTokenShare():
             self.current_supply = current_supply
             self.current_tokens_per_gas =  current_tokens_per_gas
 
-            return 1
+            return True
         
-        else:
-            return 0
-
+        return False
     
     def start_new_crowdfund(self, project_id:str, start_block:int, end_block:int, supply:int, tokens_per_gas:int):
         """Method to create a new crowdfund setting all necessary variables and storage values 
@@ -133,7 +134,6 @@ class SmartTokenShare():
         storage.put_type('STS_current_supply', project_id, self.current_supply)
 
         return 1
-
 
     def current_available_amount(self, project_id:str):
         """
