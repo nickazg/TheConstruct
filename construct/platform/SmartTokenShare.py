@@ -2,7 +2,7 @@ from construct.common.StorageManager import StorageManager
 
 class SmartTokenShare():
     """
-    A Template for a Smart Token Share (STS), based on NEP5 token however all variables 
+    A Template for a Smart Token Share (STS), managing STS info. Based on NEP5 token, however all values 
     are stored in the contract storage.
     """    
     symbol = ''
@@ -44,9 +44,9 @@ class SmartTokenShare():
         storage = StorageManager()
         
         # Checks if project isnt saved already
-        if storage.get_type('STS_symbol', project_id) != symbol:
-            storage.put_type('STS_symbol', project_id, symbol)
-            storage.put_type('STS_owner', project_id, owner)
+        if storage.get_double('STS_symbol', project_id) != symbol:
+            storage.put_double('STS_symbol', project_id, symbol)
+            storage.put_double('STS_owner', project_id, owner)
 
             self.symbol = symbol
             self.project_id = project_id
@@ -68,7 +68,7 @@ class SmartTokenShare():
         """  
         # Pulling variables from contract storage
         storage = StorageManager()
-        symbol = storage.get_type('STS_symbol', project_id)
+        symbol = storage.get_double('STS_symbol', project_id)
         print('### symbol')
         print(symbol)
         print('symbol ###')
@@ -76,11 +76,11 @@ class SmartTokenShare():
         # Will return with status code 0 if project doesnt exist.
         if symbol:
             print("made it!")
-            owner = storage.get_type('STS_owner', project_id)
-            current_sale_start_block = storage.get_type('STS_current_sale_start_block', project_id)
-            current_sale_end_block = storage.get_type('STS_current_sale_end_block', project_id)
-            current_supply = storage.get_type('STS_current_supply', project_id)
-            current_tokens_per_gas = storage.get_type('STS_current_tokens_per_gas', project_id)
+            owner = storage.get_double('STS_owner', project_id)
+            current_sale_start_block = storage.get_double('STS_current_sale_start_block', project_id)
+            current_sale_end_block = storage.get_double('STS_current_sale_end_block', project_id)
+            current_supply = storage.get_double('STS_current_supply', project_id)
+            current_tokens_per_gas = storage.get_double('STS_current_tokens_per_gas', project_id)
 
             # Updates STS object with values from contract storage
             self.symbol = symbol
@@ -117,9 +117,9 @@ class SmartTokenShare():
         """  
         # Updating storage
         storage = StorageManager()        
-        storage.put_type('STS_current_sale_start_block', project_id, start_block)
-        storage.put_type('STS_current_sale_end_block', project_id, end_block)
-        storage.put_type('STS_current_tokens_per_gas', project_id, tokens_per_gas)
+        storage.put_double('STS_current_sale_start_block', project_id, start_block)
+        storage.put_double('STS_current_sale_end_block', project_id, end_block)
+        storage.put_double('STS_current_tokens_per_gas', project_id, tokens_per_gas)
         
         # Updating STS object
         self.current_sale_start_block = start_block
@@ -127,11 +127,11 @@ class SmartTokenShare():
         self.current_tokens_per_gas = tokens_per_gas
 
         # Calculating current supply based on input supply and current tokens in circulation
-        in_circulation = storage.get_type('STS_in_circulation', project_id)
+        in_circulation = storage.get_double('STS_in_circulation', project_id)
         self.current_supply = in_circulation + supply
         
         # Updates current supply storage
-        storage.put_type('STS_current_supply', project_id, self.current_supply)
+        storage.put_double('STS_current_supply', project_id, self.current_supply)
 
         return 1
 
@@ -145,10 +145,10 @@ class SmartTokenShare():
         """
         # Gets the amount of tokens currently in circulation
         storage = StorageManager()
-        in_circulation = storage.get_type('STS_in_circulation', project_id)
+        in_circulation = storage.get_double('STS_in_circulation', project_id)
 
         # Gets the current supply ( not total supply )
-        self.current_supply = storage.get_type('STS_current_supply', project_id)
+        self.current_supply = storage.get_double('STS_current_supply', project_id)
        
         # Calculates the remaining avaliable supply by subtracting current circulation 
         # from current supply
@@ -165,7 +165,7 @@ class SmartTokenShare():
         """
         # Gets the amount of tokens currently in circulation
         storage = StorageManager()
-        in_circulation = storage.get_type('STS_in_circulation', project_id)
+        in_circulation = storage.get_double('STS_in_circulation', project_id)
 
         # Calculates remaining avaliable supply by subtracting current circulation 
         # from total supply
@@ -184,13 +184,13 @@ class SmartTokenShare():
         """
         # Gets the amount of tokens currently in circulation
         storage = StorageManager()
-        in_circulation = storage.get_type('STS_in_circulation', project_id)
+        in_circulation = storage.get_double('STS_in_circulation', project_id)
 
         # Adds input amount to circulation
         in_circulation += amount
 
         # Puts updated circulation amount back to storage
-        storage.put_type('STS_in_circulation', project_id, in_circulation)
+        storage.put_double('STS_in_circulation', project_id, in_circulation)
 
     def get_circulation(self, project_id:str):
         """
@@ -204,4 +204,4 @@ class SmartTokenShare():
         """        
         # Gets the amount of tokens currently in circulation
         storage = StorageManager()
-        return storage.get_type('STS_in_circulation', project_id)
+        return storage.get_double('STS_in_circulation', project_id)

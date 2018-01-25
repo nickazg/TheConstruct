@@ -20,6 +20,7 @@ from boa.blockchain.vm.Neo.TriggerType import Application, Verification
 
 from construct.platform.SmartTokenShare import SmartTokenShare
 from construct.platform.SmartTokenShareHandler import SmartTokenShareHandler
+from construct.platform.FundingStage import FundingStage
 
 
 OWNER = b''
@@ -38,7 +39,8 @@ def Main(operation, args):
     
     # Gets the transaction trigger
     trigger = GetTrigger()
-    
+    fs = FundingStage()
+
     if trigger == Verification:
         return True
 
@@ -52,6 +54,8 @@ def Main(operation, args):
             # project_id always first arg
             project_id = args[0]
 
+            # fs.start_new_crowdfund(project_id, sts)
+            
             # Pulling info from storeage
             sts.get_project_info(project_id)        
 

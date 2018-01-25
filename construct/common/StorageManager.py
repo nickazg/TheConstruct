@@ -10,24 +10,39 @@ class StorageManager():
     def get(self, key):
         return Get(self.ctx, key)
     
-    def get_type(self, key_type, key):
-        storage_key = concat(key_type, key)
+    def get_double(self, key_one, key_two):
+        storage_key = concat(key_one, key_two)
         return self.get(storage_key)
+
+    def get_triple(self, key_one, key_two, key_three):
+        storage_key_two = concat(key_one, key_two)
+        storage_key_three = concat(storage_key_two, key_three)
+        return self.get(storage_key_three)
 
     def put(self, key, value):
         Put(self.ctx, key, value)
     
-    def put_type(self, key_type, key, value):
-        storage_key = concat(key_type, key)
+    def put_double(self, key_one, key_two, value):
+        storage_key = concat(key_one, key_two)
         return self.put(storage_key, value)
+
+    def put_triple(self, key_one, key_two, key_three, value):
+        storage_key_two = concat(key_one, key_two)
+        storage_key_three = concat(storage_key_two, key_three)
+        return self.put(storage_key_three, value)
 
     def delete(self, key):
         Delete(self.ctx, key)
 
-    def delete_type(self, key_type, key):
-        storage_key = concat(key_type, key)
+    def delete_double(self, key_one, key_two):
+        storage_key = concat(key_one, key_two)
         return self.delete(storage_key)
-
+    
+    def delete_triple(self, key_one, key_two, key_three):
+        storage_key_two = concat(key_one, key_two)
+        storage_key_three = concat(storage_key_two, key_three)
+        return self.delete(storage_key_three)
+    
     # Serialization
     # https://github.com/CityOfZion/neo-boa/blob/master/boa/tests/src/SerializationTest.py
     # ability to combine multiple key-value stores into one object
