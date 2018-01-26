@@ -18,6 +18,7 @@ VERSION = "0.0.1"
 from boa.blockchain.vm.Neo.Runtime import GetTrigger, CheckWitness
 from boa.blockchain.vm.Neo.TriggerType import Application, Verification
 
+from construct.common.StorageManager import StorageManager
 from construct.platform.SmartTokenShare import SmartTokenShare
 from construct.platform.SmartTokenShareHandler import SmartTokenShareHandler
 from construct.platform.FundingStage import FundingStage
@@ -45,7 +46,6 @@ def Main(operation, args):
         return True
 
     elif trigger == Application:
-        
         if operation != None and len(args) > 0:
             
             sts = SmartTokenShare()
