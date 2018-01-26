@@ -17,18 +17,26 @@ class KYC():
     """
 
     def kyc_register(self, args, sts:SmartTokenShare):
-        """
+        """    
+        Registers all input addresses 
+        Args:
+            args (list):
+                list a list of arguments
+            
+            sts (SmartTokenShare):
+                Smart Token Share reference object
 
-        :param args:list a list of addresses to register
-        :param token:Token A token object with your ICO settings
-        :return:
-            int: The number of addresses to register for KYC
+        Return:
+            (int): The number of addresses to registered for KYC
         """
         ok_count = 0
+        
+        # Ignoring the first arg which should be the project_id
+        addresses = args[1:]
 
         if CheckWitness(sts.owner):
 
-            for address in args:
+            for address in addresses:
 
                 if len(address) == 20:
 
@@ -41,20 +49,24 @@ class KYC():
         return ok_count
 
 
-    def kyc_status(self, args):
+    def kyc_status(self, args, sts:SmartTokenShare):
         """
         Gets the KYC Status of an address
 
-        :param args:list a list of arguments
-        :return:
-            bool: Returns the kyc status of an address
+        Args:
+            args (list):
+                list a list of arguments
+            
+            sts (SmartTokenShare):
+                Smart Token Share reference object
+        Return:
+            (bool): Returns the kyc status of an address
         """
         storage = StorageManager()
 
         if len(args) > 1:
-            project_id = args[0]
             address = args[1]
 
-            return storage.get_triple(project_id, 'KYC_address', address)
+            return storage.get_triple(sts.project_id, 'KYC_address', address)
 
         return False

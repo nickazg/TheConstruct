@@ -22,6 +22,7 @@ from construct.common.StorageManager import StorageManager
 from construct.platform.SmartTokenShare import SmartTokenShare
 from construct.platform.SmartTokenShareHandler import SmartTokenShareHandler
 from construct.platform.FundingStage import FundingStage
+from construct.platform.FundingRoadmap import FundingRoadmap
 
 
 OWNER = b''
