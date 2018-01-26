@@ -9,12 +9,41 @@ class FundingStage():
     Manages the Smart Token Share in the contex of a funding roadmap, controls when news 
     crowdsales
     """
+    sts = SmartTokenShare()
+    funding_stage_id = ''
+    sts_supply = 0
+    start_block = 0
+    end_block = 0
+    tokens_per_gas = 0 # as * 10^8 decimals
 
-    def start_new_crowdfund(self, sts:SmartTokenShare, start_block:int, end_block:int, supply:int, tokens_per_gas:int):
-        sts.get_project_info(sts.project_id)
-        # start_block = 123
-        # end_block = 123123
-        # supply = 1110
-        tokens_per_gas_calculated = tokens_per_gas * (10**sts.decimal)
-        sts.start_new_crowdfund(sts.project_id, start_block, end_block, supply, tokens_per_gas)
-        return True
+    def create(self, sts:SmartTokenShare, funding_stage_id:str, sts_supply:int, start_block:int, end_block:int, tokens_per_gas:int):
+        """Setup the new funding stage, and creates a new crowdfund on the Smart Token Share
+        Args:
+            sts (SmartTokenShare):
+                Smart Token Share reference object
+
+            funding_stage_id (str):
+                ID to reference the funding stage
+
+            sts_supply (int):
+                The supply of smart token shares to be distributed in this funding stage
+
+            start_block (int):
+                Starting block of the fund
+
+            end_block (int):
+                Ending block of the fund
+
+            tokens_per_gas (int):
+                Token multiplyer for sts tokens to be distributed
+        """  
+        self.sts = SmartTokenShare()
+        self.funding_stage_id = funding_stage_id
+        self.sts_supply = sts_supply
+        self.start_block = start_block
+        self.end_block = end_block
+        self.tokens_per_gas = tokens_per_gas
+
+        # Need to update sts to current 
+        sts.start_new_crowdfund(sts.project_id, start_block, end_block, sts_supply, tokens_per_gas)
+    

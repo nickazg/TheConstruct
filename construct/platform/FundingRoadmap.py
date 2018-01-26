@@ -12,6 +12,7 @@ class FundingRoadmap():
     SmartTokenShare.
     """
     project_id = ''
+    funding_stages = list()
 
     def set_project_id(self, project_id):
         """Sets the current FundingRoadmap reference project_id
@@ -47,4 +48,6 @@ class FundingRoadmap():
         
         serialized_combined_fs = concat(serialized_cur_fs, serialized_new_fs)
 
-        serialized_cur_fs = storage.put_double('FS_stages', self.project_id, serialized_combined_fs)
+        storage.put_double('FS_stages', self.project_id, serialized_combined_fs)
+
+        self.funding_stages = serialized_combined_fs
