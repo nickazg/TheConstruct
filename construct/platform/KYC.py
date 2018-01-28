@@ -15,6 +15,24 @@ class KYC():
     """
     Manages KYC registration and lookup
     """
+    
+    # User submit
+    def kyc_submit(self, sts:SmartTokenShare, address, first_name, last_name, id_type, id_number, id_expiry, file_location, file_hash):
+        storage = StorageManager()
+        if CheckWitness(address):
+            if len(address) == 20:
+                kyc_array = list(address, first_name, last_name, id_type, id_number, id_expiry, file_location, file_hash)
+                serialized_kyc_sub = storage.serialize_array(output_kyc_array)
+                storage.put_triple('KYC', sts.project_id, address, serialized_kyc_sub)
+                return address
+    
+    # Admin check
+    def get_kyc_submission(self, sts:SmartTokenShare, address):
+        storage = StorageManager()
+        if CheckWitness(sts.owner):
+            if len(address) == 20:
+                serialized_kyc_sub = storage.get_triple('KYC', sts.project_id, address)
+                return storage.deserialize_bytearray(serialized_kyc_sub)                
 
     def kyc_register(self, args, sts:SmartTokenShare):
         """    

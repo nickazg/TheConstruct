@@ -35,7 +35,7 @@ class FundingStage():
                 Ending block of the fund
 
             tokens_per_gas (int):
-                Token multiplyer for sts tokens to be distributed
+                Token multiplier for sts tokens to be distributed
         """  
         self.sts = SmartTokenShare()
         self.funding_stage_id = funding_stage_id
