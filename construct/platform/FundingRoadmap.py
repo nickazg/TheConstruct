@@ -19,8 +19,21 @@ class FundingRoadmap():
         Args:
             project_id (str):
                 ID for referencing the project
-        """    
+        """
         self.project_id = project_id
+
+    def get_funding_stage(self, funding_stage_id:str):
+        """
+        Gets a fundings stage from the input funding_id
+        Args:
+            funding_stage_id(str):
+                Unique id referencing sepecific fund
+        Returns:
+            (FundingStage): output Funding Stage object with input ID
+        """
+        funding_stage = FundingStage()
+        return funding_stage.read_from_storage(self.project_id, funding_stage_id)
+
 
     def get_funding_stages(self):
         """    
@@ -44,7 +57,7 @@ class FundingRoadmap():
         storage = StorageManager()
 
         serialized_cur_fs = storage.get_double('FS_stages', self.project_id)
-        serialized_new_fs = storage.serialize_array(add_funding_stages)
+        serialized_new_fs = storage.serialize_array(new_funding_stages)
         
         serialized_combined_fs = concat(serialized_cur_fs, serialized_new_fs)
 

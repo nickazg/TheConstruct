@@ -3,7 +3,7 @@ from boa.code.builtins import concat, list, range, take, substr
 
 class StorageManager():
     """
-    Wrapper for the storage api and adds convenient functionality
+    Wrapper for the default storage api and adds convenient  functionality
     """
     ctx = GetContext()
 
@@ -127,14 +127,3 @@ class StorageManager():
             newdata = newdata[end:]
 
         return new_collection
-
-    # Serialization
-    # https://github.com/CityOfZion/neo-boa/blob/master/boa/tests/src/SerializationTest.py
-    # ability to combine multiple key-value stores into one object
-    def flatten_storage(self):
-        pass
-    
-    # Deserialization
-    # ability to to expand flattened storage back into its respective key-value stores   
-    def expand_storage(self):
-        pass
