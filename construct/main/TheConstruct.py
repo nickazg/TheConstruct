@@ -101,20 +101,18 @@ def Main(operation, args):
                 funding_stages = ['fs1', 'fs2', 'fs3']
                 funding_roadmap.add_funding_stages(funding_stages)
 
-            if operation == 'fr_get':
+            # if operation == 'fr_get':
                 funding_roadmap = FundingRoadmap()
                 funding_roadmap.set_project_id(project_id)
                 funding_stages = funding_roadmap.get_funding_stages()
                 
                 print("#funding_stages")
-                fun_len = len(funding_stages)
-                print(fun_len)
 
                 for fs_id in funding_stages:
-                    # funding_stage = FundingStage()
-                    # funding_stage.read_from_storage(project_id, fs_id)
                     print('###')
                     print(fs_id)
+                    funding_stage = FundingStage()
+                    funding_stage.read_from_storage(project_id, fs_id)                    
                     # print(funding_stage.funding_stage_id)
                     # print(funding_stage.sts_supply)
                     print('######')

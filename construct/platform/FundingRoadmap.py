@@ -64,7 +64,7 @@ class FundingRoadmap():
 
         # Serializes new funding stages 
         serialized_new_fs = storage.serialize_array(new_funding_stages)
-        
+
         # Updates funding stages list
         serialized_combined_fs = concat(serialized_cur_fs, serialized_new_fs)
 

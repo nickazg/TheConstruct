@@ -47,20 +47,19 @@ class FundingStage():
         self.end_block = end_block
         self.tokens_per_gas = tokens_per_gas
 
-        # Need to update sts to current 
-        # sts =  SmartTokenShare()
-        # sts.get_project_info(project_id)
-        # sts.start_new_crowdfund(project_id, start_block, end_block, sts_supply, tokens_per_gas)
+        # Saves to contract storage
+        self.save_to_storage()
 
         return funding_stage_id
 
+    
     def save_to_storage(self):
         """
         Saves the current funding stage to contract storage
         """
         storage = StorageManager()
         
-        info_list = list(self.sts_supply, self.start_block, self.end_block, self.tokens_per_gas)
+        info_list = [self.sts_supply, self.start_block, self.end_block, self.tokens_per_gas]
         
         serialized_info = storage.serialize_array(info_list)
 
@@ -88,10 +87,12 @@ class FundingStage():
         info_list = storage.deserialize_bytearray(serialized_info)
 
         # Populating neccearry variables
-        self.project_id = project_id
-        self.funding_stage_id = funding_stage_id
-        self.sts_supply = info_list[0]
-        self.start_block = info_list[1]
-        self.end_block = info_list[2]
-        self.tokens_per_gas = info_list[3]
+        if len(info_list) >= 4:
+            self.project_id = project_id
+            self.funding_stage_id = funding_stage_id
+            self.sts_supply = info_list[0]
+            self.sts_supply = info_list[0]
+            self.start_block = info_list[1]
+            self.end_block = info_list[2]
+            self.tokens_per_gas = info_list[3]
 
