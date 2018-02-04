@@ -69,9 +69,6 @@ class SmartTokenShare():
         # Pulling variables from contract storage
         storage = StorageManager()
         symbol = storage.get_double('STS_symbol', project_id)
-        print('### symbol')
-        print(symbol)
-        print('symbol ###')
 
         # Will return with status code 0 if project doesnt exist.
         if symbol:

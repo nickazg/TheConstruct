@@ -109,7 +109,7 @@ At the project proposal stage, project creators will pre-determine milestones an
 
 <p align="center">
   <img
-    src="resources/images/funding_roadmap3.png"
+    src="resources/images/funding_roadmap_blank.png"
     width="1000"
     >
 </p>

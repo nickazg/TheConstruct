@@ -48,10 +48,12 @@ class FundingStage():
         self.tokens_per_gas = tokens_per_gas
 
         # Need to update sts to current 
-        sts =  SmartTokenShare()
-        sts.get_project_info(project_id)
-        sts.start_new_crowdfund(project_id, start_block, end_block, sts_supply, tokens_per_gas)
-    
+        # sts =  SmartTokenShare()
+        # sts.get_project_info(project_id)
+        # sts.start_new_crowdfund(project_id, start_block, end_block, sts_supply, tokens_per_gas)
+
+        return funding_stage_id
+
     def save_to_storage(self):
         """
         Saves the current funding stage to contract storage

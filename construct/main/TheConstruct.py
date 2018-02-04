@@ -69,7 +69,56 @@ def Main(operation, args):
                 symbol = args[2]
                 owner = args[1]
                 sts.deploy_new_sts(project_id, owner, symbol)
+
+            if operation == 'test':
+                print('###TEST')
+                storage = StorageManager()
+                # test_list = list('fs1', 'fs2', 'fs3')
+                test_list = ["sdad","adsa","asda"]
+                
+                # test_list_len = len(test_list)
+                # print(test_list_len)
+                
+                test_serialize = storage.serialize_array(test_list)
+                print(test_serialize)
+                
+                # test_deserialize = storage.deserialize_bytearray(test_serialize)
+                # test_deserialize_len = len(test_deserialize)
+                # print(test_deserialize_len)
+                print('TEST###')
+
+
             
+            if operation == 'fr_make':
+                funding_roadmap = FundingRoadmap()
+                funding_roadmap.set_project_id(project_id)
+
+                funding_stage = FundingStage()
+                funding_stage.create(project_id, 'fs1', 1000, 50, 100000, 20)
+                funding_stage.create(project_id, 'fs2', 2000, 50, 100000, 20)
+                funding_stage.create(project_id, 'fs3', 3000, 50, 100000, 20)
+
+                funding_stages = ['fs1', 'fs2', 'fs3']
+                funding_roadmap.add_funding_stages(funding_stages)
+
+            if operation == 'fr_get':
+                funding_roadmap = FundingRoadmap()
+                funding_roadmap.set_project_id(project_id)
+                funding_stages = funding_roadmap.get_funding_stages()
+                
+                print("#funding_stages")
+                fun_len = len(funding_stages)
+                print(fun_len)
+
+                for fs_id in funding_stages:
+                    # funding_stage = FundingStage()
+                    # funding_stage.read_from_storage(project_id, fs_id)
+                    print('###')
+                    print(fs_id)
+                    # print(funding_stage.funding_stage_id)
+                    # print(funding_stage.sts_supply)
+                    print('######')
+
             # # TEST
             # if operation == 'start_new_crowdfund':  
             #     sts.start_new_crowdfund("MyProjID", 1, 100000, 1000, 100)

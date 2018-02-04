@@ -46,7 +46,9 @@ class StorageManager():
     def serialize_array(self, items):
         # serialize the length of the list
         itemlength = self.serialize_var_length_item(items)
-
+        print('$itemslength')
+        print(itemlength)
+        
         output = itemlength
 
         # now go through and append all your stuff
@@ -55,12 +57,17 @@ class StorageManager():
             # get the variable length of the item
             # to be serialized
             itemlen = self.serialize_var_length_item(item)
+            print('$itemlen')
+            print(itemlen)
 
             # add that indicator
             output = concat(output, itemlen)
 
             # now add the item
             output = concat(output, item)
+
+            print('$output')
+            print(output)
 
         # return the stuff
         return output
@@ -90,6 +97,7 @@ class StorageManager():
     def deserialize_bytearray(self, data):
         # ok this is weird.  if you remove this print statement, it stops working :/
         print("deserializing data...")
+        print(data)
 
         # get length of length
         collection_length_length = substr(data, 0, 1)

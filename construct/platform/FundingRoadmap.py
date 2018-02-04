@@ -22,17 +22,17 @@ class FundingRoadmap():
         """
         self.project_id = project_id
 
-    def get_funding_stage(self, funding_stage_id:str):
-        """
-        Gets a fundings stage from the input funding_id
-        Args:
-            funding_stage_id(str):
-                Unique id referencing sepecific fund
-        Returns:
-            (FundingStage): output Funding Stage object with input ID
-        """
-        funding_stage = FundingStage()
-        return funding_stage.read_from_storage(self.project_id, funding_stage_id)
+    # def get_funding_stage(self, funding_stage_id:str):
+    #     """
+    #     Gets a fundings stage from the input funding_id
+    #     Args:
+    #         funding_stage_id(str):
+    #             Unique id referencing sepecific fund
+    #     Returns:
+    #         (FundingStage): output Funding Stage object with input ID
+    #     """
+    #     funding_stage = FundingStage()
+    #     return funding_stage.read_from_storage(self.project_id, funding_stage_id)
 
 
     def get_funding_stages(self):
@@ -42,8 +42,11 @@ class FundingRoadmap():
             (list): The number of addresses to registered for KYC
         """
         storage = StorageManager()
-       
+
+        # Gets current stored funding stages 
         serialized_stages = storage.get_double('FS_stages', self.project_id)
+
+        # Converts serialized list to normal list
         funding_stages = storage.deserialize_bytearray(serialized_stages)
 
         return funding_stages
@@ -56,11 +59,17 @@ class FundingRoadmap():
         """   
         storage = StorageManager()
 
+        # Gets current stored funding stages 
         serialized_cur_fs = storage.get_double('FS_stages', self.project_id)
+
+        # Serializes new funding stages 
         serialized_new_fs = storage.serialize_array(new_funding_stages)
         
+        # Updates funding stages list
         serialized_combined_fs = concat(serialized_cur_fs, serialized_new_fs)
 
+        # Saves updated serialized list to storage
         storage.put_double('FS_stages', self.project_id, serialized_combined_fs)
 
+        # Updates object variable
         self.funding_stages = serialized_combined_fs
