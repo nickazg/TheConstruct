@@ -6,23 +6,70 @@ class SmartTokenShare():
     are stored in the contract storage.
     """
     def create(self, project_id, symbol, decimals, owner, total_supply):
+        """
+        Args:
+            project_id (str):
+                ID for referencing the project
+
+            symbol (str):
+                Representation symbol
+                
+            decimals (int):
+                Amount of decimal places, default 8
+
+            owner (bytes):
+                Owner of the token
+
+            total_supply (int):
+                total supply of the token
+        Return:
+            (None): 
+        """
         storage = StorageManager()
 
+        # Default circulation
         in_circulation = 0
 
+        # Info structure
         sts_info = [symbol, decimals, owner, total_supply, in_circulation]
 
+        # Will only save to storage if none exsits for this project_id
         if not storage.get_double('STS', project_id):
             sts_info_serialized = storage.serialize_array(sts_info)
             storage.put_double('STS', project_id, sts_info_serialized)
 
     def start_new_crowdfund(self, project_id, funding_stage_id, start_block, end_block, supply, tokens_per_gas):
+        """
+        Args:
+            project_id (str):
+                ID for referencing the project
+
+            funding_stage_id (str):
+                ID for referencing the funding stage
+                
+            start_block (int):
+                Block to start fund
+
+            end_block (int):
+                Block to end fund
+
+            supply (int):
+                Supply of the token in this crowdfund
+
+            tokens_per_gas (int):
+                Token to gas ratio
+        Return:
+            (None): 
+        """
         storage = StorageManager()
         
+        # Default circulation
         in_circulation = 0
         
+         # Info structure
         crowdfund_info = [start_block, end_block, supply, tokens_per_gas, in_circulation]
 
+        # Saving info to storage
         crowdfund_info_serialized = storage.serialize_array(crowdfund_info)
         storage.put_triple('STS', project_id, funding_stage_id, crowdfund_info_serialized)
 
@@ -31,6 +78,9 @@ class SmartTokenShare():
         Args:
             project_id (str):
                 ID for referencing the project
+
+            funding_stage_id (str):
+                ID for referencing the funding stage
         Return:
             (int): The avaliable tokens for the current sale
         """
@@ -55,8 +105,12 @@ class SmartTokenShare():
         Args:
             project_id (str):
                 ID for referencing the project
+
+            funding_stage_id (str):
+                ID for referencing the funding stage
+
             amount (int):
-                amount of tokens added
+                amount of tokens added  
         """
         storage = StorageManager()
         
@@ -72,14 +126,14 @@ class SmartTokenShare():
         in_circulation = crowdfund_info[4]
 
         # Calculation
-        in_circulation = in_circulation + amount 
+        updated_in_circulation = in_circulation + amount
 
         # output STS info
-        updated_crowdfund_info = [start_block, end_block, supply, tokens_per_gas, in_circulation]
+        updated_crowdfund_info = [start_block, end_block, supply, tokens_per_gas, updated_in_circulation]
         
         # Save STS info
-        updated_crowdfund_info_serialized = storage.serialize_array(crowdfund_info)
-        storage.put_double('STS', project_id, updated_crowdfund_info_serialized)    
+        updated_crowdfund_info_serialized = storage.serialize_array(updated_crowdfund_info)
+        storage.put_triple('STS', project_id, funding_stage_id, updated_crowdfund_info_serialized)    
 
     def get_crowdfund_circulation(self, project_id, funding_stage_id):
         """
@@ -88,6 +142,9 @@ class SmartTokenShare():
         Args:
             project_id (str):
                 ID for referencing the project
+
+            funding_stage_id (str):
+                ID for referencing the funding stage
         Return:
             (int): The total amount of tokens in circulation
         """        

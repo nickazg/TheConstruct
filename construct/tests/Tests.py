@@ -18,3 +18,7 @@ def run_tests():
 
     sts = SmartTokenShareTest()
     sts.test_create()
+    sts.test_start_new_crowdfund()
+    sts.test_crowdfund_available_amount()
+    sts.test_add_to_crowdfund_circulation()
+    sts.test_get_crowdfund_circulation()
