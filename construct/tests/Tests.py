@@ -4,7 +4,7 @@ from construct.tests.platform.SmartTokenShareTest import SmartTokenShareTest
 
 def run_tests():
 
-    # # Storage Manager Tests
+    # print('TESTING StorageManagerTest')
     # smt = StorageManagerTest()
     # smt.test_get()
     # smt.test_put()
@@ -12,16 +12,16 @@ def run_tests():
     # smt.test_serialize_array()
     # smt.test_deserialize_array()
 
-    # fst = FundingStageTest()
-    # fst.test_create()
-    # fst.test_read_from_storage()
+    print('TESTING FundingStageTest')
+    fst = FundingStageTest()
+    fst.test_create()
+    fst.test_available_amount()
+    fst.test_add_to_circulation()
+    fst.test_get_circulation()
 
+    print('TESTING SmartTokenShareTest')
     sts = SmartTokenShareTest()
     sts.test_create()
-    sts.test_start_new_crowdfund()
-    sts.test_crowdfund_available_amount()
-    sts.test_add_to_crowdfund_circulation()
-    sts.test_get_crowdfund_circulation()
     sts.test_total_available_amount()
     sts.test_add_to_total_circulation()
     sts.test_get_total_circulation()

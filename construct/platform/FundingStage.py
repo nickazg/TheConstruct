@@ -9,78 +9,125 @@ from boa.code.builtins import list
 
 class FundingStage():
     """
-    Manages the Smart Token Share in the contex of a funding roadmap, controls when news 
-    crowdsales
+    Interface for managing Funding Stages
     """
-    def create(self, project_id:str, funding_stage_id:str, sts_supply:int, start_block:int, end_block:int, tokens_per_gas:int):
-        """Setup the new funding stage, and creates a new crowdfund on the Smart Token Share
+    def create(self, project_id, funding_stage_id, start_block, end_block, supply, tokens_per_gas):
+        """
         Args:
-            sts (SmartTokenShare):
-                Smart Token Share reference object
+            project_id (str):
+                ID for referencing the project
 
             funding_stage_id (str):
-                ID to reference the funding stage
-
-            sts_supply (int):
-                The supply of smart token shares to be distributed in this funding stage
-
+                ID for referencing the funding stage
+                
             start_block (int):
-                Starting block of the fund
+                Block to start fund
 
             end_block (int):
-                Ending block of the fund
+                Block to end fund
+
+            supply (int):
+                Supply of the token in this crowdfund
 
             tokens_per_gas (int):
-                Token multiplier for sts tokens to be distributed
-        """  
+                Token to gas ratio
+        Return:
+            (None): 
+        """
         storage = StorageManager()
         
-        info_list = [sts_supply, start_block, end_block, tokens_per_gas]        
+        # Default circulation
+        in_circulation = 0
         
-        serialized_info = storage.serialize_array(info_list)
-        print('serialized_info')
-        print(serialized_info)
-        
-        storage.put_double(project_id, funding_stage_id, serialized_info)
+         # Info structure
+        crowdfund_info = [start_block, end_block, supply, tokens_per_gas, in_circulation]
 
-        return funding_stage_id
-      
-    def read_from_storage(self, project_id:str, funding_stage_id:str):
+        # Saving info to storage
+        crowdfund_info_serialized = storage.serialize_array(crowdfund_info)
+        storage.put_triple('FS', project_id, funding_stage_id, crowdfund_info_serialized)
+
+    def available_amount(self, project_id, funding_stage_id):
         """
-        Description
         Args:
-            sts (SmartTokenShare):
-                Smart Token Share reference object
+            project_id (str):
+                ID for referencing the project
 
             funding_stage_id (str):
-                ID to reference the funding stage
-        Returns:
-            (None):
+                ID for referencing the funding stage
+        Return:
+            (int): The avaliable tokens for the current sale
         """
-        storage =  StorageManager()
+        storage = StorageManager()
         
-        # Getting the serialized list from storage
-        serialized_info = storage.get_double(project_id, funding_stage_id)
+        # Pull Crowdfund info
+        crowdfund_info_serialized = storage.get_triple('FS', project_id, funding_stage_id)
+        crowdfund_info = storage.deserialize_bytearray(crowdfund_info_serialized)
 
-        # Deserializing info to a list
-        info_list = storage.deserialize_bytearray(serialized_info)
+        # Crowdfund vars
+        in_circulation = crowdfund_info[4]
+        supply = crowdfund_info[2]
 
-        # Populating neccearry variables
-        # if len(info_list) == 4: # VM doesnt seem to like this..         
-        return info_list
+        available = supply - in_circulation
 
-    def get_sts_supply(self, info_list:list):
-        sts_supply = info_list[0]
-        return sts_supply
+        return available
 
-    def get_start_block(self, info_list:list):
-        start_block = info_list[1]
-        return start_block
+    def add_to_circulation(self, project_id, funding_stage_id, amount):
+        """
+        Adds an amount of token to circlulation
 
-    def get_end_block(self, info_list:list):
-        end_block = info_list[2]
-        return end_block
+        Args:
+            project_id (str):
+                ID for referencing the project
 
-    def get_tokens_per_gas(self, info_list:list):
-        tokens_per_gas = info_list[3]
-        return tokens_per_gas  
+            funding_stage_id (str):
+                ID for referencing the funding stage
+
+            amount (int):
+                amount of tokens added  
+        """
+        storage = StorageManager()
+        
+        # Pull Crowdfund info
+        crowdfund_info_serialized = storage.get_triple('FS', project_id, funding_stage_id)
+        crowdfund_info = storage.deserialize_bytearray(crowdfund_info_serialized)
+
+        # info into vars
+        start_block = crowdfund_info[0]
+        end_block = crowdfund_info[1]
+        supply = crowdfund_info[2]
+        tokens_per_gas = crowdfund_info[3]
+        in_circulation = crowdfund_info[4]
+
+        # Calculation
+        updated_in_circulation = in_circulation + amount
+
+        # output STS info
+        updated_crowdfund_info = [start_block, end_block, supply, tokens_per_gas, updated_in_circulation]
+        
+        # Save STS info
+        updated_crowdfund_info_serialized = storage.serialize_array(updated_crowdfund_info)
+        storage.put_triple('FS', project_id, funding_stage_id, updated_crowdfund_info_serialized)    
+
+    def get_circulation(self, project_id, funding_stage_id):
+        """
+        Get the total amount of tokens in circulation
+
+        Args:
+            project_id (str):
+                ID for referencing the project
+
+            funding_stage_id (str):
+                ID for referencing the funding stage
+        Return:
+            (int): The total amount of tokens in circulation
+        """        
+        storage = StorageManager()
+        
+        # Pull Crowdfund info
+        crowdfund_info_serialized = storage.get_triple('FS', project_id, funding_stage_id)
+        crowdfund_info = storage.deserialize_bytearray(crowdfund_info_serialized)
+
+        # in_circulation var
+        in_circulation = crowdfund_info[4]
+
+        return in_circulation

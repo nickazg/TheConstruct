@@ -3,53 +3,92 @@ from construct.common.StorageManager import StorageManager
 
 class FundingStageTest():
     
-    # Test Vars
     test_project_id = 'project_id'
-    test_funding_stage_id = 'funding_stage_id'    
-    test_sts_supply = 100
-    test_start_block = 1000
-    test_end_block = 2000
-    test_tokens_per_gas = 10 * 1000000000
-
-    test_fs_info = b'\x01\x04\x01\x01d\x01\x02\xe8\x03\x01\x02\xd0\x07\x01\x05\x00\xe4\x0bT\x02'
-       
+    test_funding_stage_id = 'test_funding_stage_id'
+    test_start_block = 1500
+    test_end_block = 3000
+    test_supply = 500
+    test_tokens_per_gas = 10
+    
+    test_fs_info = b'\x01\x05\x01\x02\xdc\x05\x01\x02\xb8\x0b\x01\x02\xf4\x01\x01\x01\n\x01\x01\x00'
+    test_add_amount = 150
 
     def test_create(self):
         fs = FundingStage()
-              
-        # Running create()
-        fs.create(self.test_project_id, self.test_funding_stage_id, self.test_sts_supply, self.test_start_block, self.test_end_block, self.test_tokens_per_gas)
 
+        # Running start_new_crowdfund()
+        fs.create(self.test_project_id, self.test_funding_stage_id, self.test_start_block, self.test_end_block, self.test_supply, self.test_tokens_per_gas)
+        
+        # Pull output from storage
         storage = StorageManager()
-        fs_info = storage.get_double(self.test_project_id, self.test_funding_stage_id)
+        output = storage.get_triple('FS', self.test_project_id, self.test_funding_stage_id)
 
         # Check Test
-        if fs_info == self.test_fs_info:
+        if output == self.test_fs_info:
             print('test_create PASSED')
             return True
         
         print('test_create FAILED')
         return False
 
-    def test_read_from_storage(self):
+    def test_available_amount(self):
         fs = FundingStage()
-               
-        storage = StorageManager()
-        storage.put_double(self.test_project_id, self.test_funding_stage_id, self.test_fs_info)
 
-        # Running read_from_storage()
-        fs_info = fs.read_from_storage(self.test_project_id, self.test_funding_stage_id)
-
-        # Pulling variables from fs_info 
-        sts_supply = fs.get_sts_supply(fs_info)
-        start_block = fs.get_start_block(fs_info)
-        end_block = fs.get_end_block(fs_info)
-        tokens_per_gas = fs.get_tokens_per_gas(fs_info)
+        # Running crowdfund_available_amount()
+        available = fs.available_amount(self.test_project_id, self.test_funding_stage_id)
+        
+        test_available = self.test_supply - 0
 
         # Check Test
-        if sts_supply == self.test_sts_supply and start_block == self.test_start_block and end_block == self.test_end_block and tokens_per_gas == self.test_tokens_per_gas:
-            print('test_read_from_storage PASSED')
+        if available == test_available:
+            print('test_available_amount PASSED')
             return True
         
-        print('test_read_from_storage FAILED')
+        print('test_available_amount FAILED')
         return False
+
+    def test_add_to_circulation(self):
+        fs = FundingStage()
+
+        # Setting default info
+        storage = StorageManager()
+        storage.put_triple('FS', self.test_project_id, self.test_funding_stage_id, self.test_fs_info)    
+
+
+        # Running add_to_crowdfund_circulation()
+        fs.add_to_circulation(self.test_project_id, self.test_funding_stage_id, self.test_add_amount)
+        fs.add_to_circulation(self.test_project_id, self.test_funding_stage_id, self.test_add_amount)
+        fs.add_to_circulation(self.test_project_id, self.test_funding_stage_id, self.test_add_amount)
+        
+        in_circ = fs.get_circulation(self.test_project_id, self.test_funding_stage_id)
+
+        test_in_circ = self.test_add_amount * 3
+
+        # Check Test
+        if in_circ == test_in_circ:
+            print('test_add_to_circulation PASSED')
+            return True
+        
+        print('test_add_to_circulation FAILED')
+        return False
+
+    def test_get_circulation(self):
+        fs = FundingStage()
+
+        # Setting default info
+        storage = StorageManager()
+        storage.put_triple('FS', self.test_project_id, self.test_funding_stage_id, self.test_fs_info)    
+
+        fs.add_to_circulation(self.test_project_id, self.test_funding_stage_id, self.test_add_amount)
+        
+        # Running get_crowdfund_circulation()
+        in_circ = fs.get_circulation(self.test_project_id, self.test_funding_stage_id)
+
+        # Check Test
+        if in_circ == self.test_add_amount:
+            print('test_get_circulation PASSED')
+            return True
+        
+        print('test_get_circulation FAILED')
+        return False 
+
