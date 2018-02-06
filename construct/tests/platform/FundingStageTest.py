@@ -16,7 +16,7 @@ class FundingStageTest():
 
         test_fs_info = b'\x01\x04\x01\x01d\x01\x02\xe8\x03\x01\x02\xd0\x07\x01\x05\x00\xe4\x0bT\x02'
                 
-        # Testing create
+        # Running create()
         fs.create(test_project_id, test_funding_stage_id, test_sts_supply, test_start_block, test_end_block, test_tokens_per_gas)
 
         storage = StorageManager()
@@ -46,7 +46,7 @@ class FundingStageTest():
         storage = StorageManager()
         storage.put_double(test_project_id, test_funding_stage_id, test_fs_info)
 
-        # Running read_from_storage
+        # Running read_from_storage()
         fs_info = fs.read_from_storage(test_project_id, test_funding_stage_id)
 
         # Pulling variables from fs_info 
