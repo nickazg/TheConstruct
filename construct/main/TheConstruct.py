@@ -45,7 +45,7 @@ def Main(operation, args):
     
     # Gets the transaction trigger
     trigger = GetTrigger()
-    fs = FundingStage()
+    # fs = FundingStage()
 
     if trigger == Verification:
         return True
@@ -53,43 +53,23 @@ def Main(operation, args):
     elif trigger == Application:
         if operation != None and len(args) > 0:
             
-            sts = SmartTokenShare()
-            sts_handler = SmartTokenShareHandler()
+            # sts = SmartTokenShare()
+            # sts_handler = SmartTokenShareHandler()
 
             # project_id always first arg
             project_id = args[0]
-
-            # fs.start_new_crowdfund(project_id, sts)
             
             # Pulling info from storeage
-            sts.get_project_info(project_id)        
+            # sts.get_project_info(project_id)        
 
-            for handler_op in sts_handler.get_methods():
-                if operation == handler_op:
-                    return sts_handler.handle_sts(operation, args, sts)
+            # for handler_op in sts_handler.get_methods():
+            #     if operation == handler_op:
+            #         return sts_handler.handle_sts(operation, args, sts)
 
             # TEST
-            if operation == 'create':
-                symbol = args[2]
-                owner = args[1]
-                sts.deploy_new_sts(project_id, owner, symbol)
-
-            if operation == 'test':
-                print('###TEST')
-                storage = StorageManager()
-                # test_list = list('fs1', 'fs2', 'fs3')
-                test_list = ["sdad","adsa","asda"]
-                
-                # test_list_len = len(test_list)
-                # print(test_list_len)
-                
-                test_serialize = storage.serialize_array(test_list)
-                print(test_serialize)
-                
-                # test_deserialize = storage.deserialize_bytearray(test_serialize)
-                # test_deserialize_len = len(test_deserialize)
-                # print(test_deserialize_len)
-                print('TEST###')
+            # if operation == 'create':
+            #     symbol = args[2]
+            #     owner = args[1]
             
             return True
             
