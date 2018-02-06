@@ -72,7 +72,6 @@ class SmartTokenShare():
 
         # Will return with status code 0 if project doesnt exist.
         if symbol:
-            print("made it!")
             owner = storage.get_double('STS_owner', project_id)
             current_sale_start_block = storage.get_double('STS_current_sale_start_block', project_id)
             current_sale_end_block = storage.get_double('STS_current_sale_end_block', project_id)
