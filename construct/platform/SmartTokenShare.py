@@ -211,7 +211,7 @@ class SmartTokenShare():
         updated_sts_info = [symbol, decimals, owner, total_supply, in_circulation]
         
         # Save STS info
-        updated_sts_info_serialized = storage.serialize_array(sts_info)
+        updated_sts_info_serialized = storage.serialize_array(updated_sts_info)
         storage.put_double('STS', project_id, updated_sts_info_serialized)    
 
     def get_total_circulation(self, project_id:str):

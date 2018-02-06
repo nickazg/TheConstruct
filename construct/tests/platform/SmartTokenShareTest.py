@@ -117,3 +117,67 @@ class SmartTokenShareTest():
         
         print('test_get_crowdfund_circulation FAILED')
         return False 
+
+
+
+
+
+    def test_total_available_amount(self):
+        sts = SmartTokenShare()
+
+        # Running crowdfund_available_amount()
+        available = sts.total_available_amount(self.test_project_id, self.test_funding_stage_id)
+        
+        test_available = self.test_total_supply - 0
+
+        # Check Test
+        if available == test_available:
+            print('test_total_available_amount PASSED')
+            return True
+        
+        print('test_total_available_amount FAILED')
+        return False
+
+    def test_add_to_total_circulation(self):
+        sts = SmartTokenShare()
+
+        # Setting default info
+        storage = StorageManager()
+        storage.put_double('STS', self.test_project_id, self.test_sts_info)
+
+        # Running add_to_crowdfund_circulation()
+        sts.add_to_total_circulation(self.test_project_id, self.test_add_amount)
+        sts.add_to_total_circulation(self.test_project_id, self.test_add_amount)
+        sts.add_to_total_circulation(self.test_project_id, self.test_add_amount)
+        
+        in_circ = sts.get_total_circulation(self.test_project_id)
+
+        test_in_circ = self.test_add_amount * 3
+
+        # Check Test
+        if in_circ == test_in_circ:
+            print('test_add_to_total_circulation PASSED')
+            return True
+        
+        print('test_add_to_total_circulation FAILED')
+        return False
+
+    def test_get_total_circulation(self):
+        sts = SmartTokenShare()
+
+        # Setting default info
+        storage = StorageManager()
+        storage.put_double('STS', self.test_project_id, self.test_sts_info) 
+
+        sts.add_to_total_circulation(self.test_project_id, self.test_add_amount)
+        
+        # Running get_crowdfund_circulation()
+        in_circ = sts.get_crowdfund_circulation(self.test_project_id)
+
+        # Check Test
+        if in_circ == self.test_add_amount:
+            print('test_get_total_circulation PASSED')
+            return True
+        
+        print('test_get_total_circulation FAILED')
+        return False 
