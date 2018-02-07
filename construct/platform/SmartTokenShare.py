@@ -2,7 +2,7 @@ from construct.common.StorageManager import StorageManager
 
 class SmartTokenShare():
     """
-    A Template for a Smart Token Share (STS), managing STS info. Based on NEP5 token, however all values 
+    Interface for managing a Smart Token Share (STS). Based on NEP5 token, however all values 
     are dymanically stored in the contract storage.
     """
     def create(self, project_id, symbol, decimals, owner, total_supply):
