@@ -13,36 +13,38 @@ class SmartTokenShareHandler():
     """
     Based off the NEP5 Handler, the SmartTokenShareHandler handles the transfering of STS's 
     """ 
-    project_id = ''
 
     def get_methods(self):
 
-        method = ['symbol', 'decimals', 'totalSupply', 'currentSupply', 'balanceOf','transfer', 'transferFrom', 'approve', 'allowance']
-        return method
+        methods = ['symbol', 'decimals', 'totalSupply', 'balanceOf', 'transfer', 'transferFrom', 'approve', 'allowance']
+        return methods
 
     def handle_sts(self, operation, args, sts: SmartTokenShare):
         # project_id always first arg
-        self.project_id = args[0]
+        project_id = args[0]
         
         storage = StorageManager()
         arg_error = 'Incorrect Arg Length'
         
         if operation == 'decimals':
-            return sts.decimals
+            sts_info = sts.get_info(project_id)
+            decimals = sts_info[sts.decimals_idx]
+            return decimals
 
         elif operation == 'symbol':
-            return sts.symbol
+            sts_info = sts.get_info(project_id)
+            symbol = sts_info[sts.symbol_idx]
+            return symbol
 
         elif operation == 'totalSupply':
-            return sts.total_supply
-
-        elif operation == 'currentSupply':
-            return sts.current_supply
+            sts_info = sts.get_info(project_id)
+            total_supply = sts_info[sts.total_supply_idx]
+            return total_supply
 
         elif operation == 'balanceOf':
             if len(args) == 2:
                 account = args[1]
-                return storage.get_double(self.project_id, account)
+                return storage.get_double(project_id, account)
             return arg_error
 
         elif operation == 'transfer':
@@ -50,7 +52,7 @@ class SmartTokenShareHandler():
                 t_from = args[1]
                 t_to = args[2]
                 t_amount = args[3]
-                return self.do_transfer(storage, t_from, t_to, t_amount)
+                return self.do_transfer(project_id, storage, t_from, t_to, t_amount)
             return arg_error
 
         elif operation == 'transferFrom':
@@ -58,7 +60,7 @@ class SmartTokenShareHandler():
                 t_from = args[1]
                 t_to = args[2]
                 t_amount = args[3]
-                return self.do_transfer_from(storage, t_from, t_to, t_amount)
+                return self.do_transfer_from(project_id, storage, t_from, t_to, t_amount)
             return arg_error
 
         elif operation == 'approve':
@@ -66,20 +68,20 @@ class SmartTokenShareHandler():
                 t_owner = args[1]
                 t_spender = args[2]
                 t_amount = args[3]
-                return self.do_approve(storage, t_owner, t_spender, t_amount)
+                return self.do_approve(project_id, storage, t_owner, t_spender, t_amount)
             return arg_error
 
         elif operation == 'allowance':
             if len(args) == 3:
                 t_owner = args[1]
                 t_spender = args[2]
-                return self.do_allowance(storage, t_owner, t_spender)
+                return self.do_allowance(project_id, storage, t_owner, t_spender)
 
             return arg_error
 
         return False
 
-    def do_transfer(self, storage: StorageManager, t_from, t_to, amount):
+    def do_transfer(self, project_id, storage: StorageManager, t_from, t_to, amount):
 
         if amount <= 0:
             return False
@@ -90,26 +92,26 @@ class SmartTokenShareHandler():
                 print("transfer to self!")
                 return True
 
-            from_val = storage.get_double(self.project_id, t_from)
+            from_val = storage.get_double(project_id, t_from)
 
             if from_val < amount:
                 print("insufficient funds")
                 return False
 
             if from_val == amount:
-                storage.delete_double(self.project_id, t_from)
+                storage.delete_double(project_id, t_from)
 
             else:
                 difference = from_val - amount
-                storage.put_double(self.project_id, t_from, difference)
+                storage.put_double(project_id, t_from, difference)
 
-            to_value = storage.get_double(self.project_id, t_to)
+            to_value = storage.get_double(project_id, t_to)
 
             to_total = to_value + amount
 
-            storage.put_double(self.project_id, t_to, to_total)
+            storage.put_double(project_id, t_to, to_total)
 
-            OnTransfer(self.project_id, t_from, t_to, amount)
+            OnTransfer(project_id, t_from, t_to, amount)
 
             return True
         else:
@@ -117,33 +119,33 @@ class SmartTokenShareHandler():
 
         return False
     
-    def do_transfer_from(self, storage: StorageManager, t_from, t_to, amount):
+    def do_transfer_from(self, project_id, storage: StorageManager, t_from, t_to, amount):
 
         if amount <= 0:
             return False
 
         available_key = concat(t_from, t_to)
 
-        available_to_to_addr = storage.get_double(self.project_id, available_key)
+        available_to_to_addr = storage.get_double(project_id, available_key)
 
         if available_to_to_addr < amount:
             print("Insufficient funds approved")
             return False
 
-        from_balance = storage.get_double(self.project_id, t_from)
+        from_balance = storage.get_double(project_id, t_from)
 
         if from_balance < amount:
             print("Insufficient tokens in from balance")
             return False
 
-        to_balance = storage.get_double(self.project_id, t_to)
+        to_balance = storage.get_double(project_id, t_to)
 
         new_from_balance = from_balance - amount
 
         new_to_balance = to_balance + amount
 
-        storage.put_double(self.project_id, t_to, new_to_balance)
-        storage.put_double(self.project_id, t_from, new_from_balance)
+        storage.put_double(project_id, t_to, new_to_balance)
+        storage.put_double(project_id, t_from, new_from_balance)
 
         print("transfer complete")
 
@@ -151,22 +153,22 @@ class SmartTokenShareHandler():
 
         if new_allowance == 0:
             print("removing all balance")
-            storage.delete_double(self.project_id, available_key)
+            storage.delete_double(project_id, available_key)
         else:
             print("updating allowance to new allowance")
-            storage.put_double(self.project_id, available_key, new_allowance)
+            storage.put_double(project_id, available_key, new_allowance)
 
-        OnTransfer(self.project_id, t_from, t_to, amount)
+        OnTransfer(project_id, t_from, t_to, amount)
 
         return True
 
-    def do_approve(self, storage: StorageManager, t_owner, t_spender, amount):
+    def do_approve(self, project_id, storage: StorageManager, t_owner, t_spender, amount):
 
         if not CheckWitness(t_owner):
             print("Incorrect permission")
             return False
 
-        from_balance = storage.get_double(self.project_id, t_owner)
+        from_balance = storage.get_double(project_id, t_owner)
 
         # cannot approve an amount that is
         # currently greater than the from balance
@@ -174,22 +176,22 @@ class SmartTokenShareHandler():
 
             approval_key = concat(t_owner, t_spender)
 
-            current_approved_balance = storage.get_double(self.project_id, approval_key)
+            current_approved_balance = storage.get_double(project_id, approval_key)
 
             new_approved_balance = current_approved_balance + amount
 
-            storage.put_double(self.project_id, approval_key, new_approved_balance)
+            storage.put_double(project_id, approval_key, new_approved_balance)
 
-            OnApprove(self.project_id, t_owner, t_spender, amount)
+            OnApprove(project_id, t_owner, t_spender, amount)
 
             return True
 
         return False
 
-    def do_allowance(self, storage: StorageManager, t_owner, t_spender):
+    def do_allowance(self, project_id, storage: StorageManager, t_owner, t_spender):
 
         allowance_key = concat(t_owner, t_spender)
 
-        amount = storage.get_double(self.project_id, allowance_key)
+        amount = storage.get_double(project_id, allowance_key)
 
         return amount

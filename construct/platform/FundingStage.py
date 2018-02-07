@@ -27,7 +27,7 @@ class FundingStage():
                 Block to end fund
 
             supply (int):
-                Supply of the token in this crowdfund
+                Supply of the token in this fs
 
             tokens_per_gas (int):
                 Token to gas ratio
@@ -40,11 +40,11 @@ class FundingStage():
         in_circulation = 0
         
          # Info structure
-        crowdfund_info = [start_block, end_block, supply, tokens_per_gas, in_circulation]
+        fs_info = [start_block, end_block, supply, tokens_per_gas, in_circulation]
 
         # Saving info to storage
-        crowdfund_info_serialized = storage.serialize_array(crowdfund_info)
-        storage.put_triple('FS', project_id, funding_stage_id, crowdfund_info_serialized)
+        fs_info_serialized = storage.serialize_array(fs_info)
+        storage.put_triple('FS', project_id, funding_stage_id, fs_info_serialized)
 
     def available_amount(self, project_id, funding_stage_id):
         """
@@ -59,13 +59,13 @@ class FundingStage():
         """
         storage = StorageManager()
         
-        # Pull Crowdfund info
-        crowdfund_info_serialized = storage.get_triple('FS', project_id, funding_stage_id)
-        crowdfund_info = storage.deserialize_bytearray(crowdfund_info_serialized)
+        # Pull FundingStage info
+        fs_info_serialized = storage.get_triple('FS', project_id, funding_stage_id)
+        fs_info = storage.deserialize_bytearray(fs_info_serialized)
 
-        # Crowdfund vars
-        in_circulation = crowdfund_info[4]
-        supply = crowdfund_info[2]
+        # FundingStage vars
+        in_circulation = fs_info[4]
+        supply = fs_info[2]
 
         available = supply - in_circulation
 
@@ -87,32 +87,31 @@ class FundingStage():
         """
         storage = StorageManager()
         
-        # Pull Crowdfund info
-        crowdfund_info_serialized = storage.get_triple('FS', project_id, funding_stage_id)
-        crowdfund_info = storage.deserialize_bytearray(crowdfund_info_serialized)
+        # Pull FundingStage info
+        fs_info_serialized = storage.get_triple('FS', project_id, funding_stage_id)
+        fs_info = storage.deserialize_bytearray(fs_info_serialized)
 
         # info into vars
-        start_block = crowdfund_info[0]
-        end_block = crowdfund_info[1]
-        supply = crowdfund_info[2]
-        tokens_per_gas = crowdfund_info[3]
-        in_circulation = crowdfund_info[4]
+        start_block = fs_info[0]
+        end_block = fs_info[1]
+        supply = fs_info[2]
+        tokens_per_gas = fs_info[3]
+        in_circulation = fs_info[4]
 
         # Calculation
         updated_in_circulation = in_circulation + amount
 
         # output STS info
-        updated_crowdfund_info = [start_block, end_block, supply, tokens_per_gas, updated_in_circulation]
+        updated_fs_info = [start_block, end_block, supply, tokens_per_gas, updated_in_circulation]
         
         # Save STS info
-        updated_crowdfund_info_serialized = storage.serialize_array(updated_crowdfund_info)
-        storage.put_triple('FS', project_id, funding_stage_id, updated_crowdfund_info_serialized)
+        updated_fs_info_serialized = storage.serialize_array(updated_fs_info)
+        storage.put_triple('FS', project_id, funding_stage_id, updated_fs_info_serialized)
 
         
-        # Update sts **
+        # # Update sts **
         sts = SmartTokenShare()
         sts.add_to_total_circulation(project_id, amount)
-
 
     def get_circulation(self, project_id, funding_stage_id):
         """
@@ -129,11 +128,11 @@ class FundingStage():
         """        
         storage = StorageManager()
         
-        # Pull Crowdfund info
-        crowdfund_info_serialized = storage.get_triple('FS', project_id, funding_stage_id)
-        crowdfund_info = storage.deserialize_bytearray(crowdfund_info_serialized)
+        # Pull FundingStage info
+        fs_info_serialized = storage.get_triple('FS', project_id, funding_stage_id)
+        fs_info = storage.deserialize_bytearray(fs_info_serialized)
 
         # in_circulation var
-        in_circulation = crowdfund_info[4]
+        in_circulation = fs_info[4]
 
         return in_circulation

@@ -5,6 +5,12 @@ class SmartTokenShare():
     Interface for managing a Smart Token Share (STS). Based on NEP5 token, however all values 
     are dymanically stored in the contract storage.
     """
+    symbol_idx = 0
+    decimals_idx = 1
+    owner_idx = 2
+    total_supply_idx = 3
+    in_circulation_idx = 4
+
     def create(self, project_id, symbol, decimals, owner, total_supply):
         """
         Args:
@@ -113,3 +119,21 @@ class SmartTokenShare():
         in_circulation = sts_info[4]
 
         return in_circulation
+
+    def get_info(self, project_id):
+        """
+        Get the info list
+
+        Args:
+            project_id (str):
+                ID for referencing the project
+        Return:
+            (list): info list
+        """    
+        storage = StorageManager()
+        
+        # Pull STS info
+        sts_info_serialized = storage.get_double('STS', project_id)
+        sts_info = storage.deserialize_bytearray(sts_info_serialized)
+
+        return sts_info
