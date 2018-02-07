@@ -106,7 +106,13 @@ class FundingStage():
         
         # Save STS info
         updated_crowdfund_info_serialized = storage.serialize_array(updated_crowdfund_info)
-        storage.put_triple('FS', project_id, funding_stage_id, updated_crowdfund_info_serialized)    
+        storage.put_triple('FS', project_id, funding_stage_id, updated_crowdfund_info_serialized)
+
+        
+        # Update sts **
+        sts = SmartTokenShare()
+        sts.add_to_total_circulation(project_id, amount)
+
 
     def get_circulation(self, project_id, funding_stage_id):
         """
