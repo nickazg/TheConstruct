@@ -91,4 +91,32 @@ class FundingStageTest():
         
         print('test_get_circulation FAILED')
         return False 
+    
+    def test_calculate_can_exchange(self):
+        fs = FundingStage()
 
+        ## Testing Pass
+        fs.create(self.test_project_id, self.test_funding_stage_id, 1, 99999, 1000, 100)
+        passed = fs.calculate_can_exchange(self.test_project_id, self.test_funding_stage_id, 5)
+
+        ## Testing Failures
+        # supply of 2
+        fs.create(self.test_project_id, 'fs_supply_test', 1, 99999, 2, 100)
+        fs_supply_test = fs.calculate_can_exchange(self.test_project_id, 'fs_supply_test', 5)
+        
+        # start block of 9999999
+        fs.create(self.test_project_id, 'start_block_test', 9999999, 99999, 1000, 100)
+        start_block_test = fs.calculate_can_exchange(self.test_project_id, 'start_block_test', 5)
+
+        # end block of 10
+        fs.create(self.test_project_id, 'end_block_test', 1, 10, 1000, 100)
+        end_block_test = fs.calculate_can_exchange(self.test_project_id, 'end_block_test', 5)
+
+        # Check Test
+        if passed:
+            if not fs_supply_test and not start_block_test and not end_block_test:
+                print('test_calculate_can_exchange PASSED')
+                return True
+        
+        print('test_calculate_can_exchange FAILED')
+        return False 

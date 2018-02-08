@@ -154,9 +154,12 @@ class FundingStage():
         
         # Pull FundingStage info
         fs_info_serialized = storage.get_triple('FS', project_id, funding_stage_id)
+        print('fs_info_serialized')
+        print(fs_info_serialized)
         fs_info = storage.deserialize_bytearray(fs_info_serialized)
 
         return fs_info
+
 
     # Invoked to mintTokens, exchange GAS for STS
     def exchange(self, project_id, funding_stage_id):
@@ -212,11 +215,11 @@ class FundingStage():
         # Gets the amount requested
         amount_requested = attachments.gas_attached * tokens_per_gas / 100000000
 
-        can_exchange = self.calculate_can_exchange(project_id, funding_stage_id, amount_requested, attachments.sender_addr)
+        can_exchange = self.calculate_can_exchange(project_id, funding_stage_id, amount_requested)
 
         return can_exchange
 
-    def calculate_can_exchange(self, project_id, funding_stage_id, amount:int, address):
+    def calculate_can_exchange(self, project_id, funding_stage_id, amount:int):
         storage = StorageManager()
         height = GetHeight()
 
@@ -229,10 +232,11 @@ class FundingStage():
         new_fs_amount = fs_in_circulation + amount
 
         sts = SmartTokenShare()
-        sts_info = sts.get_info()
+        sts_info = sts.get_info(project_id)
+
         total_supply = sts_info[sts.total_supply_idx]
 
-        fs_info = self.get_info()
+        fs_info = self.get_info(project_id, funding_stage_id)
         fs_supply = fs_info[self.supply_idx]
         fs_start_block = fs_info[self.start_block_idx]
         fs_end_block = fs_info[self.end_block_idx]
@@ -240,15 +244,15 @@ class FundingStage():
         if new_total_amount > total_supply:
             print("amount greater than total supply")
             return False
-
+        
         if new_fs_amount > fs_supply:
             print("amount greater than funding stage supply")
             return False
-
+        
         if height < fs_start_block:
             print("Funding stage not begun yet")
             return False
-
+        
         if height > fs_end_block:
             print("Funding stage has ended")
             return False

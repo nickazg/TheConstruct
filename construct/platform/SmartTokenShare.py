@@ -1,4 +1,5 @@
 from construct.common.StorageManager import StorageManager
+from boa.code.builtins import list
 
 class SmartTokenShare():
     """
@@ -120,7 +121,7 @@ class SmartTokenShare():
 
         return in_circulation
 
-    def get_info(self, project_id):
+    def get_info(self, project_id:str):
         """
         Get the info list
 
