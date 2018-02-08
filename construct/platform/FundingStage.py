@@ -160,11 +160,12 @@ class FundingStage():
 
     # Invoked to mintTokens, exchange GAS for STS
     def exchange(self, project_id, funding_stage_id):
+        
         storage = StorageManager()
         attachments = get_asset_attachments()
 
         fs_info = self.get_info(project_id, funding_stage_id)
-        tokens_per_gas = fs_info[3]
+        tokens_per_gas = fs_info[self.tokens_per_gas_idx]
 
         # this looks up whether the exchange can proceed
         can_exchange = self.can_exchange(project_id, funding_stage_id, attachments)
@@ -174,29 +175,29 @@ class FundingStage():
             OnRefund(attachments.sender_addr, attachments.neo_attached)
             return False
         
-        #### NEEDS TO BE REVIEWED FOR FS ####
+        #### NEEDS TO BE TEST FOR FS ####
         # lookup the current balance of the address
-        current_balance = storage.get(attachments.sender_addr)
+        current_sts_balance = storage.get_double(project_id, attachments.sender_addr)
 
         # calculate the amount of tokens the attached gas will earn
-        exchanged_tokens += attachments.gas_attached * tokens_per_gas / 100000000
+        exchanged_sts += attachments.gas_attached * tokens_per_gas / 100000000
 
         # add it to the the exchanged tokens and persist in storage
-        new_total = exchanged_tokens + current_balance
-        storage.put(attachments.sender_addr, new_total)
+        new_total = exchanged_sts + current_sts_balance
+        storage.put_double(project_id, attachments.sender_addr, new_total)
 
         # update the in circulation amount
-        self.add_to_circulation(project_id, funding_stage_id, exchanged_tokens)
+        self.add_to_circulation(project_id, funding_stage_id, exchanged_sts)
 
         # dispatch transfer event
-        OnTransfer(attachments.receiver_addr, attachments.sender_addr, exchanged_tokens)
+        OnTransfer(attachments.receiver_addr, attachments.sender_addr, exchanged_sts)
 
         return True
     
     def can_exchange(self, project_id, funding_stage_id, attachments:Attachments) -> bool:
         
         fs_info = self.get_info(project_id, funding_stage_id)
-        tokens_per_gas = fs_info[3]
+        tokens_per_gas = fs_info[self.tokens_per_gas_idx]
 
         # Checks attached gas
         if attachments.gas_attached == 0:
@@ -219,9 +220,13 @@ class FundingStage():
         storage = StorageManager()
         height = GetHeight()
 
-        current_in_circulation = self.get_circulation(project_id, funding_stage_id)
+        sts = SmartTokenShare()
 
-        new_amount = current_in_circulation + amount
+        total_in_circulation = sts.get_total_circulation(project_id)
+        fs_in_circulation = self.get_circulation(project_id, funding_stage_id)
+
+        new_total_amount = total_in_circulation + amount
+        new_fs_amount = fs_in_circulation + amount
 
         sts = SmartTokenShare()
         sts_info = sts.get_info()
@@ -232,11 +237,11 @@ class FundingStage():
         fs_start_block = fs_info[self.start_block_idx]
         fs_end_block = fs_info[self.end_block_idx]
 
-        if new_amount > total_supply:
+        if new_total_amount > total_supply:
             print("amount greater than total supply")
             return False
 
-        if new_amount > fs_supply:
+        if new_fs_amount > fs_supply:
             print("amount greater than funding stage supply")
             return False
 
