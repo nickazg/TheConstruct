@@ -11,7 +11,7 @@ OnApprove = RegisterAction('approve','project_id', 'addr_from', 'addr_to', 'amou
 
 class SmartTokenShareHandler():
     """
-    Based off the NEP5 Handler, the SmartTokenShareHandler handles the transfering of STS's 
+    Based off the NEP5 Handler. The SmartTokenShareHandler handles the transfering of STS's
     """ 
 
     def get_methods(self):
@@ -19,7 +19,9 @@ class SmartTokenShareHandler():
         methods = ['symbol', 'decimals', 'totalSupply', 'balanceOf', 'transfer', 'transferFrom', 'approve', 'allowance']
         return methods
 
-    def handle_sts(self, operation, args, sts: SmartTokenShare):
+    def handle_sts(self, operation, args):
+        sts = SmartTokenShare()
+
         # project_id always first arg
         project_id = args[0]
         
@@ -52,7 +54,7 @@ class SmartTokenShareHandler():
                 t_from = args[1]
                 t_to = args[2]
                 t_amount = args[3]
-                return self.do_transfer(project_id, storage, t_from, t_to, t_amount)
+                return self.do_transfer(project_id, t_from, t_to, t_amount)
             return arg_error
 
         elif operation == 'transferFrom':
@@ -60,7 +62,7 @@ class SmartTokenShareHandler():
                 t_from = args[1]
                 t_to = args[2]
                 t_amount = args[3]
-                return self.do_transfer_from(project_id, storage, t_from, t_to, t_amount)
+                return self.do_transfer_from(project_id, t_from, t_to, t_amount)
             return arg_error
 
         elif operation == 'approve':
@@ -68,30 +70,34 @@ class SmartTokenShareHandler():
                 t_owner = args[1]
                 t_spender = args[2]
                 t_amount = args[3]
-                return self.do_approve(project_id, storage, t_owner, t_spender, t_amount)
+                return self.do_approve(project_id, t_owner, t_spender, t_amount)
             return arg_error
 
         elif operation == 'allowance':
             if len(args) == 3:
                 t_owner = args[1]
                 t_spender = args[2]
-                return self.do_allowance(project_id, storage, t_owner, t_spender)
+                return self.do_allowance(project_id, t_owner, t_spender)
 
             return arg_error
 
         return False
 
-    def do_transfer(self, project_id, storage: StorageManager, t_from, t_to, amount):
+    def do_transfer(self, project_id, t_from, t_to, amount):
+        storage = StorageManager()
 
+        # Pointless
         if amount <= 0:
             return False
 
+        # Validate address
         if CheckWitness(t_from):
-
+            
+            # Pointless
             if t_from == t_to:
                 print("transfer to self!")
                 return True
-
+            
             from_val = storage.get_double(project_id, t_from)
 
             if from_val < amount:
@@ -119,8 +125,9 @@ class SmartTokenShareHandler():
 
         return False
     
-    def do_transfer_from(self, project_id, storage: StorageManager, t_from, t_to, amount):
-
+    def do_transfer_from(self, project_id, t_from, t_to, amount):
+        
+        storage = StorageManager()
         if amount <= 0:
             return False
 
@@ -162,7 +169,9 @@ class SmartTokenShareHandler():
 
         return True
 
-    def do_approve(self, project_id, storage: StorageManager, t_owner, t_spender, amount):
+    # Owner approves amount allowance to spender
+    def do_approve(self, project_id, t_owner, t_spender, amount):
+        storage = StorageManager()
 
         if not CheckWitness(t_owner):
             print("Incorrect permission")
@@ -188,7 +197,8 @@ class SmartTokenShareHandler():
 
         return False
 
-    def do_allowance(self, project_id, storage: StorageManager, t_owner, t_spender):
+    def do_allowance(self, project_id, t_owner, t_spender):
+        storage = StorageManager()
 
         allowance_key = concat(t_owner, t_spender)
 

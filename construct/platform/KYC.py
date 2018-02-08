@@ -17,7 +17,7 @@ class KYC():
     """
     
     # User submit
-    def kyc_submit(self, sts:SmartTokenShare, address, phys_address, first_name, last_name, id_type, id_number, id_expiry, file_location, file_hash):
+    def kyc_submit(self, project_id, address, phys_address, first_name, last_name, id_type, id_number, id_expiry, file_location, file_hash):
         """    
         Submits a KYC information to the smart contract 
         Args:
@@ -58,14 +58,14 @@ class KYC():
             if len(address) == 20:
 
                 # Combines all args into a single list
-                kyc_array = list(address, phys_address, first_name, last_name, id_type, id_number, id_expiry, file_location, file_hash)
+                output_kyc_array = list(address, phys_address, first_name, last_name, id_type, id_number, id_expiry, file_location, file_hash)
                 
                 # Serialises list into a single bytearray, and stores that into storeage
                 serialized_kyc = storage.serialize_array(output_kyc_array)
-                storage.put_triple('KYC', sts.project_id, address, serialized_kyc)
+                storage.put_triple('KYC', project_id, address, serialized_kyc)
     
     # Admin check
-    def get_kyc_submission(self, sts:SmartTokenShare, address):
+    def get_kyc_submission(self, project_id, address):
         """    
         Submits a KYC information to the smart contract 
         Args:
@@ -79,16 +79,21 @@ class KYC():
         """
         storage = StorageManager()
 
+        sts = SmartTokenShare()
+        sts_info = sts.get_info(project_id)
+
+        owner = sts_info[sts.owner_idx]
+
         # Checking the invoker is the owner/admin
-        if CheckWitness(sts.owner):
+        if CheckWitness(owner):
             if len(address) == 20:
 
                 # Deserialises bytearray back into a list
-                serialized_kyc_sub = storage.get_triple('KYC', sts.project_id, address)
+                serialized_kyc_sub = storage.get_triple('KYC', project_id, address)
                 return storage.deserialize_bytearray(serialized_kyc_sub)                
 
     # Requires Admin to invoke
-    def kyc_register(self, args, sts:SmartTokenShare):
+    def kyc_register(self, args, project_id):
         """    
         Registers all input addresses 
         Args:
@@ -101,27 +106,32 @@ class KYC():
         Return:
             (int): The number of addresses to registered for KYC
         """
+        sts = SmartTokenShare()
+        sts_info = sts.get_info(project_id)
+
+        owner = sts_info[sts.owner_idx]
+
         ok_count = 0
         
         # Ignoring the first arg which should be the project_id
         addresses = args[1:]
 
-        if CheckWitness(sts.owner):
+        if CheckWitness(owner):
 
             for address in addresses:
 
                 if len(address) == 20:
 
                     storage = StorageManager()
-                    storage.put_triple(sts.project_id, 'KYC_address', address, True)
+                    storage.put_triple(project_id, 'KYC_address', address, True)
 
-                    OnKYCRegister(sts.project_id, address)
+                    OnKYCRegister(project_id, address)
                     ok_count += 1
 
         return ok_count
 
 
-    def kyc_status(self, args, sts:SmartTokenShare):
+    def kyc_status(self, project_id, address):
         """
         Gets the KYC Status of an address
 
@@ -136,9 +146,4 @@ class KYC():
         """
         storage = StorageManager()
 
-        if len(args) > 1:
-            address = args[1]
-
-            return storage.get_triple(sts.project_id, 'KYC_address', address)
-
-        return False
+        return storage.get_triple(project_id, 'KYC_address', address)

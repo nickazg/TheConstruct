@@ -1,16 +1,28 @@
 from boa.blockchain.vm.Neo.Runtime import CheckWitness, Notify
+from boa.blockchain.vm.Neo.Blockchain import GetHeight
 from boa.blockchain.vm.Neo.Action import RegisterAction
 
+from construct.platform.KYC import KYC
 from construct.platform.SmartTokenShare import SmartTokenShare
 from construct.common.StorageManager import StorageManager
+from construct.common.Txio import Attachments, get_asset_attachments
 
 from boa.code.builtins import list
+
+OnTransfer = RegisterAction('transfer', 'from', 'to', 'amount')
+OnRefund = RegisterAction('refund', 'to', 'amount')
 
 
 class FundingStage():
     """
     Interface for managing Funding Stages
     """
+    start_block_idx = 0
+    end_block_idx = 1
+    supply_idx = 2
+    tokens_per_gas_idx = 3
+    in_circulation_idx = 4
+
     def create(self, project_id, funding_stage_id, start_block, end_block, supply, tokens_per_gas):
         """
         Args:
@@ -136,3 +148,106 @@ class FundingStage():
         in_circulation = fs_info[4]
 
         return in_circulation
+    
+    def get_info(self, project_id, funding_stage_id):
+        storage = StorageManager()
+        
+        # Pull FundingStage info
+        fs_info_serialized = storage.get_triple('FS', project_id, funding_stage_id)
+        fs_info = storage.deserialize_bytearray(fs_info_serialized)
+
+        return fs_info
+
+    # Invoked to mintTokens, exchange GAS for STS
+    def exchange(self, project_id, funding_stage_id):
+        storage = StorageManager()
+        attachments = get_asset_attachments()
+
+        fs_info = self.get_info(project_id, funding_stage_id)
+        tokens_per_gas = fs_info[3]
+
+        # this looks up whether the exchange can proceed
+        can_exchange = self.can_exchange(project_id, funding_stage_id, attachments)
+
+        if not can_exchange:
+            print("Cannot exchange value, refunding")
+            OnRefund(attachments.sender_addr, attachments.neo_attached)
+            return False
+        
+        #### NEEDS TO BE REVIEWED FOR FS ####
+        # lookup the current balance of the address
+        current_balance = storage.get(attachments.sender_addr)
+
+        # calculate the amount of tokens the attached gas will earn
+        exchanged_tokens += attachments.gas_attached * tokens_per_gas / 100000000
+
+        # add it to the the exchanged tokens and persist in storage
+        new_total = exchanged_tokens + current_balance
+        storage.put(attachments.sender_addr, new_total)
+
+        # update the in circulation amount
+        self.add_to_circulation(project_id, funding_stage_id, exchanged_tokens)
+
+        # dispatch transfer event
+        OnTransfer(attachments.receiver_addr, attachments.sender_addr, exchanged_tokens)
+
+        return True
+    
+    def can_exchange(self, project_id, funding_stage_id, attachments:Attachments) -> bool:
+        
+        fs_info = self.get_info(project_id, funding_stage_id)
+        tokens_per_gas = fs_info[3]
+
+        # Checks attached gas
+        if attachments.gas_attached == 0:
+           print("no gas attached")
+           return False
+
+        # Checks KYC
+        kyc = KYC()
+        if not kyc.kyc_status(project_id, attachments.sender_addr):
+            return False
+        
+        # Gets the amount requested
+        amount_requested = attachments.gas_attached * tokens_per_gas / 100000000
+
+        can_exchange = self.calculate_can_exchange(project_id, funding_stage_id, amount_requested, attachments.sender_addr)
+
+        return can_exchange
+
+    def calculate_can_exchange(self, project_id, funding_stage_id, amount:int, address):
+        storage = StorageManager()
+        height = GetHeight()
+
+        current_in_circulation = self.get_circulation(project_id, funding_stage_id)
+
+        new_amount = current_in_circulation + amount
+
+        sts = SmartTokenShare()
+        sts_info = sts.get_info()
+        total_supply = sts_info[sts.total_supply_idx]
+
+        fs_info = self.get_info()
+        fs_supply = fs_info[self.supply_idx]
+        fs_start_block = fs_info[self.start_block_idx]
+        fs_end_block = fs_info[self.end_block_idx]
+
+        if new_amount > total_supply:
+            print("amount greater than total supply")
+            return False
+
+        if new_amount > fs_supply:
+            print("amount greater than funding stage supply")
+            return False
+
+        if height < fs_start_block:
+            print("Funding stage not begun yet")
+            return False
+
+        if height > fs_end_block:
+            print("Funding stage has ended")
+            return False
+
+        return True
+
+        
