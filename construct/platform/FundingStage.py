@@ -210,11 +210,14 @@ class FundingStage():
         # Checks KYC
         kyc = KYC()
         if not kyc.kyc_status(project_id, attachments.sender_addr):
+            print("Failed KYC")
             return False
         
         # Gets the amount requested
         amount_requested = attachments.gas_attached * tokens_per_gas / 100000000
-
+        print('amount_requested')
+        print(amount_requested)
+        
         can_exchange = self.calculate_can_exchange(project_id, funding_stage_id, amount_requested)
 
         return can_exchange
@@ -244,7 +247,7 @@ class FundingStage():
         if new_total_amount > total_supply:
             print("amount greater than total supply")
             return False
-        
+
         if new_fs_amount > fs_supply:
             print("amount greater than funding stage supply")
             return False

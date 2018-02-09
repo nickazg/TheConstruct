@@ -1,5 +1,7 @@
 from construct.platform.FundingStage import FundingStage
 from construct.common.StorageManager import StorageManager
+from construct.common.Txio import Attachments, get_asset_attachments
+
 
 class FundingStageTest():
     
@@ -119,4 +121,30 @@ class FundingStageTest():
                 return True
         
         print('test_calculate_can_exchange FAILED')
-        return False 
+        return False
+
+    def test_can_exchange(self):
+        fs = FundingStage()
+
+        # test_address = b'#\xba\'\x03\xc52c\xe8\xd6\xe5"\xdc2 39\xdc\xd8\xee\xe9'
+        test_address = b'j\x1agL0\xff\x926\x02\xde.a\x1fR\xe3FT\x0f\xba|'
+
+        attachments = get_asset_attachments()
+
+        # Registers KYC address
+        storage = StorageManager()
+        storage.put_triple(self.test_project_id, 'KYC_address', test_address, True)
+
+        print(attachments.gas_attached)
+        print('attachments.gas_attached')
+
+        fs.create(self.test_project_id, 'test_can_exchange', 1, 999999, 10000, 100)
+        test_result = fs.can_exchange(self.test_project_id, 'test_can_exchange', attachments)
+
+        # Check Test
+        if test_result:
+            print('test_can_exchange PASSED')
+            return True
+        
+        print('test_can_exchange FAILED')
+        return False

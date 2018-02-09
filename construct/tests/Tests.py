@@ -26,4 +26,5 @@ def run_tests():
     fst.test_add_to_circulation()
     fst.test_get_circulation()
     fst.test_calculate_can_exchange()
+    fst.test_can_exchange()
 
