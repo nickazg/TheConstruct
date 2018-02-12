@@ -1,7 +1,7 @@
 <p align="center" style="font-size:60px; line-height:10px">
   <img
     src="resources/images/construct_logo_title_3.png"
-    width="250px;">
+    width="500px;">
 </p>
 
 <!-- <p align="center">
