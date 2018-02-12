@@ -1,6 +1,8 @@
 from construct.platform.FundingStage import FundingStage
+from construct.platform.KYC import KYC
 from construct.common.StorageManager import StorageManager
 from construct.common.Txio import Attachments, get_asset_attachments
+from boa.code.builtins import list
 
 
 class FundingStageTest():
@@ -14,6 +16,10 @@ class FundingStageTest():
     
     test_fs_info = b'\x01\x05\x01\x02\xdc\x05\x01\x02\xb8\x0b\x01\x02\xf4\x01\x01\x01\n\x01\x01\x00'
     test_add_amount = 150
+
+    test_address1 = b'#\xba\'\x03\xc52c\xe8\xd6\xe5"\xdc2 39\xdc\xd8\xee\xe9'
+    test_address2 = b'j\x1agL0\xff\x926\x02\xde.a\x1fR\xe3FT\x0f\xba|'
+
 
     def test_create(self):
         fs = FundingStage()
@@ -126,17 +132,11 @@ class FundingStageTest():
     def test_can_exchange(self):
         fs = FundingStage()
 
-        # test_address = b'#\xba\'\x03\xc52c\xe8\xd6\xe5"\xdc2 39\xdc\xd8\xee\xe9'
-        test_address = b'j\x1agL0\xff\x926\x02\xde.a\x1fR\xe3FT\x0f\xba|'
-
         attachments = get_asset_attachments()
 
         # Registers KYC address
         storage = StorageManager()
-        storage.put_triple(self.test_project_id, 'KYC_address', test_address, True)
-
-        print(attachments.gas_attached)
-        print('attachments.gas_attached')
+        storage.put_triple(self.test_project_id, 'KYC_address', self.test_address2, True)
 
         fs.create(self.test_project_id, 'test_can_exchange', 1, 999999, 10000, 100)
         test_result = fs.can_exchange(self.test_project_id, 'test_can_exchange', attachments)
@@ -147,4 +147,50 @@ class FundingStageTest():
             return True
         
         print('test_can_exchange FAILED')
+        return False
+
+    def test_exchange(self):
+
+        fs = FundingStage()
+        attachments = get_asset_attachments()
+
+
+        # Test vars
+        tokens_per_gas = 100
+        test_exchanged_sts = attachments.gas_attached * tokens_per_gas / 100000000
+
+
+        # Sets balance to 0
+        storage = StorageManager()
+        storage.put_double(self.test_project_id, attachments.sender_addr, 0)
+
+        # Registers KYC address
+        storage.put_triple(self.test_project_id, 'KYC_address', self.test_address2, True)
+
+        # Setting default info
+        storage = StorageManager()
+        storage.delete_triple('FS', self.test_project_id, self.test_funding_stage_id)
+
+        # Creates new test fund
+        fs.create(self.test_project_id, self.test_funding_stage_id, 1, 999999, 10000, tokens_per_gas)
+
+        # Testing exchange method and checking stored balance
+        fs.exchange(self.test_project_id, self.test_funding_stage_id)
+        result1 = storage.get_double(self.test_project_id, attachments.sender_addr)
+
+        # Testing exchange method and checking stored balance again (should double)
+        fs.exchange(self.test_project_id, self.test_funding_stage_id)
+        result2 = storage.get_double(self.test_project_id, attachments.sender_addr)
+        
+        # Check Test
+        print('CHECK')
+        print(result1)
+        print(result2)
+        print(test_exchanged_sts)
+        
+        if result1 == test_exchanged_sts and result2 == test_exchanged_sts * 2:
+            print('test_exchange PASSED')
+            return True
+        
+        print('test_exchange FAILED')
         return False

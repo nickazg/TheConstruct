@@ -93,7 +93,7 @@ class KYC():
                 return storage.deserialize_bytearray(serialized_kyc_sub)                
 
     # Requires Admin to invoke
-    def kyc_register(self, args, project_id):
+    def kyc_register(self, project_id, addresses):
         """    
         Registers all input addresses 
         Args:
@@ -114,7 +114,7 @@ class KYC():
         ok_count = 0
         
         # Ignoring the first arg which should be the project_id
-        addresses = args[1:]
+        # addresses = args[1:]
 
         if CheckWitness(owner):
 

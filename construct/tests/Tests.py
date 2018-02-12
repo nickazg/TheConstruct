@@ -15,9 +15,9 @@ def run_tests():
     print('TESTING SmartTokenShareTest')
     sts = SmartTokenShareTest()
     sts.test_create()
-    sts.test_total_available_amount()
-    sts.test_add_to_total_circulation()
-    sts.test_get_total_circulation()
+    # sts.test_total_available_amount()
+    # sts.test_add_to_total_circulation()
+    # sts.test_get_total_circulation()
 
     print('TESTING FundingStageTest')
     fst = FundingStageTest()
@@ -25,6 +25,7 @@ def run_tests():
     fst.test_available_amount()
     fst.test_add_to_circulation()
     fst.test_get_circulation()
-    fst.test_calculate_can_exchange()
-    fst.test_can_exchange()
+    # fst.test_calculate_can_exchange()
+    # fst.test_can_exchange()
+    fst.test_exchange()
 

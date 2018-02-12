@@ -58,6 +58,8 @@ class FundingStage():
         fs_info_serialized = storage.serialize_array(fs_info)
         storage.put_triple('FS', project_id, funding_stage_id, fs_info_serialized)
 
+        return fs_info 
+    
     def available_amount(self, project_id, funding_stage_id):
         """
         Args:
@@ -100,8 +102,7 @@ class FundingStage():
         storage = StorageManager()
         
         # Pull FundingStage info
-        fs_info_serialized = storage.get_triple('FS', project_id, funding_stage_id)
-        fs_info = storage.deserialize_bytearray(fs_info_serialized)
+        fs_info = self.get_info(project_id, funding_stage_id)
 
         # info into vars
         start_block = fs_info[0]
@@ -116,12 +117,22 @@ class FundingStage():
         # output STS info
         updated_fs_info = [start_block, end_block, supply, tokens_per_gas, updated_in_circulation]
         
+        print('#### updated_fs_info')
+        l = len(updated_fs_info)
+        print(l)
+        # print(start_block)
+        # print(end_block)
+        # print(supply)
+        # print(tokens_per_gas)
+        # print(updated_in_circulation)
+        print('updated_fs_info ###')
+
         # Save STS info
         updated_fs_info_serialized = storage.serialize_array(updated_fs_info)
         storage.put_triple('FS', project_id, funding_stage_id, updated_fs_info_serialized)
 
         
-        # # Update sts **
+        # Update sts **
         sts = SmartTokenShare()
         sts.add_to_total_circulation(project_id, amount)
 
@@ -154,8 +165,6 @@ class FundingStage():
         
         # Pull FundingStage info
         fs_info_serialized = storage.get_triple('FS', project_id, funding_stage_id)
-        print('fs_info_serialized')
-        print(fs_info_serialized)
         fs_info = storage.deserialize_bytearray(fs_info_serialized)
 
         return fs_info
@@ -178,21 +187,30 @@ class FundingStage():
             OnRefund(attachments.sender_addr, attachments.neo_attached)
             return False
         
-        #### NEEDS TO BE TEST FOR FS ####
         # lookup the current balance of the address
         current_sts_balance = storage.get_double(project_id, attachments.sender_addr)
+        print('current_sts_balance')
+        print(current_sts_balance)
+
+        print('attachments.gas_attached')
+        print(attachments.gas_attached)
 
         # calculate the amount of tokens the attached gas will earn
-        exchanged_sts += attachments.gas_attached * tokens_per_gas / 100000000
+        exchanged_sts = attachments.gas_attached * tokens_per_gas / 100000000
+        print('exchanged_sts')
+        print(exchanged_sts)
 
         # add it to the the exchanged tokens and persist in storage
         new_total = exchanged_sts + current_sts_balance
+        
+        print('new_total')
+        print(new_total)
         storage.put_double(project_id, attachments.sender_addr, new_total)
 
-        # update the in circulation amount
+        # # update the in circulation amount
         self.add_to_circulation(project_id, funding_stage_id, exchanged_sts)
 
-        # dispatch transfer event
+        # # dispatch transfer event
         OnTransfer(attachments.receiver_addr, attachments.sender_addr, exchanged_sts)
 
         return True
@@ -215,8 +233,6 @@ class FundingStage():
         
         # Gets the amount requested
         amount_requested = attachments.gas_attached * tokens_per_gas / 100000000
-        print('amount_requested')
-        print(amount_requested)
         
         can_exchange = self.calculate_can_exchange(project_id, funding_stage_id, amount_requested)
 
