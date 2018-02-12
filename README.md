@@ -1,14 +1,14 @@
 <p align="center" style="font-size:60px; line-height:10px">
   <img
-    src="resources/images/construct_logo_title_3.png"
+    src="resources/images/construct_logo_title_3_2.png"
     width="250px;">
 </p>
 
-<p align="center">
+<!-- <p align="center">
   <img
     src="resources/images/title.png">
 </p>
-</br>
+</br> -->
 
 <!---
 <p align="center" style="font-size:60px; font-weight:bold; line-height:10px;">The Construct</p>
