@@ -1,6 +1,6 @@
 <p align="center" style="font-size:60px; line-height:10px">
   <img
-    src="resources/images/construct_logo_blue.png"
+    src="resources/images/construct_logo_3.png"
     width="250px;">
 </p>
 
