@@ -23,6 +23,8 @@ class FundingStage():
     tokens_per_gas_idx = 3
     in_circulation_idx = 4
 
+    fs_info_len = 5
+
     def create(self, project_id, funding_stage_id, start_block, end_block, supply, tokens_per_gas):
         """
         Args:
@@ -74,8 +76,7 @@ class FundingStage():
         storage = StorageManager()
         
         # Pull FundingStage info
-        fs_info_serialized = storage.get_triple('FS', project_id, funding_stage_id)
-        fs_info = storage.deserialize_bytearray(fs_info_serialized)
+        fs_info = self.get_info(project_id, funding_stage_id)
 
         # FundingStage vars
         in_circulation = fs_info[4]
@@ -117,16 +118,6 @@ class FundingStage():
         # output STS info
         updated_fs_info = [start_block, end_block, supply, tokens_per_gas, updated_in_circulation]
         
-        print('#### updated_fs_info')
-        l = len(updated_fs_info)
-        print(l)
-        # print(start_block)
-        # print(end_block)
-        # print(supply)
-        # print(tokens_per_gas)
-        # print(updated_in_circulation)
-        print('updated_fs_info ###')
-
         # Save STS info
         updated_fs_info_serialized = storage.serialize_array(updated_fs_info)
         storage.put_triple('FS', project_id, funding_stage_id, updated_fs_info_serialized)
@@ -165,8 +156,18 @@ class FundingStage():
         
         # Pull FundingStage info
         fs_info_serialized = storage.get_triple('FS', project_id, funding_stage_id)
-        fs_info = storage.deserialize_bytearray(fs_info_serialized)
 
+        if not fs_info_serialized:
+            print('fs_info_serialized is null')
+            return None
+        
+        fs_info = storage.deserialize_bytearray(fs_info_serialized)
+        fs_info_len = len(fs_info)
+
+        if fs_info_len != self.fs_info_len:
+            print('fs_info has missing info')
+            return None
+        
         return fs_info
 
 
@@ -177,6 +178,10 @@ class FundingStage():
         attachments = get_asset_attachments()
 
         fs_info = self.get_info(project_id, funding_stage_id)
+        if not fs_info:
+            print('invalid fs_info')
+            return False
+        
         tokens_per_gas = fs_info[self.tokens_per_gas_idx]
 
         # this looks up whether the exchange can proceed
@@ -184,33 +189,25 @@ class FundingStage():
 
         if not can_exchange:
             print("Cannot exchange value, refunding")
-            OnRefund(attachments.sender_addr, attachments.neo_attached)
+            # OnRefund(attachments.sender_addr, attachments.neo_attached)
             return False
         
         # lookup the current balance of the address
         current_sts_balance = storage.get_double(project_id, attachments.sender_addr)
-        print('current_sts_balance')
-        print(current_sts_balance)
-
-        print('attachments.gas_attached')
-        print(attachments.gas_attached)
 
         # calculate the amount of tokens the attached gas will earn
         exchanged_sts = attachments.gas_attached * tokens_per_gas / 100000000
-        print('exchanged_sts')
-        print(exchanged_sts)
 
         # add it to the the exchanged tokens and persist in storage
         new_total = exchanged_sts + current_sts_balance
         
-        print('new_total')
-        print(new_total)
         storage.put_double(project_id, attachments.sender_addr, new_total)
 
+        # NEED TO FIX THIS!! 
         # # update the in circulation amount
-        self.add_to_circulation(project_id, funding_stage_id, exchanged_sts)
+        # self.add_to_circulation(project_id, funding_stage_id, exchanged_sts)
 
-        # # dispatch transfer event
+        # dispatch transfer event
         OnTransfer(attachments.receiver_addr, attachments.sender_addr, exchanged_sts)
 
         return True

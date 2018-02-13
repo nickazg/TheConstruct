@@ -24,7 +24,7 @@ class FundingRoadmap():
 
         return methods
 
-    def add_generic_list(self, project_id, key, new_list:list):
+    def add_list(self, project_id, key, new_list:list):
         """Adds the input list of funding stages to storage (as serialized array)
         Args:
             new_list (list):
@@ -44,7 +44,7 @@ class FundingRoadmap():
         # Saves updated serialized list to storage
         storage.put_double(key, project_id, serialized_combined_lists)
 
-    def get_generic_list(self, project_id, key):
+    def get_list(self, project_id, key):
         """    
         Registers all input addresses 
         Return:
@@ -66,7 +66,7 @@ class FundingRoadmap():
             new_funding_stages (list):
                 list of funding stages to save to storage
         """  
-        self.add_generic_list(project_id, 'FR_stages', new_funding_stages)
+        self.add_list(project_id, 'FR_stages', new_funding_stages)
     
     def get_funding_stages(self, project_id):
         """    
@@ -74,7 +74,7 @@ class FundingRoadmap():
         Return:
             (list): The number of addresses to registered for KYC
         """
-        funding_stages = get_generic_list(project_id, 'FR_stages')
+        funding_stages = get_list(project_id, 'FR_stages')
         
         return funding_stages
 
@@ -84,7 +84,7 @@ class FundingRoadmap():
             new_milestones (list):
                 list of milestones to add
         """ 
-        self.add_generic_list(project_id, 'FR_milestones', new_milestones)  
+        self.add_list(project_id, 'FR_milestones', new_milestones)  
     
     def get_milestones(self, project_id):
         """    
@@ -92,7 +92,7 @@ class FundingRoadmap():
         Return:
             (list): The number of milestones
         """
-        milestones = get_generic_list(project_id, 'FR_milestones')
+        milestones = get_list(project_id, 'FR_milestones')
 
         return milestones
 
@@ -102,7 +102,7 @@ class FundingRoadmap():
             new_milestones (list):
                 list of admins to add
         """ 
-        self.add_generic_list(project_id, 'FR_admins', new_admins)    
+        self.add_list(project_id, 'FR_admins', new_admins)    
 
     def get_project_admins(self, project_id):
         """    
@@ -110,6 +110,6 @@ class FundingRoadmap():
         Return:
             (list): The number of admins
         """
-        admins = get_generic_list(project_id, 'FR_admins')
+        admins = get_list(project_id, 'FR_admins')
 
         return admins

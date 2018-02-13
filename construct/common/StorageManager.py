@@ -88,9 +88,10 @@ class StorageManager():
         return out
 
     def deserialize_bytearray(self, data):
-        # ok this is weird.  if you remove this print statement, it stops working :/
-        print("deserializing data...")
-        # print(data)
+
+        # neo-boa bug, Something is require here for some reason...
+        # pointless = True
+        print('deserialize_bytearray')
 
         # get length of length
         collection_length_length = substr(data, 0, 1)
@@ -120,6 +121,8 @@ class StorageManager():
 
             # get the data
             item = substr(newdata, start, item_len)
+
+            print(item)
 
             # store it in collection
             new_collection[i] = item

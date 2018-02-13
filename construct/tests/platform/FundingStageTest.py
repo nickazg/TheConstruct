@@ -43,8 +43,14 @@ class FundingStageTest():
         fs = FundingStage()
 
         # Running crowdfund_available_amount()
-        available = fs.available_amount(self.test_project_id, self.test_funding_stage_id)
-        
+        # fs.create(self.test_project_id, 'test_available_amount', self.test_start_block, self.test_end_block, self.test_supply, self.test_tokens_per_gas)
+        storage = StorageManager()
+        storage.put_triple('FS', self.test_project_id, 'test_available_amount', self.test_fs_info)    
+
+        available = fs.available_amount(self.test_project_id, 'test_available_amount')
+        print('available')
+        print(available)
+
         test_available = self.test_supply - 0
 
         # Check Test
@@ -165,7 +171,7 @@ class FundingStageTest():
         storage.put_double(self.test_project_id, attachments.sender_addr, 0)
 
         # Registers KYC address
-        storage.put_triple(self.test_project_id, 'KYC_address', self.test_address2, True)
+        storage.put_triple(self.test_project_id, 'KYC_address', self.test_address1, True)
 
         # Setting default info
         storage = StorageManager()
@@ -184,9 +190,6 @@ class FundingStageTest():
         
         # Check Test
         print('CHECK')
-        print(result1)
-        print(result2)
-        print(test_exchanged_sts)
         
         if result1 == test_exchanged_sts and result2 == test_exchanged_sts * 2:
             print('test_exchange PASSED')
