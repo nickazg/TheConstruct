@@ -141,5 +141,11 @@ class FundingRoadmap():
             print('Current Funding Stage NOT complete')
             return False
             
+        if progress > 100:
+            progress = 100
+             = active_idx+1
+            self.set_active_index(project_id, next_idx)
+        
         ms = Milestone()
         ms.update_progress(project_id, active_milestone, progress)
+        

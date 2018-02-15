@@ -69,10 +69,10 @@ class FundingStageTest():
         storage.put_triple('FS', self.test_project_id, self.test_funding_stage_id, self.test_fs_info)    
 
 
-        # Running add_to_crowdfund_circulation()
-        fs.add_to_circulation(self.test_project_id, self.test_funding_stage_id, self.test_add_amount)
-        fs.add_to_circulation(self.test_project_id, self.test_funding_stage_id, self.test_add_amount)
-        fs.add_to_circulation(self.test_project_id, self.test_funding_stage_id, self.test_add_amount)
+        # # Running add_to_crowdfund_circulation()
+        # fs.add_to_circulation(self.test_project_id, self.test_funding_stage_id, self.test_add_amount)
+        # fs.add_to_circulation(self.test_project_id, self.test_funding_stage_id, self.test_add_amount)
+        # fs.add_to_circulation(self.test_project_id, self.test_funding_stage_id, self.test_add_amount)
         
         in_circ = fs.get_circulation(self.test_project_id, self.test_funding_stage_id)
 
@@ -93,7 +93,7 @@ class FundingStageTest():
         storage = StorageManager()
         storage.put_triple('FS', self.test_project_id, self.test_funding_stage_id, self.test_fs_info)    
 
-        fs.add_to_circulation(self.test_project_id, self.test_funding_stage_id, self.test_add_amount)
+        # fs.add_to_circulation(self.test_project_id, self.test_funding_stage_id, self.test_add_amount)
         
         # Running get_crowdfund_circulation()
         in_circ = fs.get_circulation(self.test_project_id, self.test_funding_stage_id)
