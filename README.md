@@ -2,7 +2,7 @@
 <br>
 <p align="center" style="font-size:60px; line-height:10px">
   <img
-    src="resources/images/construct_logo_new_title1_green.png"
+    src="resources/images/construct_logo_new_title1.png"
     width="500px;">
 </p>
 <br>
