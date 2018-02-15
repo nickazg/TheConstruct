@@ -66,7 +66,7 @@ class StorageManager():
         return output
 
 
-    def serialize_var_length_item(self, item):
+    def serialize_var_length_item(self, item:list):
         # get the length of your stuff
         stuff_len = len(item)
 

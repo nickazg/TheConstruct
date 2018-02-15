@@ -40,44 +40,49 @@ def Main(operation, args):
         (bytearray): The result of the operation
     """
 
-    run_tests()
-
-    
+        
     # Gets the transaction trigger
     trigger = GetTrigger()
-    # fs = FundingStage()
 
     if trigger == Verification:
         return True
 
     elif trigger == Application:
-        if operation != None and len(args) > 0:
-            
-            # sts = SmartTokenShare()
-            # sts_handler = SmartTokenShareHandler()
 
-            # project_id always first arg
-            project_id = args[0]
-            
-            # Pulling info from storeage
-            # sts.get_project_info(project_id)        
+        run_tests(operation, args)
 
-            # for handler_op in sts_handler.get_methods():
-            #     if operation == handler_op:
-            #         return sts_handler.handle_sts(operation, args, sts)
+        return True
 
-            # TEST
-            # if operation == 'create':
-            #     symbol = args[2]
-            #     owner = args[1]
-            
-            return True
-            
-            # TODO - Dont forget ;) 
-            # Fork contract to new version, all storage is transferred.
-            # See: https://github.com/neo-project/neo/blob/master/neo/SmartContract/StateMachine.cs#L210
-            if operation == 'contract_migrate':
+        # if operation != None and len(args) > 0:
 
-                # Check if the invoker is the owner of this contract
-                if CheckWitness(OWNER):
-                    print("Migrate Contract!")
+        #     sts = SmartTokenShare()
+        #     sts_handler = SmartTokenShareHandler()
+        #     fr = FundingRoadmap()
+        #     fs = FundingStage()
+
+        #     # # project_id always first arg
+        #     # project_id = args[0]
+
+                        
+        #     # Pulling info from storeage
+        #     # sts.get_project_info(project_id)        
+
+        #     # for handler_op in sts_handler.get_methods():
+        #     #     if operation == handler_op:
+        #     #         return sts_handler.handle_sts(operation, args, sts)
+
+        #     # TEST
+        #     # if operation == 'create':
+        #     #     symbol = args[2]
+        #     #     owner = args[1]
+            
+        #     return True
+            
+        #     # TODO - Dont forget ;) 
+        #     # Fork contract to new version, all storage is transferred.
+        #     # See: https://github.com/neo-project/neo/blob/master/neo/SmartContract/StateMachine.cs#L210
+        #     if operation == 'contract_migrate':
+
+        #         # Check if the invoker is the owner of this contract
+        #         if CheckWitness(OWNER):
+        #             print("Migrate Contract!")

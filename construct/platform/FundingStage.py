@@ -12,7 +12,6 @@ from boa.code.builtins import list
 OnTransfer = RegisterAction('transfer', 'from', 'to', 'amount')
 OnRefund = RegisterAction('refund', 'to', 'amount')
 
-
 class FundingStage():
     """
     Interface for managing Funding Stages
@@ -85,8 +84,8 @@ class FundingStage():
         available = supply - in_circulation
 
         return available
-
-    def add_to_circulation(self, project_id, funding_stage_id, amount):
+    
+    def add_to_circulation(self, project_id:str, funding_stage_id:str, amount:int, storage:StorageManager, fs_info:list):
         """
         Adds an amount of token to circlulation
 
@@ -100,12 +99,13 @@ class FundingStage():
             amount (int):
                 amount of tokens added  
         """
-        storage = StorageManager()
-        
+        # storage = StorageManager()
+
         # Pull FundingStage info
-        fs_info = self.get_info(project_id, funding_stage_id)
+        # fs_info = self.get_info(project_id, funding_stage_id)
 
         # info into vars
+        print('info into vars')
         start_block = fs_info[0]
         end_block = fs_info[1]
         supply = fs_info[2]
@@ -113,15 +113,27 @@ class FundingStage():
         in_circulation = fs_info[4]
 
         # Calculation
+        print('Calculation')
         updated_in_circulation = in_circulation + amount
 
         # output STS info
-        updated_fs_info = [start_block, end_block, supply, tokens_per_gas, updated_in_circulation]
+        print('output STS info')
+        # updated_fs_info = [start_block, end_block, supply, tokens_per_gas, updated_in_circulation]
         
+        updated_fs_info = list(length=5)
+        updated_fs_info[0] = start_block
+        updated_fs_info[1] = end_block
+        updated_fs_info[2] = supply
+        updated_fs_info[3] = tokens_per_gas
+        updated_fs_info[4] = updated_in_circulation
+
+
         # Save STS info
+        print(updated_in_circulation)
+        print('Save STS info')
+        
         updated_fs_info_serialized = storage.serialize_array(updated_fs_info)
         storage.put_triple('FS', project_id, funding_stage_id, updated_fs_info_serialized)
-
         
         # Update sts **
         sts = SmartTokenShare()
@@ -158,18 +170,44 @@ class FundingStage():
         fs_info_serialized = storage.get_triple('FS', project_id, funding_stage_id)
 
         if not fs_info_serialized:
-            print('fs_info_serialized is null')
+            print('fs_info_serialized is null')            
             return None
         
         fs_info = storage.deserialize_bytearray(fs_info_serialized)
-        fs_info_len = len(fs_info)
+        # fs_info_len = len(fs_info)
 
-        if fs_info_len != self.fs_info_len:
-            print('fs_info has missing info')
-            return None
+        # if fs_info_len != self.fs_info_len:
+        #     print('fs_info has missing info')
+        #     return None
         
         return fs_info
 
+    def status(self, project_id, funding_stage_id):
+        fs_info = self.get_info(project_id, funding_stage_id)
+        
+        # info into vars
+        start_block = fs_info[0]
+        end_block = fs_info[1]
+        supply = fs_info[2]
+        tokens_per_gas = fs_info[3]
+        in_circulation = fs_info[4]
+
+        height = GetHeight()
+
+        # Success
+        if in_circulation >= supply:
+            print("Funding Stage completed successfully")
+            return 1
+
+        # Active    
+        if height < end_block:
+            print("Funding Stage still active")
+            return 2       
+
+        # Fail            
+        print("Funding Stage failed")
+        return 3
+        
 
     # Invoked to mintTokens, exchange GAS for STS
     def exchange(self, project_id, funding_stage_id):
@@ -205,7 +243,8 @@ class FundingStage():
 
         # NEED TO FIX THIS!! 
         # # update the in circulation amount
-        # self.add_to_circulation(project_id, funding_stage_id, exchanged_sts)
+        self.add_to_circulation(project_id, funding_stage_id, exchanged_sts, storage, fs_info)
+        print('added to circ')
 
         # dispatch transfer event
         OnTransfer(attachments.receiver_addr, attachments.sender_addr, exchanged_sts)

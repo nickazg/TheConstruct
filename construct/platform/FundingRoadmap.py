@@ -5,6 +5,7 @@ from boa.code.builtins import concat, list, range, take, substr
 
 from construct.platform.FundingStage import FundingStage
 from construct.platform.SmartTokenShare import SmartTokenShare
+from construct.platform.Milestone import Milestone
 from construct.common.StorageManager import StorageManager
 
 class FundingRoadmap():
@@ -32,12 +33,12 @@ class FundingRoadmap():
         """   
         storage = StorageManager()
 
-        # Gets current stored list
-        serialized_list = storage.get_double(key, project_id)
-
         # Serializes list 
         serialized_new_list = storage.serialize_array(new_list)
 
+        # Gets current stored list
+        serialized_list = storage.get_double(key, project_id)
+        
         # Updates list
         serialized_combined_lists = concat(serialized_list, serialized_new_list)
 
@@ -57,6 +58,7 @@ class FundingRoadmap():
 
         # Converts serialized list to normal list
         output_list = storage.deserialize_bytearray(serialized_list)
+        # output_list = ['sdad','sdads']
 
         return output_list
 
@@ -74,8 +76,7 @@ class FundingRoadmap():
         Return:
             (list): The number of addresses to registered for KYC
         """
-        funding_stages = get_list(project_id, 'FR_stages')
-        
+        funding_stages = self.get_list(project_id, 'FR_stages')
         return funding_stages
 
     def add_milestones(self, project_id, new_milestones:list):
@@ -92,7 +93,7 @@ class FundingRoadmap():
         Return:
             (list): The number of milestones
         """
-        milestones = get_list(project_id, 'FR_milestones')
+        milestones = self.get_list(project_id, 'FR_milestones')
 
         return milestones
 
@@ -110,6 +111,35 @@ class FundingRoadmap():
         Return:
             (list): The number of admins
         """
-        admins = get_list(project_id, 'FR_admins')
+        admins = self.get_list(project_id, 'FR_admins')
 
         return admins
+
+    
+    def set_active_index(self, project_id, idx):
+        storage = StorageManager()
+        storage.put_double(project_id, 'FR_active_idx', idx)
+
+    def get_active_index(self, project_id):
+        storage = StorageManager()
+        storage.get_double(project_id, 'FR_active_idx')
+
+
+    def update_milestone_progress(self, project_id, progress):
+        print('update_milestone_progress')
+        active_idx = self.get_active_index(project_id)
+        milestones = self.get_milestones(project_id)
+        funding_stages = self.get_funding_stages(project_id)
+
+        active_milestone = milestones[active_idx]
+        active_funding_stage = funding_stages[active_idx]
+        
+        fs = FundingStage()
+        fs_status = fs.status(project_id, active_funding_stage)
+
+        if fs_status != 1:
+            print('Current Funding Stage NOT complete')
+            return False
+            
+        ms = Milestone()
+        ms.update_progress(project_id, active_milestone, progress)
