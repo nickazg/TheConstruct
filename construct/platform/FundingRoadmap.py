@@ -143,7 +143,7 @@ class FundingRoadmap():
             
         if progress > 100:
             progress = 100
-             = active_idx+1
+            next_idx = active_idx+1
             self.set_active_index(project_id, next_idx)
         
         ms = Milestone()
