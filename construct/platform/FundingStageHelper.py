@@ -1,4 +1,6 @@
 from construct.common.StorageManager import StorageManager
+from construct.platform.SmartTokenShare import SmartTokenShare
+
 def add_to_circulation(project_id:str, funding_stage_id:str, amount:int, storage:StorageManager, fs_info:list):
     """
     Adds an amount of token to circlulation
@@ -50,8 +52,8 @@ def add_to_circulation(project_id:str, funding_stage_id:str, amount:int, storage
     updated_fs_info_serialized = storage.serialize_array(updated_fs_info)
     storage.put_triple('FS', project_id, funding_stage_id, updated_fs_info_serialized)
     
-    # # Update sts **
-    # sts = SmartTokenShare()
-    # sts.add_to_total_circulation(project_id, amount)
+    # Update sts **
+    sts = SmartTokenShare()
+    sts.add_to_total_circulation(project_id, amount)
 
     return True

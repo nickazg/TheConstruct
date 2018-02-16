@@ -199,6 +199,9 @@ class FundingStage():
 
         height = GetHeight()
 
+        print('supply')
+        print(supply)
+
         # Success
         if in_circulation >= supply:
             print("Funding Stage completed successfully")

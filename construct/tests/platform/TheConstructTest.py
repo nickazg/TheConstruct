@@ -75,28 +75,46 @@ class TheConstructTest():
 
         
         if operation == 'contribute':
-            print('contribute')
-
+            print('#contribute')
             # Registers KYC address
             storage.put_triple(self.project_id, 'KYC_address', attachments.sender_addr, True)
-            x = fs.exchange(self.project_id, 'first_stage')
+            
+            active_idx = fr.get_active_index(self.project_id)
+            funding_stages = fr.get_funding_stages(self.project_id)
+            active_funding_stage = funding_stages[active_idx]
+            x = fs.exchange(self.project_id, active_funding_stage)
+            print('contribute#')
             print(x)
         
         
         if operation == 'balance':
             print('balance')
-
             bal = storage.get_double(self.project_id, self.owner)
             print(bal)
 
         if operation == 'funding_stage_status':
+            print('#funding_stage_status')
             active_idx = fr.get_active_index(self.project_id)
             funding_stages = fr.get_funding_stages(self.project_id)
             active_funding_stage = funding_stages[active_idx]
             fs_status = fs.status(self.project_id, active_funding_stage)
-            print('funding_stage_status')
+            print('funding_stage_status#')
             print(fs_status)
+
+        if operation == 'current_index':
+            active_idx = fr.get_active_index(self.project_id)
+            print(active_idx)
         
+        if operation == 'milestone_progress':
+            print('#milestone_progress')
+            active_idx = fr.get_active_index(self.project_id)
+            milestones = fr.get_milestones(self.project_id)
+            active_milestone = milestones[active_idx]
+
+            prog = ms.get_progress(self.project_id, active_milestone)
+            print('milestone_progress#')
+            print(prog)
+
         if operation == 'complete_milestone':
             print('complete_milestone')
             fr.update_milestone_progress(self.project_id, 100)

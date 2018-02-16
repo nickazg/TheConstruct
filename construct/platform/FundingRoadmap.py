@@ -122,7 +122,8 @@ class FundingRoadmap():
 
     def get_active_index(self, project_id):
         storage = StorageManager()
-        storage.get_double(project_id, 'FR_active_idx')
+        idx = storage.get_double(project_id, 'FR_active_idx')
+        return idx
 
 
     def update_milestone_progress(self, project_id, progress):
@@ -141,10 +142,14 @@ class FundingRoadmap():
             print('Current Funding Stage NOT complete')
             return False
             
-        if progress > 100:
+        if progress >= 100:
+            print('progress 100%')
             progress = 100
-            next_idx = active_idx+1
-            self.set_active_index(project_id, next_idx)
+            next_idx = active_idx + 1
+            
+            storage = StorageManager()
+            storage.put_double(project_id, 'FR_active_idx', next_idx)
+            # self.set_active_index(project_id, next_idx)
         
         ms = Milestone()
         ms.update_progress(project_id, active_milestone, progress)
