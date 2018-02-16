@@ -74,6 +74,10 @@ class TheConstructTest():
             return stages
 
         
+        if operation == 'kyc':
+            storage.put_triple(self.project_id, 'KYC_address', attachments.sender_addr, True)
+          
+
         if operation == 'contribute':
             print('#contribute')
             # Registers KYC address
@@ -85,11 +89,31 @@ class TheConstructTest():
             x = fs.exchange(self.project_id, active_funding_stage)
             print('contribute#')
             print(x)
+
+        if operation == 'get_idx':
+            active_idx = fr.get_active_index(self.project_id)
+            print(active_idx)
+            return active_idx
+
+        if operation == 'get_active_fs':
+            active_idx = fr.get_active_index(self.project_id)
+            funding_stages = fr.get_funding_stages(self.project_id)
+            active_funding_stage = funding_stages[active_idx]
+            print(active_funding_stage)
+            return active_funding_stage
+        
+        if operation == 'contribute_fs':
+            print('#contribute_fs')
+
+            active_funding_stage = args[0]
+            x = fs.exchange(self.project_id, active_funding_stage)
+            print('contribute_fs#')
+            print(x)
         
         
         if operation == 'balance':
             print('balance')
-            bal = storage.get_double(self.project_id, self.owner)
+            bal = storage.get_double(self.project_id, attachments.sender_addr)
             print(bal)
 
         if operation == 'funding_stage_status':

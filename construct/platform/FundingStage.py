@@ -86,7 +86,7 @@ class FundingStage():
 
         return available
     
-        def get_circulation(self, project_id, funding_stage_id):
+    def get_circulation(self, project_id, funding_stage_id):
         """
         Get the total amount of tokens in circulation
 
