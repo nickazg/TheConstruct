@@ -100,10 +100,12 @@ class TheConstructTest():
             fs_status = fs.status(self.project_id, active_funding_stage)
             print('funding_stage_status#')
             print(fs_status)
+            return fs_status
 
         if operation == 'current_index':
             active_idx = fr.get_active_index(self.project_id)
             print(active_idx)
+            return active_idx
         
         if operation == 'milestone_progress':
             print('#milestone_progress')
@@ -114,9 +116,43 @@ class TheConstructTest():
             prog = ms.get_progress(self.project_id, active_milestone)
             print('milestone_progress#')
             print(prog)
+            return prog
 
         if operation == 'complete_milestone':
             print('complete_milestone')
             fr.update_milestone_progress(self.project_id, 100)
-    
+            
+
+        if operation == 'fs_supply':
+            active_idx = fr.get_active_index(self.project_id)
+            funding_stages = fr.get_funding_stages(self.project_id)
+            active_funding_stage = funding_stages[active_idx]
+            fs_info = fs.get_info(self.project_id, active_funding_stage)
+            supply = fs_info[fs.supply_idx]
+            print(supply)
+            return supply
+
+        if operation == 'fs_circ':
+            active_idx = fr.get_active_index(self.project_id)
+            funding_stages = fr.get_funding_stages(self.project_id)
+            active_funding_stage = funding_stages[active_idx]
+            fs_info = fs.get_info(self.project_id, active_funding_stage)
+            supply = fs_info[fs.in_circulation_idx]
+            print(supply)
+            return supply
+
+        if operation == 'sts_supply':
+            sts_info = sts.get_info(self.project_id)
+            supply = sts_info[sts.total_supply_idx]
+
+            print(supply)
+            return supply
+
+        if operation == 'sts_circ':
+            sts_info = sts.get_info(self.project_id)
+            supply = sts_info[sts.in_circulation_idx]
+
+            print(supply)
+            return supply
+
         return True

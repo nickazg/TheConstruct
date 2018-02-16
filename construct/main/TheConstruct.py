@@ -49,9 +49,9 @@ def Main(operation, args):
 
     elif trigger == Application:
 
-        run_tests(operation, args)
+        tests = run_tests(operation, args)
 
-        return True
+        return tests
 
         # if operation != None and len(args) > 0:
 

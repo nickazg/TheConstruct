@@ -31,7 +31,8 @@ def run_tests(operation, args):
     # fst.test_exchange()
 
     tc = TheConstructTest()
-    tc.test(operation, args)
+    test = tc.test(operation, args)
+    return test
 
     # return True
 
