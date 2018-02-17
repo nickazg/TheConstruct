@@ -55,82 +55,6 @@ def sts_create(project_id, symbol, decimals, owner, total_supply) -> SmartTokenS
 
     return sts
 
-def sts_total_available_amount(sts:SmartTokenShare):
-    """
-    Args:
-        project_id (str):
-            ID for referencing the project
-    Return:
-        (int): The avaliable tokens for the total project
-    """
-    # storage = StorageManager()
-    
-    # # Pull STS info
-    # sts_info_serialized = storage.get_double('STS', project_id)
-    # sts_info = storage.deserialize_bytearray(sts_info_serialized)
-
-    # # STS vars
-    # in_circulation = sts_info[4]
-    # supply = sts_info[3]
-
-    available = sts.supply - sts.in_circulation
-
-    return available
-
-def sts_add_to_total_circulation(sts:SmartTokenShare, amount:int):
-    """
-    Adds an amount of token to circlulation
-
-    Args:
-        project_id (str):
-            ID for referencing the project
-        amount (int):
-            amount of tokens added
-    """
-    storage = StorageManager()
-    
-    # # Pull STS info
-    # sts_info_serialized = storage.get_double('STS', project_id)
-    # sts_info = storage.deserialize_bytearray(sts_info_serialized)
-
-    # # info into vars
-    # symbol = sts_info[0]
-    # decimals = sts_info[1]
-    # owner = sts_info[2]
-    # total_supply = sts_info[3]
-    # in_circulation = sts_info[4]
-
-    # Calculation
-    sts.in_circulation = sts.in_circulation + amount 
-
-    # output STS info
-    updated_sts_info = [sts.symbol, sts.decimals, sts.owner, sts.total_supply, sts.in_circulation]
-    
-    # Save STS info
-    updated_sts_info_serialized = storage.serialize_array(updated_sts_info)
-    storage.put_double('STS', sts.project_id, updated_sts_info_serialized)    
-
-def sts_get_total_circulation(sts:SmartTokenShare):
-    """
-    Get the total amount of tokens in circulation
-
-    Args:
-        project_id (str):
-            ID for referencing the project
-    Return:
-        (int): The total amount of tokens in circulation
-    """        
-    # storage = StorageManager()
-    
-    # # Pull STS info
-    # sts_info_serialized = storage.get_double('STS', sts.project_id)
-    # sts_info = storage.deserialize_bytearray(sts_info_serialized)
-
-    # # in_circulation var
-    # in_circulation = sts_info[4]
-
-    return sts.in_circulation
-
 def sts_get(project_id:str) -> SmartTokenShare:
     """
     Get the info list
@@ -156,3 +80,50 @@ def sts_get(project_id:str) -> SmartTokenShare:
     sts.in_circulation = sts_info[4]
 
     return sts
+
+def sts_total_available_amount(sts:SmartTokenShare):
+    """
+    Args:
+        project_id (str):
+            ID for referencing the project
+    Return:
+        (int): The avaliable tokens for the total project
+    """
+    available = sts.supply - sts.in_circulation
+
+    return available
+
+def sts_add_to_total_circulation(sts:SmartTokenShare, amount:int):
+    """
+    Adds an amount of token to circlulation
+
+    Args:
+        project_id (str):
+            ID for referencing the project
+        amount (int):
+            amount of tokens added
+    """
+    storage = StorageManager()
+    
+    # Calculation
+    sts.in_circulation = sts.in_circulation + amount 
+
+    # output STS info
+    updated_sts_info = [sts.symbol, sts.decimals, sts.owner, sts.total_supply, sts.in_circulation]
+    
+    # Save STS info
+    updated_sts_info_serialized = storage.serialize_array(updated_sts_info)
+    storage.put_double('STS', sts.project_id, updated_sts_info_serialized)    
+
+def sts_get_total_circulation(sts:SmartTokenShare):
+    """
+    Get the total amount of tokens in circulation
+
+    Args:
+        project_id (str):
+            ID for referencing the project
+    Return:
+        (int): The total amount of tokens in circulation
+    """        
+    return sts.in_circulation
+

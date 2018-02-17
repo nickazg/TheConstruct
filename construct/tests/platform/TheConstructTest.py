@@ -1,4 +1,4 @@
-from construct.platform.FundingStage import FundingStage
+# from construct.platform.FundingStage import FundingStage
 from construct.platform.FundingRoadmap import FundingRoadmap
 # from construct.platform.SmartTokenShare import SmartTokenShare
 from construct.platform.Milestone import Milestone
@@ -6,6 +6,7 @@ from construct.common.StorageManager import StorageManager
 from construct.common.Txio import Attachments, get_asset_attachments
 
 from construct.platform.SmartTokenShareNew import SmartTokenShare, sts_create, sts_get 
+from construct.platform.FundingStageNew import FundingStage, fs_create, fs_get, fs_contribute, fs_status
 
 
 class TheConstructTest():
@@ -34,7 +35,7 @@ class TheConstructTest():
         
         # sts = SmartTokenShare()
         fr = FundingRoadmap()
-        fs = FundingStage()
+        # fs = FundingStage()
         ms = Milestone()
 
         storage = StorageManager()
@@ -44,10 +45,10 @@ class TheConstructTest():
             print('create_all')
 
             sts_create(self.project_id, self.symbol, self.decimals, self.owner, self.total_supply)
-            fs.create(self.project_id, 'first_stage', 1, 99999, 1000, 100)
-            fs.create(self.project_id, 'second_stage', 1, 99999, 500, 100)
-            fs.create(self.project_id, 'third_stage', 1, 99999, 100, 100)
-            fs.create(self.project_id, 'fourth_stage', 1, 99999, 200, 100)
+            fs_create(self.project_id, 'first_stage', 1, 99999, 1000, 100)
+            fs_create(self.project_id, 'second_stage', 1, 99999, 500, 100)
+            fs_create(self.project_id, 'third_stage', 1, 99999, 100, 100)
+            fs_create(self.project_id, 'fourth_stage', 1, 99999, 200, 100)
             
             fss = ['first_stage', 'second_stage', 'third_stage', 'fourth_stage']
 
@@ -89,9 +90,10 @@ class TheConstructTest():
             active_idx = fr.get_active_index(self.project_id)
             funding_stages = fr.get_funding_stages(self.project_id)
             active_funding_stage = funding_stages[active_idx]
-            x = fs.exchange(self.project_id, active_funding_stage)
+
+            fs = fs_get(self.project_id, active_funding_stage)
+            fs_contribute(fs)
             print('contribute#')
-            print(x)
 
         if operation == 'get_idx':
             active_idx = fr.get_active_index(self.project_id)
@@ -109,9 +111,11 @@ class TheConstructTest():
             print('#contribute_fs')
 
             active_funding_stage = args[0]
-            x = fs.exchange(self.project_id, active_funding_stage)
+            
+            fs = fs_get(self.project_id, active_funding_stage)
+            fs_contribute(fs)
+            
             print('contribute_fs#')
-            print(x)
         
         
         if operation == 'balance':
@@ -124,10 +128,14 @@ class TheConstructTest():
             active_idx = fr.get_active_index(self.project_id)
             funding_stages = fr.get_funding_stages(self.project_id)
             active_funding_stage = funding_stages[active_idx]
-            fs_status = fs.status(self.project_id, active_funding_stage)
+            
+
+            fs = fs_get(self.project_id, active_funding_stage)
+            status = fs_status(fs)
+
             print('funding_stage_status#')
-            print(fs_status)
-            return fs_status
+            print(status)
+            return status
 
         if operation == 'current_index':
             active_idx = fr.get_active_index(self.project_id)
@@ -154,19 +162,25 @@ class TheConstructTest():
             active_idx = fr.get_active_index(self.project_id)
             funding_stages = fr.get_funding_stages(self.project_id)
             active_funding_stage = funding_stages[active_idx]
-            fs_info = fs.get_info(self.project_id, active_funding_stage)
-            supply = fs_info[fs.supply_idx]
-            print(supply)
-            return supply
+            
+            fs = fs_get(self.project_id, active_funding_stage)
+            # fs_info = fs.get_info(self.project_id, active_funding_stage)
+            # supply = fs_info[fs.supply_idx]
+            
+            print(fs.supply)
+            return fs.supply
 
         if operation == 'fs_circ':
             active_idx = fr.get_active_index(self.project_id)
             funding_stages = fr.get_funding_stages(self.project_id)
             active_funding_stage = funding_stages[active_idx]
-            fs_info = fs.get_info(self.project_id, active_funding_stage)
-            supply = fs_info[fs.in_circulation_idx]
-            print(supply)
-            return supply
+            
+            fs = fs_get(self.project_id, active_funding_stage)
+
+            # fs_info = fs.get_info(self.project_id, active_funding_stage)
+            # supply = fs_info[fs.in_circulation_idx]
+            print(fs.in_circulation)
+            return fs.in_circulation
 
         if operation == 'sts_supply':
             sts = sts_get('projectID')
