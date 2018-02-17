@@ -165,10 +165,10 @@ class TheConstructTest():
             
             fs = fs_get(self.project_id, active_funding_stage)
             # fs_info = fs.get_info(self.project_id, active_funding_stage)
-            # supply = fs_info[fs.supply_idx]
+            supply = fs.supply
             
-            print(fs.supply)
-            return fs.supply
+            print(supply)
+            return supply
 
         if operation == 'fs_circ':
             active_idx = fr.get_active_index(self.project_id)
@@ -178,9 +178,10 @@ class TheConstructTest():
             fs = fs_get(self.project_id, active_funding_stage)
 
             # fs_info = fs.get_info(self.project_id, active_funding_stage)
-            # supply = fs_info[fs.in_circulation_idx]
-            print(fs.in_circulation)
-            return fs.in_circulation
+            in_circulation = fs.in_circulation
+            
+            print(in_circulation)
+            return in_circulation
 
         if operation == 'sts_supply':
             sts = sts_get('projectID')
