@@ -1,9 +1,12 @@
 from construct.platform.FundingStage import FundingStage
 from construct.platform.FundingRoadmap import FundingRoadmap
-from construct.platform.SmartTokenShare import SmartTokenShare
+# from construct.platform.SmartTokenShare import SmartTokenShare
 from construct.platform.Milestone import Milestone
 from construct.common.StorageManager import StorageManager
 from construct.common.Txio import Attachments, get_asset_attachments
+
+from construct.platform.SmartTokenShareNew import SmartTokenShare, sts_create, sts_get 
+
 
 class TheConstructTest():
     """
@@ -29,7 +32,7 @@ class TheConstructTest():
     def test(self, operation, args):
 
         
-        sts = SmartTokenShare()
+        # sts = SmartTokenShare()
         fr = FundingRoadmap()
         fs = FundingStage()
         ms = Milestone()
@@ -40,7 +43,7 @@ class TheConstructTest():
         if operation == 'create_all':
             print('create_all')
 
-            sts.create(self.project_id, self.symbol, self.decimals, self.owner, self.total_supply)
+            sts_create(self.project_id, self.symbol, self.decimals, self.owner, self.total_supply)
             fs.create(self.project_id, 'first_stage', 1, 99999, 1000, 100)
             fs.create(self.project_id, 'second_stage', 1, 99999, 500, 100)
             fs.create(self.project_id, 'third_stage', 1, 99999, 100, 100)
@@ -166,17 +169,17 @@ class TheConstructTest():
             return supply
 
         if operation == 'sts_supply':
-            sts_info = sts.get_info(self.project_id)
-            supply = sts_info[sts.total_supply_idx]
+            sts = sts_get('projectID')
+            supply = sts.total_supply
 
             print(supply)
             return supply
 
         if operation == 'sts_circ':
-            sts_info = sts.get_info(self.project_id)
-            supply = sts_info[sts.in_circulation_idx]
+            sts = sts_get('projectID')
+            in_circulation = sts.in_circulation
 
-            print(supply)
-            return supply
+            print(in_circulation)
+            return in_circulation
 
         return True
