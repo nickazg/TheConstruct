@@ -303,11 +303,11 @@ def fs_calculate_can_exchange(fs:FundingStage, amount:int):
 
     sts = sts_get(fs.project_id)
     
-    total_in_circulation = sts_get_total_circulation(sts)
-    fs_in_circulation = fs_get_circulation(fs)
+    # total_in_circulation = sts_get_total_circulation(sts)
+    # fs_in_circulation = fs_get_circulation(fs)
 
-    new_total_amount = total_in_circulation + amount
-    new_fs_amount = fs_in_circulation + amount
+    new_total_amount = sts.in_circulation + amount
+    new_fs_amount = fs.in_circulation + amount
 
     # sts = SmartTokenShare()
     # sts_info = sts.get_info(project_id)
