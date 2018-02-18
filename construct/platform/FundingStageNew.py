@@ -177,17 +177,6 @@ def fs_add_to_circulation(fs:FundingStage, amount:int) -> bool:
     """
     storage = StorageManager()
 
-    # Pull FundingStage info
-    # fs_info = self.get_info(project_id, funding_stage_id)
-
-    # # info into vars
-    # print('info into vars')
-    # start_block = fs_info[0]
-    # end_block = fs_info[1]
-    # supply = fs_info[2]
-    # tokens_per_gas = fs_info[3]
-    # in_circulation = fs_info[4]
-
     # Calculation
     print('Calculation')
     fs.in_circulation = fs.in_circulation + amount
@@ -224,30 +213,15 @@ def fs_status(fs:FundingStage) -> int:
     return 3
 
 def fs_calculate_can_exchange(fs:FundingStage, amount:int):
-    # storage = StorageManager()
     height = GetHeight()
 
     sts = sts_get(fs.project_id)
-    print('sts_get')
-    print(fs.end_block)
-    print(amount)
 
-    # total_in_circulation = sts_get_attr(sts, 'total_in_circulation')
     total_in_circulation = get_total_in_circulation(sts)
-    print('total_in_circulation')
-    print(total_in_circulation)
-
-    # print('fs.in_circulation')
-    # print(fs.in_circulation)
 
     new_total_amount = total_in_circulation + amount
-    print('new_total_amount')
-    print(new_total_amount)
-    print('new_total_amount2')
 
     new_fs_amount = fs.in_circulation + amount
-    print('new_fs_amount')
-    print(new_fs_amount)
 
     total_supply = sts_get_attr(sts, 'total_supply')
     if new_total_amount > total_supply:
@@ -270,9 +244,7 @@ def fs_calculate_can_exchange(fs:FundingStage, amount:int):
    
 
 def fs_can_exchange(fs:FundingStage, attachments:Attachments) -> bool:
-    print('fs_can_exchange')
-    print(fs.in_circulation)
-
+    
     # Checks attached gas
     if attachments.gas_attached == 0:
         print("no gas attached")
@@ -298,8 +270,6 @@ def fs_contribute(fs:FundingStage) -> bool:
     storage = StorageManager()
     attachments = get_asset_attachments()
 
-    print('fs_contribute fs.in_circulation')
-    print(fs.in_circulation)
 
     # this looks up whether the exchange can proceed
     allowed = fs_can_exchange(fs, attachments)
@@ -309,7 +279,6 @@ def fs_contribute(fs:FundingStage) -> bool:
         # OnRefund(attachments.sender_addr, attachments.neo_attached)
         return False
     
-    print('can_exchange')
     # lookup the current balance of the address
     current_sts_balance = storage.get_double(fs.project_id, attachments.sender_addr)
 
