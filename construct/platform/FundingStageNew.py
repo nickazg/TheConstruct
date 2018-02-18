@@ -8,7 +8,7 @@ from construct.platform.KYC import KYC
 from construct.common.StorageManager import StorageManager
 from construct.common.Txio import Attachments, get_asset_attachments
 
-from construct.platform.SmartTokenShareNew import SmartTokenShare, sts_get, sts_get_attr, sts_add_to_total_circulation 
+from construct.platform.SmartTokenShareNew import SmartTokenShare, sts_get, sts_get_attr, sts_add_to_total_circulation, get_total_in_circulation 
 
 
 from boa.code.builtins import list
@@ -27,6 +27,12 @@ class FundingStage():
     supply = 0
     tokens_per_gas = 0
     in_circulation = 0
+
+def get_in_circulation(fs:FundingStage) -> int:
+    """
+    This is required specifically for this variable
+    """
+    return fs.in_circulation
 
 def fs_get_attr(fs:FundingStage, attr_name):
     """
@@ -226,15 +232,13 @@ def fs_calculate_can_exchange(fs:FundingStage, amount:int):
     print(fs.end_block)
     print(amount)
 
-    total_in_circulation = sts_get_attr(sts, 'total_in_circulation')
-    # total_in_circulation = 0
+    # total_in_circulation = sts_get_attr(sts, 'total_in_circulation')
+    total_in_circulation = get_total_in_circulation(sts)
     print('total_in_circulation')
     print(total_in_circulation)
 
-    # fs_in_circulation = fs.in_circulation
-
-    print('fs.in_circulation')
-    print(fs.in_circulation)
+    # print('fs.in_circulation')
+    # print(fs.in_circulation)
 
     new_total_amount = total_in_circulation + amount
     print('new_total_amount')

@@ -13,6 +13,12 @@ class SmartTokenShare():
     total_supply = 0
     total_in_circulation = 0
 
+def get_total_in_circulation(sts:SmartTokenShare) -> int:
+    """
+    This is required specifically for this variable
+    """
+    return sts.total_in_circulation
+
 def sts_get_attr(sts:SmartTokenShare, attr_name:str):
     """
     This is required to be able to read sts object variables for some reason..

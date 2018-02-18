@@ -5,8 +5,8 @@ from construct.platform.Milestone import Milestone
 from construct.common.StorageManager import StorageManager
 from construct.common.Txio import Attachments, get_asset_attachments
 
-from construct.platform.SmartTokenShareNew import SmartTokenShare, sts_get_attr, sts_create, sts_get 
-from construct.platform.FundingStageNew import FundingStage, fs_get_attr, fs_create, fs_get, fs_contribute, fs_status, fs_can_exchange, fs_add_to_circulation, fs_calculate_can_exchange
+from construct.platform.SmartTokenShareNew import SmartTokenShare, sts_get_attr, sts_create, sts_get, get_total_in_circulation 
+from construct.platform.FundingStageNew import FundingStage, fs_get_attr, fs_create, fs_get, fs_contribute, fs_status, fs_can_exchange, fs_add_to_circulation, fs_calculate_can_exchange, get_in_circulation
 
 
 class TheConstructTest():
@@ -162,12 +162,25 @@ class TheConstructTest():
             
         if operation == 'sts_get':
             sts = sts_get('projectID')
-            arg = args[0]
-            attr = sts_get_attr(sts, arg)
+            arg = args[0]            
 
-            print('attr')
-            print(attr)
-            return attr
+            if arg == 'project_id':
+                return sts.project_id
+
+            if arg == 'symbol':
+                return sts.symbol
+
+            if arg == 'decimals':
+                return sts.decimals
+            
+            if arg == 'owner':
+                return sts.owner
+            
+            if arg == 'total_supply':
+                return sts.total_supply
+
+            if arg == 'total_in_circulation':
+                return get_total_in_circulation(sts)
 
         if operation == 'fs_get':
             active_idx = fr.get_active_index(self.project_id)
@@ -177,11 +190,30 @@ class TheConstructTest():
             fs = fs_get(self.project_id, active_funding_stage)
 
             arg = args[0]
-            attr = fs_get_attr(fs, arg)
+            # attr = fs_get_attr(fs, arg)
+            
+            if arg == 'project_id':
+                return fs.project_id
 
-            print('attr')
-            print(attr)
-            return attr
+            if arg == 'funding_stage_id':
+                return fs.funding_stage_id
 
+            if arg == 'start_block':
+                return fs.start_block
+            
+            if arg == 'end_block':
+                return fs.end_block
+            
+            if arg == 'supply':
+                return fs.supply
+
+            if arg == 'tokens_per_gas':
+                return fs.tokens_per_gas
+
+            if arg == 'in_circulation':
+                return get_in_circulation(fs)
+
+
+        
         return True
 
