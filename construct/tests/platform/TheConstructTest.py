@@ -5,8 +5,8 @@ from construct.platform.Milestone import Milestone
 from construct.common.StorageManager import StorageManager
 from construct.common.Txio import Attachments, get_asset_attachments
 
-from construct.platform.SmartTokenShareNew import SmartTokenShare, sts_create, sts_get 
-from construct.platform.FundingStageNew import FundingStage, fs_create, fs_get, fs_contribute, fs_status
+from construct.platform.SmartTokenShareNew import SmartTokenShare, sts_get_attr, sts_create, sts_get 
+from construct.platform.FundingStageNew import FundingStage, fs_get_attr, fs_create, fs_get, fs_contribute, fs_status, fs_can_exchange, fs_add_to_circulation, fs_calculate_can_exchange
 
 
 class TheConstructTest():
@@ -79,7 +79,9 @@ class TheConstructTest():
 
         
         if operation == 'kyc':
-            storage.put_triple(self.project_id, 'KYC_address', attachments.sender_addr, True)
+            print('attachments.sender_addr')
+            print(attachments.sender_addr)
+            storage.put_triple(self.project_id, 'KYC_address', self.owner, True)
           
 
         if operation == 'contribute':
@@ -92,6 +94,7 @@ class TheConstructTest():
             active_funding_stage = funding_stages[active_idx]
 
             fs = fs_get(self.project_id, active_funding_stage)
+            
             fs_contribute(fs)
             print('contribute#')
 
@@ -157,44 +160,28 @@ class TheConstructTest():
             print('complete_milestone')
             fr.update_milestone_progress(self.project_id, 100)
             
+        if operation == 'sts_get':
+            sts = sts_get('projectID')
+            arg = args[0]
+            attr = sts_get_attr(sts, arg)
 
-        if operation == 'fs_supply':
+            print('attr')
+            print(attr)
+            return attr
+
+        if operation == 'fs_get':
             active_idx = fr.get_active_index(self.project_id)
             funding_stages = fr.get_funding_stages(self.project_id)
             active_funding_stage = funding_stages[active_idx]
             
             fs = fs_get(self.project_id, active_funding_stage)
-            # fs_info = fs.get_info(self.project_id, active_funding_stage)
-            supply = fs.supply
-            
-            print(supply)
-            return supply
 
-        if operation == 'fs_circ':
-            active_idx = fr.get_active_index(self.project_id)
-            funding_stages = fr.get_funding_stages(self.project_id)
-            active_funding_stage = funding_stages[active_idx]
-            
-            fs = fs_get(self.project_id, active_funding_stage)
+            arg = args[0]
+            attr = fs_get_attr(fs, arg)
 
-            # fs_info = fs.get_info(self.project_id, active_funding_stage)
-            in_circulation = fs.in_circulation
-            
-            print(in_circulation)
-            return in_circulation
-
-        if operation == 'sts_supply':
-            sts = sts_get('projectID')
-            supply = sts.total_supply
-
-            print(supply)
-            return supply
-
-        if operation == 'sts_circ':
-            sts = sts_get('projectID')
-            in_circulation = sts.in_circulation
-
-            print(in_circulation)
-            return in_circulation
+            print('attr')
+            print(attr)
+            return attr
 
         return True
+

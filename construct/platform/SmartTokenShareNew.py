@@ -11,7 +11,30 @@ class SmartTokenShare():
     decimals = 0
     owner = ''
     total_supply = 0
-    in_circulation = 0
+    total_in_circulation = 0
+
+def sts_get_attr(sts:SmartTokenShare, attr_name:str):
+    """
+    This is required to be able to read sts object variables for some reason..
+    """
+
+    if attr_name == 'project_id':
+        return sts.project_id
+
+    if attr_name == 'symbol':
+        return sts.symbol
+
+    if attr_name == 'decimals':
+        return sts.decimals
+    
+    if attr_name == 'owner':
+        return sts.owner
+    
+    if attr_name == 'total_supply':
+        return sts.total_supply
+
+    if attr_name == 'total_in_circulation':
+        return sts.total_in_circulation
 
 def sts_create(project_id, symbol, decimals, owner, total_supply) -> SmartTokenShare:
     """
@@ -36,17 +59,17 @@ def sts_create(project_id, symbol, decimals, owner, total_supply) -> SmartTokenS
     storage = StorageManager()
     sts = SmartTokenShare()
 
-    sts.project_id = ''
-    sts.symbol = ''
-    sts.decimals = 0
-    sts.owner = ''
-    sts.total_supply = 0
+    sts.project_id = project_id
+    sts.symbol = symbol
+    sts.decimals = decimals
+    sts.owner = owner
+    sts.total_supply = total_supply
     
     # Default circulation
-    sts.in_circulation = 0
+    sts.total_in_circulation = 0
 
     # Info structure
-    sts_info = [symbol, decimals, owner, total_supply, sts.in_circulation]
+    sts_info = [symbol, decimals, owner, total_supply, 0]
 
     # Will only save to storage if none exsits for this project_id
     if not storage.get_double('STS', project_id):
@@ -55,7 +78,7 @@ def sts_create(project_id, symbol, decimals, owner, total_supply) -> SmartTokenS
 
     return sts
 
-def sts_get(project_id:str) -> SmartTokenShare:
+def sts_get(project_id) -> SmartTokenShare:
     """
     Get the info list
 
@@ -73,11 +96,12 @@ def sts_get(project_id:str) -> SmartTokenShare:
     sts_info = storage.deserialize_bytearray(sts_info_serialized)
 
     # info into vars
+    sts.project_id = project_id
     sts.symbol = sts_info[0]
     sts.decimals = sts_info[1]
     sts.owner = sts_info[2]
     sts.total_supply = sts_info[3]
-    sts.in_circulation = sts_info[4]
+    sts.total_in_circulation = sts_info[4]
 
     return sts
 
@@ -89,7 +113,7 @@ def sts_total_available_amount(sts:SmartTokenShare):
     Return:
         (int): The avaliable tokens for the total project
     """
-    available = sts.supply - sts.in_circulation
+    available = sts.supply - sts.total_in_circulation
 
     return available
 
@@ -106,10 +130,10 @@ def sts_add_to_total_circulation(sts:SmartTokenShare, amount:int):
     storage = StorageManager()
     
     # Calculation
-    sts.in_circulation = sts.in_circulation + amount 
+    sts.total_in_circulation = sts.total_in_circulation + amount 
 
     # output STS info
-    updated_sts_info = [sts.symbol, sts.decimals, sts.owner, sts.total_supply, sts.in_circulation]
+    updated_sts_info = [sts.symbol, sts.decimals, sts.owner, sts.total_supply, sts.total_in_circulation]
     
     # Save STS info
     updated_sts_info_serialized = storage.serialize_array(updated_sts_info)
@@ -125,5 +149,5 @@ def sts_get_total_circulation(sts:SmartTokenShare):
     Return:
         (int): The total amount of tokens in circulation
     """        
-    return sts.in_circulation
+    return sts.total_in_circulation
 
