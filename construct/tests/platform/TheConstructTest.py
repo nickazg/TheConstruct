@@ -6,7 +6,7 @@ from construct.common.StorageManager import StorageManager
 from construct.common.Txio import Attachments, get_asset_attachments
 
 from construct.platform.SmartTokenShareNew import SmartTokenShare, sts_get_attr, sts_create, sts_get, get_total_in_circulation 
-from construct.platform.FundingStageNew import FundingStage, fs_get_attr, fs_create, fs_get, fs_contribute, fs_status, fs_can_exchange, fs_add_to_circulation, fs_calculate_can_exchange, get_in_circulation
+from construct.platform.FundingStageNew import FundingStage, fs_get_attr, fs_create, fs_get, fs_contribute, fs_status, fs_can_exchange, fs_add_to_circulation, fs_calculate_can_exchange, get_in_circulation, fs_claim_contributions
 
 from construct.platform.MilestoneNew import Milestone, ms_create, ms_get, ms_update_progress, ms_get_progress
 
@@ -215,6 +215,10 @@ class TheConstructTest():
             if arg == 'in_circulation':
                 return get_in_circulation(fs)
 
+        if operation == 'fs_claim_contributions':
+            fs_id = args[0]
+            fs = fs_get('projectID', fs_id)
+            fs_claim_contributions(fs)
 
         
         return True

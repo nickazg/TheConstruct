@@ -25,8 +25,10 @@ from construct.platform.FundingStage import FundingStage
 from construct.platform.FundingRoadmap import FundingRoadmap
 
 from construct.tests.Tests import run_tests
+from construct.common.Txio import Attachments, get_asset_attachments
+from construct.common.Utils import claim
 
-OWNER = b''
+
 GAS_ASSET_ID = b'\xe7\x2d\x28\x69\x79\xee\x6c\xb1\xb7\xe6\x5d\xfd\xdf\xb2\xe3\x84\x10\x0b\x8d\x14\x8e\x77\x58\xde\x42\xe4\x16\x8b\x71\x79\x2c\x60'
 
 def Main(operation, args):
@@ -38,51 +40,32 @@ def Main(operation, args):
             UUID used as the second part of the key for Storage.Put().
     Return:
         (bytearray): The result of the operation
-    """
-
-        
+    """        
     # Gets the transaction trigger
     trigger = GetTrigger()
+    print('trigger')
+
 
     if trigger == Verification:
-        return True
+        
+        print('Verification')        
+        return claim()
+        # return False
 
     elif trigger == Application:
+
+        print('Application')
+        # return False
 
         tests = run_tests(operation, args)
 
         return tests
-
-        # if operation != None and len(args) > 0:
-
-        #     sts = SmartTokenShare()
-        #     sts_handler = SmartTokenShareHandler()
-        #     fr = FundingRoadmap()
-        #     fs = FundingStage()
-
-        #     # # project_id always first arg
-        #     # project_id = args[0]
-
-                        
-        #     # Pulling info from storeage
-        #     # sts.get_project_info(project_id)        
-
-        #     # for handler_op in sts_handler.get_methods():
-        #     #     if operation == handler_op:
-        #     #         return sts_handler.handle_sts(operation, args, sts)
-
-        #     # TEST
-        #     # if operation == 'create':
-        #     #     symbol = args[2]
-        #     #     owner = args[1]
             
-        #     return True
-            
-        #     # TODO - Dont forget ;) 
-        #     # Fork contract to new version, all storage is transferred.
-        #     # See: https://github.com/neo-project/neo/blob/master/neo/SmartContract/StateMachine.cs#L210
-        #     if operation == 'contract_migrate':
+        # # TODO - Dont forget ;) 
+        # # Fork contract to new version, all storage is transferred.
+        # # See: https://github.com/neo-project/neo/blob/master/neo/SmartContract/StateMachine.cs#L210
+        # if operation == 'contract_migrate':
 
-        #         # Check if the invoker is the owner of this contract
-        #         if CheckWitness(OWNER):
-        #             print("Migrate Contract!")
+        #     # Check if the invoker is the owner of this contract
+        #     if CheckWitness(OWNER):
+        #         print("Migrate Contract!")

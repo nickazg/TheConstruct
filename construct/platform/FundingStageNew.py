@@ -244,7 +244,7 @@ def fs_calculate_can_exchange(fs:FundingStage, amount:int):
    
 
 def fs_can_exchange(fs:FundingStage, attachments:Attachments) -> bool:
-    
+
     # Checks attached gas
     if attachments.gas_attached == 0:
         print("no gas attached")
@@ -290,18 +290,44 @@ def fs_contribute(fs:FundingStage) -> bool:
     
     storage.put_double(fs.project_id, attachments.sender_addr, new_total)
 
-    # # NEED TO FIX THIS!! 
     # # update the in circulation amount
     fs_add_to_circulation(fs, exchanged_sts)
-
-    # print('added to circ')
 
     # dispatch transfer event
     OnTransfer(attachments.receiver_addr, attachments.sender_addr, exchanged_sts)
 
     return True
 
-
-
-
+# def claim():
+#     storage = StorageManager
     
+#     claim_amount = storage.get_double('CLAIM', attachments.receiver_addr)
+
+#     if claim_amount == attachments.gas_attached:
+#         return True
+    
+#     return False
+
+# def claim_clean(addr):
+#     storage = StorageManager
+#     storage.put_double('CLAIM', attachments.sender_addr, 0)
+
+# # If the funding stage fails, this method will return the GAS.
+# def fs_refund(fs:FundingStage):
+
+# Project Owner can calim the contributions from sucessfull funding stage
+def fs_claim_contributions(fs:FundingStage):
+    storage = StorageManager()
+    attachments = get_asset_attachments()
+
+    # If the funding stage complted sucessfully
+    if fs_status(fs) == 1:    
+        
+        # Calculates the gas amount contributed
+        gas_contributed = fs.tokens_per_gas * fs.in_circulation
+        
+        # Sets the claim amount for the address
+        storage.put_double('CLAIM', attachments.sender_addr, gas_contributed)
+        return True
+    
+    return False
