@@ -58,12 +58,12 @@ def ms_get(project_id, milestone_id) -> Milestone:
     
 
     # info into vars
-    project_id = project_id
-    milestone_id = milestone_id
-    title = milestone_info[1]
-    subtitle = milestone_info[2]
-    extra_info_hash = milestone_info[3]
-    progress = milestone_info[0]
+    ms.project_id = project_id
+    ms.milestone_id = milestone_id
+    ms.title = milestone_info[1]
+    ms.subtitle = milestone_info[2]
+    ms.extra_info_hash = milestone_info[3]
+    ms.progress = milestone_info[0]
 
     return ms
 
@@ -91,7 +91,7 @@ def ms_update_progress(ms:Milestone, updated_progress):
 
         # Saving info to storage
         updated_milestone_info_serialized = storage.serialize_array(updated_milestone_info)
-        storage.put_triple('MS', project_id, milestone_id, updated_milestone_info_serialized)
+        storage.put_triple('MS', ms.project_id, ms.milestone_id, updated_milestone_info_serialized)
 
 
 def ms_get_progress(ms:Milestone):

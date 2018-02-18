@@ -1,14 +1,14 @@
 # from construct.platform.FundingStage import FundingStage
 from construct.platform.FundingRoadmap import FundingRoadmap
 # from construct.platform.SmartTokenShare import SmartTokenShare
-from construct.platform.Milestone import Milestone
+# from construct.platform.Milestone import Milestone
 from construct.common.StorageManager import StorageManager
 from construct.common.Txio import Attachments, get_asset_attachments
 
 from construct.platform.SmartTokenShareNew import SmartTokenShare, sts_get_attr, sts_create, sts_get, get_total_in_circulation 
 from construct.platform.FundingStageNew import FundingStage, fs_get_attr, fs_create, fs_get, fs_contribute, fs_status, fs_can_exchange, fs_add_to_circulation, fs_calculate_can_exchange, get_in_circulation
 
-from construct.platform.MilestoneNew import MilestoneNew, ms_create, ms_get, ms_update_progress, ms_get_progress
+from construct.platform.MilestoneNew import Milestone, ms_create, ms_get, ms_update_progress, ms_get_progress
 
 class TheConstructTest():
     """
@@ -185,11 +185,11 @@ class TheConstructTest():
                 return get_total_in_circulation(sts)
 
         if operation == 'fs_get':
-            active_idx = fr.get_active_index(self.project_id)
-            funding_stages = fr.get_funding_stages(self.project_id)
+            active_idx = fr.get_active_index('projectID')
+            funding_stages = fr.get_funding_stages('projectID')
             active_funding_stage = funding_stages[active_idx]
             
-            fs = fs_get(self.project_id, active_funding_stage)
+            fs = fs_get('projectID', active_funding_stage)
 
             arg = args[0]
             # attr = fs_get_attr(fs, arg)
