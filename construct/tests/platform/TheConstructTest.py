@@ -8,6 +8,7 @@ from construct.common.Txio import Attachments, get_asset_attachments
 from construct.platform.SmartTokenShareNew import SmartTokenShare, sts_get_attr, sts_create, sts_get, get_total_in_circulation 
 from construct.platform.FundingStageNew import FundingStage, fs_get_attr, fs_create, fs_get, fs_contribute, fs_status, fs_can_exchange, fs_add_to_circulation, fs_calculate_can_exchange, get_in_circulation
 
+from construct.platform.MilestoneNew import MilestoneNew, ms_create, ms_get, ms_update_progress, ms_get_progress
 
 class TheConstructTest():
     """
@@ -36,7 +37,7 @@ class TheConstructTest():
         # sts = SmartTokenShare()
         fr = FundingRoadmap()
         # fs = FundingStage()
-        ms = Milestone()
+        # ms = Milestone()
 
         storage = StorageManager()
         attachments = get_asset_attachments()
@@ -52,10 +53,10 @@ class TheConstructTest():
             
             fss = ['first_stage', 'second_stage', 'third_stage', 'fourth_stage']
 
-            ms.create(self.project_id, 'first_mile', 'First', 'sub', 'hash')
-            ms.create(self.project_id, 'second_mile', 'First', 'sub', 'hash')
-            ms.create(self.project_id, 'third_mile', 'First', 'sub', 'hash')
-            ms.create(self.project_id, 'fourth_mile', 'First', 'sub', 'hash')
+            ms_create(self.project_id, 'first_mile', 'First', 'sub', 'hash')
+            ms_create(self.project_id, 'second_mile', 'First', 'sub', 'hash')
+            ms_create(self.project_id, 'third_mile', 'First', 'sub', 'hash')
+            ms_create(self.project_id, 'fourth_mile', 'First', 'sub', 'hash')
             
             mss = ['first_mile', 'second_mile', 'third_mile', 'fourth_mile']
 
@@ -151,7 +152,8 @@ class TheConstructTest():
             milestones = fr.get_milestones(self.project_id)
             active_milestone = milestones[active_idx]
 
-            prog = ms.get_progress(self.project_id, active_milestone)
+            ms = ms_get(self.project_id, active_milestone)
+            prog = ms_get_progress(ms)
             print('milestone_progress#')
             print(prog)
             return prog
