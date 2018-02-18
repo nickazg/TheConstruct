@@ -137,8 +137,14 @@ def sts_add_to_total_circulation(sts:SmartTokenShare, amount:int):
     
     # Save STS info
     updated_sts_info_serialized = storage.serialize_array(updated_sts_info)
-    storage.put_double('STS', sts.project_id, updated_sts_info_serialized)    
+    storage.put_double('STS', sts.project_id, updated_sts_info_serialized)
 
+    print('added to total circ')
+    print(amount)
+
+    print('total circ now')
+    print(sts.total_in_circulation)
+    
 def sts_get_total_circulation(sts:SmartTokenShare):
     """
     Get the total amount of tokens in circulation
