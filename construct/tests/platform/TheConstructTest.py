@@ -217,8 +217,9 @@ class TheConstructTest():
 
         if operation == 'fs_claim_contributions':
             fs_id = args[0]
+            deposit_addr = args[1]
             fs = fs_get('projectID', fs_id)
-            fs_claim_contributions(fs)
+            fs_claim_contributions(fs, deposit_addr)
 
         
         return True

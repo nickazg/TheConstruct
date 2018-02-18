@@ -298,27 +298,25 @@ def fs_contribute(fs:FundingStage) -> bool:
 
     return True
 
-# def claim():
-#     storage = StorageManager
-    
-#     claim_amount = storage.get_double('CLAIM', attachments.receiver_addr)
+# #
+# TODO - user balance should have a funding stage balance ie
+storage.put_triple(fs.project_id, fs.funding_stage_id, addr, 0)
+# If the funding stage fails, this method will return the GAS.
+def fs_refund(fs:FundingStage, refund_addr):
+    storage = StorageManager()
 
-#     if claim_amount == attachments.gas_attached:
-#         return True
-    
-#     return False
+    if CheckWitness(refund_addr):
 
-# def claim_clean(addr):
-#     storage = StorageManager
-#     storage.put_double('CLAIM', attachments.sender_addr, 0)
+        # lookup the current balance of the address
+        current_sts_balance = storage.get_double(fs.project_id, refund_addr)
+        
+        storage.put_double('CLAIM', refund_addr, current_sts_balance)
 
-# # If the funding stage fails, this method will return the GAS.
-# def fs_refund(fs:FundingStage):
+        storage.put_double(fs.project_id, refund_addr, 0)
 
 # Project Owner can calim the contributions from sucessfull funding stage
-def fs_claim_contributions(fs:FundingStage):
+def fs_claim_contributions(fs:FundingStage, deposit_addr):
     storage = StorageManager()
-    attachments = get_asset_attachments()
 
     # If the funding stage complted sucessfully
     if fs_status(fs) == 1:    
@@ -327,7 +325,7 @@ def fs_claim_contributions(fs:FundingStage):
         gas_contributed = fs.tokens_per_gas * fs.in_circulation
         
         # Sets the claim amount for the address
-        storage.put_double('CLAIM', attachments.sender_addr, gas_contributed)
+        storage.put_double('CLAIM', deposit_addr, gas_contributed)
         return True
     
     return False
