@@ -3,10 +3,14 @@ from boa.blockchain.vm.Neo.Action import RegisterAction
 from boa.code.builtins import concat, list, range, take, substr
 
 
-from construct.platform.FundingStage import FundingStage
-from construct.platform.SmartTokenShare import SmartTokenShare
-from construct.platform.Milestone import Milestone
+# from construct.platform.FundingStage import FundingStage
+# # from construct.platform.SmartTokenShare import SmartTokenShare
+# from construct.platform.Milestone import Milestone
 from construct.common.StorageManager import StorageManager
+
+from construct.platform.FundingStageNew import FundingStage, fs_get_attr, fs_create, fs_get, fs_contribute, fs_status, fs_can_exchange, fs_add_to_circulation, fs_calculate_can_exchange, get_in_circulation
+from construct.platform.MilestoneNew import Milestone, ms_create, ms_get, ms_update_progress, ms_get_progress
+
 
 class FundingRoadmap():
     """
@@ -135,8 +139,8 @@ class FundingRoadmap():
         active_milestone = milestones[active_idx]
         active_funding_stage = funding_stages[active_idx]
         
-        fs = FundingStage()
-        fs_status = fs.status(project_id, active_funding_stage)
+        fs = fs_get(project_id, active_funding_stage)
+        fs_status = fs_status(fs)
 
         if fs_status != 1:
             print('Current Funding Stage NOT complete')
@@ -151,6 +155,6 @@ class FundingRoadmap():
             storage.put_double(project_id, 'FR_active_idx', next_idx)
             # self.set_active_index(project_id, next_idx)
         
-        ms = Milestone()
-        ms.update_progress(project_id, active_milestone, progress)
+        ms = ms_get(project_id, active_milestone)
+        ms_update_progress(ms, progress)
         
