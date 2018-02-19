@@ -113,8 +113,11 @@ def ms_update_progress(ms:Milestone, updated_progress):
     # If the updated progress is higher
     if updated_progress > ms.progress:
 
-        if updated_progress >
+        # Clamp at 100%
+        if updated_progress > 100:
+            updated_progress = 100
         
+        # Updates object variable
         ms.progress = updated_progress
         
         # Output milestone info
