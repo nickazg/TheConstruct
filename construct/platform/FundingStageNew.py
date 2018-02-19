@@ -120,7 +120,7 @@ def fs_get(project_id, funding_stage_id) -> FundingStage:
             
     Return:
         (FundingStage):
-            Returns a funding stage object containing these attributes
+            Returns a funding stage object containing attributes
     """
     storage = StorageManager()
     fs = FundingStage()
