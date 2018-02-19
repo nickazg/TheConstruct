@@ -24,9 +24,6 @@ def claim():
     storage = StorageManager()
     attachments = get_asset_attachments()
     
-    print('attachments.receiver_addr')
-    print(attachments.receiver_addr)
-
     claim_amount = storage.get_double('CLAIM', attachments.receiver_addr)
 
     if claim_amount == attachments.gas_attached:
