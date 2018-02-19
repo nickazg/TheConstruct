@@ -423,11 +423,37 @@ def fs_claim_contributions(fs:FundingStage, deposit_addr):
         
         # Calculates the gas amount contributed
         gas_contributed = fs.tokens_per_gas * fs.in_circulation
+
+        fee_calculated = fs_calculate_system_fee(fs)
+
+        gas_to_claim = gas_contributed - fee_calculated
         
         # Sets the claim amount for the address
-        storage.put_double('CLAIM', deposit_addr, gas_contributed)
+        storage.put_double('CLAIM', deposit_addr, gas_to_claim)
         return True
     
     return False
 
-# fee
+def fs_calculate_system_fee(fs:FundingStage):
+    fee_percent = 0.05 # 5%
+
+    # Calculates the gas amount contributed
+    gas_contributed = fs.tokens_per_gas * fs.in_circulation
+
+    fee_calculated = gas_contributed * fee_percent
+
+    return fee_calculated
+
+
+def fs_claim_system_fee(fs:FundingStage, owner_addr):
+    storage = StorageManager()
+
+    if CheckWitness(owner_addr):
+
+        fee_calculated = fs_calculate_system_fee(fs)
+
+        storage.put_double('CLAIM', owner_addr, gas_to_claim)
+
+        return True
+    
+    return False
