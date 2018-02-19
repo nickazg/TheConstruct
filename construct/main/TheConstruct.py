@@ -66,7 +66,17 @@ def Main(operation, args):
         tests = run_tests(operation, args)
 
         return tests
-            
+
+
+
+
+
+
+
+
+
+        # # TODO - FEE ;) 
+
         # # TODO - Dont forget ;) 
         # # Fork contract to new version, all storage is transferred.
         # # See: https://github.com/neo-project/neo/blob/master/neo/SmartContract/StateMachine.cs#L210
