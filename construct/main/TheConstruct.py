@@ -43,21 +43,20 @@ def Main(operation, args):
     """        
     # Gets the transaction trigger
     trigger = GetTrigger()
-    print('trigger')
+    storage = StorageManager()
+    attachments = get_asset_attachments()    
 
 
     if trigger == Verification:
-        print('Verification')
+        print('Verification')   
 
-        storage = StorageManager()
-        attachments = get_asset_attachments()        
-
+        # Get amount avaliable for address
         claim_amount = storage.get_double('CLAIM', attachments.receiver_addr)
 
+        # If the request is the EXACT amount (not less), approve the tx
         if claim_amount == attachments.gas_attached:
+            print('Successfully send claim tx')
             return True     
-        # can_claim = claim()
-        # return can_claim
 
     elif trigger == Application:
 
