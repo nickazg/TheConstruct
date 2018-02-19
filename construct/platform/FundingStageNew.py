@@ -328,7 +328,7 @@ def fs_contribute(fs:FundingStage) -> bool:
 
     if not allowed:
         print("Cannot exchange value, refunding")
-        # OnRefund(attachments.sender_addr, attachments.neo_attached)
+        OnRefund(attachments.sender_addr, attachments.neo_attached)
         return False
     
     # lookup the current balance of the address
