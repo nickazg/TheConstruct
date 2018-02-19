@@ -15,7 +15,7 @@ OnRefund = RegisterAction('refund', 'to', 'amount')
 
 class FundingStage():
     """
-    Variables for managing Funding Stages
+    Object for managing Funding Stages
     """
     project_id = ''
     funding_stage_id = ''

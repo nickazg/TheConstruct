@@ -3,7 +3,7 @@ from boa.code.builtins import list
 
 class SmartTokenShare():
     """
-    Interface for managing a Smart Token Share (STS). Based on NEP5 token, however all values 
+    Object for managing a Smart Token Share (STS) Based on NEP5 token, however all values 
     are dymanically stored in the contract storage.
     """
     project_id = ''
