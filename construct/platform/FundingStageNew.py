@@ -364,9 +364,6 @@ def fs_set_addr_balance(fs:FundingStage, addr, new_balance):
     storage.put_triple(fs.project_id, fs.funding_stage_id, addr, new_balance)
 
 
-# #
-# TODO - user balance should have a funding stage balance ie
-# storage.put_triple(fs.project_id, fs.funding_stage_id, addr, 0)
 # If the funding stage fails, this method will return the GAS.
 def fs_refund(fs:FundingStage, refund_addr):
     """
