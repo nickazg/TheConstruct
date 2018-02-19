@@ -47,10 +47,17 @@ def Main(operation, args):
 
 
     if trigger == Verification:
-        
-        print('Verification')        
-        return claim()
-        # return False
+        print('Verification')
+
+        storage = StorageManager()
+        attachments = get_asset_attachments()        
+
+        claim_amount = storage.get_double('CLAIM', attachments.receiver_addr)
+
+        if claim_amount == attachments.gas_attached:
+            return True     
+        # can_claim = claim()
+        # return can_claim
 
     elif trigger == Application:
 

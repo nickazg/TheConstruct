@@ -332,7 +332,8 @@ def fs_contribute(fs:FundingStage) -> bool:
         return False
     
     # lookup the current balance of the address
-    current_sts_balance = storage.get_double(fs.project_id, attachments.sender_addr)
+    # current_sts_balance = storage.get_double(fs.project_id, attachments.sender_addr)
+    current_sts_balance = fs_get_addr_balance(fs, attachments.sender_addr)
 
     # calculate the amount of tokens the attached gas will earn
     exchanged_sts = attachments.gas_attached * fs.tokens_per_gas / 100000000
@@ -340,7 +341,9 @@ def fs_contribute(fs:FundingStage) -> bool:
     # add it to the the exchanged tokens and persist in storage
     new_total = exchanged_sts + current_sts_balance
     
-    storage.put_double(fs.project_id, attachments.sender_addr, new_total)
+    # Saves updated address balance to storage
+    # storage.put_double(fs.project_id, attachments.sender_addr, new_total)
+    fs_set_addr_balance(fs, attachments.sender_addr, new_total)
 
     # # update the in circulation amount
     fs_add_to_circulation(fs, exchanged_sts)
@@ -349,6 +352,17 @@ def fs_contribute(fs:FundingStage) -> bool:
     OnTransfer(attachments.receiver_addr, attachments.sender_addr, exchanged_sts)
 
     return True
+
+def fs_get_addr_balance(fs:FundingStage, addr):
+    storage = StorageManager()
+    balance = storage.get_triple(fs.project_id, fs.funding_stage_id, addr)
+    print('balance')
+    return balance
+
+def fs_set_addr_balance(fs:FundingStage, addr, new_balance):
+    storage = StorageManager()
+    storage.put_triple(fs.project_id, fs.funding_stage_id, addr, new_balance)
+
 
 # #
 # TODO - user balance should have a funding stage balance ie
@@ -370,16 +384,33 @@ def fs_refund(fs:FundingStage, refund_addr):
     """
     storage = StorageManager()
 
+    print('refund_addr')
+    print(refund_addr)
+
     if CheckWitness(refund_addr):
+        print('is refund_addr')
 
-        # lookup the current balance of the address
-        current_sts_balance = storage.get_double(fs.project_id, refund_addr)
-        
-        storage.put_double('CLAIM', refund_addr, current_sts_balance)
+        # If the funding stage completed sucessfully
+        if fs_status(fs) != 1:   
 
-        storage.put_double(fs.project_id, refund_addr, 0)
+            # lookup the current balance of the address
+            # current_sts_balance = storage.get_double(fs.project_id, refund_addr)
+            current_sts_balance = fs_get_addr_balance(fs, refund_addr)
+            
+            # Calculate gas from current_sts_balance
+            gas_contribution = current_sts_balance / fs.tokens_per_gas
 
-        return True
+            print('gas_contribution')
+            print(gas_contribution)
+            
+            # unlocks current_sts_balance to refund_addr
+            storage.put_double('CLAIM', refund_addr, gas_contribution)
+
+            # sets refund_addr balance to 0
+            # storage.put_double(fs.project_id, refund_addr, 0)
+            fs_set_addr_balance(fs, refund_addr, 0)
+
+            return True
     
     return False
 

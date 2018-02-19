@@ -182,9 +182,9 @@ class FundingRoadmap():
             progress = 100
             next_idx = active_idx + 1
             
-            # storage = StorageManager()
-            # storage.put_double(project_id, 'FR_active_idx', next_idx)
-            self.set_active_index(project_id, next_idx)
+            storage = StorageManager()
+            storage.put_double(project_id, 'FR_active_idx', next_idx)
+            # self.set_active_index(project_id, next_idx)
         
         ms = ms_get(project_id, active_milestone)
         ms_update_progress(ms, progress)
