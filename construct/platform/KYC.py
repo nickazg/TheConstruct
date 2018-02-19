@@ -3,7 +3,10 @@ from boa.blockchain.vm.Neo.Action import RegisterAction
 from boa.code.builtins import concat
 
 from construct.common.StorageManager import StorageManager
-from construct.platform.SmartTokenShare import SmartTokenShare
+# from construct.platform.SmartTokenShare import SmartTokenShare
+
+from construct.platform.SmartTokenShareNew import SmartTokenShare, sts_get_attr, sts_create, sts_get, get_total_in_circulation 
+
 
 OnTransfer = RegisterAction('transfer','project_id' , 'from', 'to', 'amount')
 OnRefund = RegisterAction('refund','project_id' , 'to', 'amount')
@@ -79,13 +82,11 @@ class KYC():
         """
         storage = StorageManager()
 
-        sts = SmartTokenShare()
-        sts_info = sts.get_info(project_id)
-
-        owner = sts_info[sts.owner_idx]
+        # Gets sts object
+        sts = sts_get(project_id)
 
         # Checking the invoker is the owner/admin
-        if CheckWitness(owner):
+        if CheckWitness(sts.owner):
             if len(address) == 20:
 
                 # Deserialises bytearray back into a list
@@ -106,17 +107,15 @@ class KYC():
         Return:
             (int): The number of addresses to registered for KYC
         """
-        sts = SmartTokenShare()
-        sts_info = sts.get_info(project_id)
-
-        owner = sts_info[sts.owner_idx]
+        # Gets sts object
+        sts = sts_get(project_id)
 
         ok_count = 0
         
         # Ignoring the first arg which should be the project_id
         # addresses = args[1:]
 
-        if CheckWitness(owner):
+        if CheckWitness(sts.owner):
 
             for address in addresses:
 

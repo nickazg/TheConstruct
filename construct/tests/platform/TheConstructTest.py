@@ -6,7 +6,7 @@ from construct.common.StorageManager import StorageManager
 from construct.common.Txio import Attachments, get_asset_attachments
 
 from construct.platform.SmartTokenShareNew import SmartTokenShare, sts_get_attr, sts_create, sts_get, get_total_in_circulation 
-from construct.platform.FundingStageNew import FundingStage, fs_get_attr, fs_create, fs_get, fs_contribute, fs_status, fs_can_exchange, fs_add_to_circulation, fs_calculate_can_exchange, get_in_circulation, fs_claim_contributions
+from construct.platform.FundingStageNew import FundingStage, fs_get_attr, fs_create, fs_get, fs_contribute, fs_status, fs_can_exchange, fs_add_to_circulation, fs_calculate_can_exchange, get_in_circulation, fs_claim_contributions, fs_refund, fs_get_addr_balance, fs_set_addr_balance
 
 from construct.platform.MilestoneNew import Milestone, ms_create, ms_get, ms_update_progress, ms_get_progress
 
@@ -46,9 +46,9 @@ class TheConstructTest():
             print('create_all')
 
             sts_create(self.project_id, self.symbol, self.decimals, self.owner, self.total_supply)
-            fs_create(self.project_id, 'first_stage', 1, 99999, 1000, 100)
-            fs_create(self.project_id, 'second_stage', 1, 99999, 500, 100)
-            fs_create(self.project_id, 'third_stage', 1, 99999, 100, 100)
+            fs_create(self.project_id, 'first_stage', 1, 999999, 1000, 100)
+            fs_create(self.project_id, 'second_stage', 1, 12750, 500, 100)
+            fs_create(self.project_id, 'third_stage', 1, 12450, 100, 100)
             fs_create(self.project_id, 'fourth_stage', 1, 99999, 200, 100)
             
             fss = ['first_stage', 'second_stage', 'third_stage', 'fourth_stage']
@@ -85,6 +85,10 @@ class TheConstructTest():
             storage.put_triple(self.project_id, 'KYC_address', self.owner, True)
           
 
+        if operation == 'calim_test':
+            storage.put_double('CLAIM', attachments.sender_addr, attachments.gas_attached)
+
+
         if operation == 'contribute':
             print('#contribute')
             # Registers KYC address
@@ -97,6 +101,7 @@ class TheConstructTest():
             fs = fs_get(self.project_id, active_funding_stage)
             
             fs_contribute(fs)
+            # storage.put_double('CLAIM', attachments.sender_addr, attachments.gas_attached)
             print('contribute#')
 
         if operation == 'get_idx':
@@ -111,6 +116,8 @@ class TheConstructTest():
             print(active_funding_stage)
             return active_funding_stage
         
+        # 4 Put == (1 GAS per KB)
+        # 7 Get == 0.7 GAS
         if operation == 'contribute_fs':
             print('#contribute_fs')
 
@@ -124,7 +131,12 @@ class TheConstructTest():
         
         if operation == 'balance':
             print('balance')
-            bal = storage.get_double(self.project_id, attachments.sender_addr)
+            # bal = storage.get_double(self.project_id, attachments.sender_addr)
+            fs_id = args[0]
+            addr = args[1]
+            
+            fs = fs_get('projectID', fs_id)
+            bal = fs_get_addr_balance(fs, addr)
             print(bal)
 
         if operation == 'funding_stage_status':
@@ -221,6 +233,11 @@ class TheConstructTest():
             fs = fs_get('projectID', fs_id)
             fs_claim_contributions(fs, deposit_addr)
 
+        if operation == 'fs_refund':
+            fs_id = args[0]
+            refund_addr = args[1]
+            fs = fs_get('projectID', fs_id)
+            fs_refund(fs, refund_addr)
         
         return True
 

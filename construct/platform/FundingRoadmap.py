@@ -16,8 +16,7 @@ class FundingRoadmap():
     """
     Interface for Managing the Funding Roadmap
     """
-    def get_methods(self, address):
-        
+    def get_methods(self, address):        
         # public
         methods = ['getMilestones', 'getFundinsStages', 'getActiveIndex']
         
@@ -32,8 +31,8 @@ class FundingRoadmap():
     def add_list(self, project_id, key, new_list:list):
         """Adds the input list of funding stages to storage (as serialized array)
         Args:
-            new_list (list):
-                list of funding stages to save to storage
+            project_id (list): ID for referencing the project
+            new_list (list): list of funding stages to save to storage
         """   
         storage = StorageManager()
 
@@ -51,7 +50,10 @@ class FundingRoadmap():
 
     def get_list(self, project_id, key):
         """    
-        Registers all input addresses 
+        Registers all input addresses
+        Args:
+            project_id (list): ID for referencing the project
+
         Return:
             (list): Output list for key
         """
@@ -69,14 +71,17 @@ class FundingRoadmap():
     def add_funding_stages(self, project_id, new_funding_stages:list):
         """Adds the input list of funding stages to storage (as serialized array)
         Args:
-            new_funding_stages (list):
-                list of funding stages to save to storage
+            project_id (list): ID for referencing the project
+            new_funding_stages (list): list of funding stages to save to storage
         """  
         self.add_list(project_id, 'FR_stages', new_funding_stages)
     
     def get_funding_stages(self, project_id):
         """    
-        Registers all input addresses 
+        Registers all input addresses
+        Args:
+            project_id (list): ID for referencing the project
+
         Return:
             (list): The number of addresses to registered for KYC
         """
@@ -86,14 +91,17 @@ class FundingRoadmap():
     def add_milestones(self, project_id, new_milestones:list):
         """Adds the input list of milestones to storage (as serialized array)
         Args:
-            new_milestones (list):
-                list of milestones to add
+            project_id (list): ID for referencing the project
+            new_milestones (list): list of milestones to add
         """ 
         self.add_list(project_id, 'FR_milestones', new_milestones)  
     
     def get_milestones(self, project_id):
         """    
         Gets all milestones saved to storage
+        Args:
+            project_id (list): ID for referencing the project
+            
         Return:
             (list): The number of milestones
         """
@@ -104,14 +112,17 @@ class FundingRoadmap():
     def add_project_admins(self, project_id, new_admins:list):
         """Adds the input list of admins to storage (as serialized array)
         Args:
-            new_milestones (list):
-                list of admins to add
+            project_id (list): ID for referencing the project
+            new_milestones (list): list of admins to add
         """ 
         self.add_list(project_id, 'FR_admins', new_admins)    
 
     def get_project_admins(self, project_id):
         """    
         Gets all admins saved to storage
+        Args:
+            project_id (list): ID for referencing the project
+        
         Return:
             (list): The number of admins
         """
@@ -121,17 +132,37 @@ class FundingRoadmap():
 
     
     def set_active_index(self, project_id, idx):
+        """    
+        Sets the active index
+        Args:
+            project_id (list): ID for referencing the project
+            idx (int): new active index    
+        """
         storage = StorageManager()
         storage.put_double(project_id, 'FR_active_idx', idx)
 
     def get_active_index(self, project_id):
+        """    
+        Gets the active index
+        Args:
+            project_id (list): ID for referencing the project
+        
+        Return:
+            (int): Index
+        """
         storage = StorageManager()
         idx = storage.get_double(project_id, 'FR_active_idx')
         return idx
 
 
     def update_milestone_progress(self, project_id, progress):
-        print('update_milestone_progress')
+        """    
+        Updates the progress of the active index, and runs neccerray checks
+        
+        Args:
+            project_id (list): ID for referencing the project
+            progress (int): new progress (100% completes stage/milestone)   
+        """
         active_idx = self.get_active_index(project_id)
         milestones = self.get_milestones(project_id)
         funding_stages = self.get_funding_stages(project_id)

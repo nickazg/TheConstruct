@@ -3,7 +3,7 @@ from boa.code.builtins import list
 
 class SmartTokenShare():
     """
-    Interface for managing a Smart Token Share (STS). Based on NEP5 token, however all values 
+    Object for managing a Smart Token Share (STS) Based on NEP5 token, however all values 
     are dymanically stored in the contract storage.
     """
     project_id = ''
@@ -21,9 +21,8 @@ def get_total_in_circulation(sts:SmartTokenShare) -> int:
 
 def sts_get_attr(sts:SmartTokenShare, attr_name:str):
     """
-    This is required to be able to read sts object variables for some reason..
-    """
-
+    This is required to be able to read sts object variables in certain cases..
+    """    
     if attr_name == 'project_id':
         return sts.project_id
 
@@ -60,11 +59,14 @@ def sts_create(project_id, symbol, decimals, owner, total_supply) -> SmartTokenS
         total_supply (int):
             total supply of the token
     Return:
-        (None): 
+        (SmartTokenShare): 
+            Returns a Smart Token Share object containing these attributes
     """
+    # init objects
     storage = StorageManager()
     sts = SmartTokenShare()
 
+    # Saves vars to object
     sts.project_id = project_id
     sts.symbol = symbol
     sts.decimals = decimals
@@ -92,7 +94,8 @@ def sts_get(project_id) -> SmartTokenShare:
         project_id (str):
             ID for referencing the project
     Return:
-        (list): info list
+        (SmartTokenShare): 
+            Returns a Smart Token Share object containing attributes
     """    
     storage = StorageManager()
     sts = SmartTokenShare()
@@ -101,7 +104,7 @@ def sts_get(project_id) -> SmartTokenShare:
     sts_info_serialized = storage.get_double('STS', project_id)
     sts_info = storage.deserialize_bytearray(sts_info_serialized)
 
-    # info into vars
+    # Saves vars to object
     sts.project_id = project_id
     sts.symbol = sts_info[0]
     sts.decimals = sts_info[1]
@@ -114,8 +117,9 @@ def sts_get(project_id) -> SmartTokenShare:
 def sts_total_available_amount(sts:SmartTokenShare):
     """
     Args:
-        project_id (str):
-            ID for referencing the project
+        sts (SmartTokenShare):
+            Smart Token Share object containing specific attributes
+
     Return:
         (int): The avaliable tokens for the total project
     """
@@ -128,8 +132,9 @@ def sts_add_to_total_circulation(sts:SmartTokenShare, amount:int):
     Adds an amount of token to circlulation
 
     Args:
-        project_id (str):
-            ID for referencing the project
+        sts (SmartTokenShare):
+            Smart Token Share object containing specific attributes
+
         amount (int):
             amount of tokens added
     """
@@ -144,20 +149,12 @@ def sts_add_to_total_circulation(sts:SmartTokenShare, amount:int):
     # Save STS info
     updated_sts_info_serialized = storage.serialize_array(updated_sts_info)
     storage.put_double('STS', sts.project_id, updated_sts_info_serialized)
-
-    print('added to total circ')
-    print(amount)
-
-    print('total circ now')
-    print(sts.total_in_circulation)
     
 def sts_get_total_circulation(sts:SmartTokenShare):
     """
-    Get the total amount of tokens in circulation
-
     Args:
-        project_id (str):
-            ID for referencing the project
+        sts (SmartTokenShare):
+            Smart Token Share object containing specific attributes
     Return:
         (int): The total amount of tokens in circulation
     """        

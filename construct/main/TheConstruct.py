@@ -43,14 +43,20 @@ def Main(operation, args):
     """        
     # Gets the transaction trigger
     trigger = GetTrigger()
-    print('trigger')
+    storage = StorageManager()
+    attachments = get_asset_attachments()    
 
 
     if trigger == Verification:
-        
-        print('Verification')        
-        return claim()
-        # return False
+        print('Verification')   
+
+        # Get amount avaliable for address
+        claim_amount = storage.get_double('CLAIM', attachments.receiver_addr)
+
+        # If the request is the EXACT amount (not less), approve the tx
+        if claim_amount == attachments.gas_attached:
+            print('Successfully send claim tx')
+            return True     
 
     elif trigger == Application:
 
@@ -60,7 +66,17 @@ def Main(operation, args):
         tests = run_tests(operation, args)
 
         return tests
-            
+
+
+
+
+
+
+
+
+
+        # # TODO - FEE ;) 
+
         # # TODO - Dont forget ;) 
         # # Fork contract to new version, all storage is transferred.
         # # See: https://github.com/neo-project/neo/blob/master/neo/SmartContract/StateMachine.cs#L210

@@ -1,13 +1,13 @@
 from boa.blockchain.vm.Neo.Runtime import CheckWitness, Notify
 from boa.blockchain.vm.Neo.Action import RegisterAction
-from boa.code.builtins import concat
+# from boa.code.builtins import concat
 
-from construct.platform.SmartTokenShare import SmartTokenShare
+# # from construct.platform.SmartTokenShare import SmartTokenShare
 from construct.common.StorageManager import StorageManager
 
 class Milestone():
     """
-    Interface for managing milestones
+    Object for managing milestones
     """
     project_id = ''
     milestone_id = ''
@@ -17,10 +17,34 @@ class Milestone():
     progress = 0
 
 def ms_create(project_id, milestone_id, title, subtitle, extra_info_hash) -> Milestone:
+    """
+    Creates a new Milestone using the input attributes, saves it to storage and returns
+    a Milestone object
+    Args:
+        project_id (str):
+            ID for referencing the project
 
+        milestone_id (str):
+            ID for referencing the Milestone
+            
+        title (str):
+            Block to start fund
+
+        subtitle (str):
+            Block to end fund
+
+        extra_info_hash (str):
+            Supply of the token in this fs
+
+    Return:
+        (Milestone):
+            Returns a Milestone object containing these attributes
+    """
+    # init objects
     storage = StorageManager()
     ms = Milestone()
-    
+
+    # Saves vars to object
     ms.project_id = project_id
     ms.milestone_id = milestone_id
     ms.title = title
@@ -41,23 +65,27 @@ def ms_create(project_id, milestone_id, title, subtitle, extra_info_hash) -> Mil
     
 def ms_get(project_id, milestone_id) -> Milestone:
     """
-    Get the info list
-
+    Pulls an existing Milestone from storage using the input attributes, and returns
+    a Milestone object
     Args:
         project_id (str):
             ID for referencing the project
+
+        milestone_id (str):
+            ID for referencing the Milestone
+            
     Return:
-        (list): info list
-    """    
+        (Milestone):
+            Returns a Milestone object containing attributes
+    """
     storage = StorageManager()
     ms = Milestone()
     
-    # Pull milestone info
+    # Pull Milestone info
     milestone_info_serialized = storage.get_triple('MS', project_id, milestone_id)
     milestone_info = storage.deserialize_bytearray(milestone_info_serialized)
     
-
-    # info into vars
+    # Saves vars to object
     ms.project_id = project_id
     ms.milestone_id = milestone_id
     ms.title = milestone_info[1]
@@ -69,21 +97,27 @@ def ms_get(project_id, milestone_id) -> Milestone:
 
 
 def ms_update_progress(ms:Milestone, updated_progress):
-    storage = StorageManager()
+    """
+    Args:
+        ms (Milestone):
+            Milestone object containing specific attributes
+        
+        updated_progress (int):
+            New progress of the milestone
 
-    # # Pull milestone info
-    # milestone_info_serialized = storage.get_triple('MS', project_id, milestone_id)
-    # milestone_info = storage.deserialize_bytearray(milestone_info_serialized)
-    
-    # # Milestone vars
-    # progress = milestone_info[0]
-    # title = milestone_info[1]
-    # subtitle = milestone_info[2]
-    # extra_info_hash = milestone_info[3]
+    Return:
+        (int): The avaliable tokens for the Milestone
+    """
+    storage = StorageManager()
 
     # If the updated progress is higher
     if updated_progress > ms.progress:
+
+        # Clamp at 100%
+        if updated_progress > 100:
+            updated_progress = 100
         
+        # Updates object variable
         ms.progress = updated_progress
         
         # Output milestone info
@@ -95,14 +129,7 @@ def ms_update_progress(ms:Milestone, updated_progress):
 
 
 def ms_get_progress(ms:Milestone):
-
-    # storage = StorageManager()
-    
-    # # Pull milestone info
-    # milestone_info_serialized = storage.get_triple('MS', project_id, milestone_id)
-    # milestone_info = storage.deserialize_bytearray(milestone_info_serialized)
-
-    # # Milestone vars
-    # progress = milestone_info[0]
-
+    """
+    This is required specifically for this variable
+    """
     return ms.progress
