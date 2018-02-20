@@ -71,16 +71,71 @@ def Main(operation, args):
             return True     
 
     elif trigger == Application:
-
         print('Application')
         # return False
 
-        tests = run_tests(operation, args)
+        # tests = run_tests(operation, args)
 
-        return tests
+        # return tests
+
+        
+        # SMART TOKEN SHARE
+        if operation == 'create_sts':
+            return
+       
+        if operation == 'sts_attr':
+            return
+            
+        if operation == 'total_tokens_available':
+            return
+            
+        
+        
+        # FUNDING STAGE
+        if operation == 'create_fs':
+            return
+        
+        if operation == 'fs_attr':
+            return
+            
+        if operation == 'fs_tokens_available':
+            return
+            
+        if operation == 'fs_status':
+            return
+            
+        if operation == 'create_sts':
+            return
+                    
 
 
+        # MILESTONE
+        if operation == 'create_ms':
+            return
+            
+        if operation == 'create_sts':
+            return
+            
+        if operation == 'create_sts':
+            return
+            
+        if operation == 'create_sts':
+            return
+            
+        if operation == 'create_sts':
+            return
+        
 
+        # CLAIMS
+
+       if operation == 'claim_fs_refund':
+            return
+       
+       if operation == 'claim_fs_contributions':
+            return
+
+       if operation == 'claim_fs_system_fee':
+            return
 
 
 
