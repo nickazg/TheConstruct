@@ -28,8 +28,8 @@ from construct.common.StorageManager import StorageManager
 # from construct.platform.FundingStage import FundingStage
 # from construct.platform.FundingRoadmap import FundingRoadmap
 
-from construct.platform.SmartTokenShareNew import SmartTokenShare, sts_get_attr, sts_create, sts_get, get_total_in_circulation 
-from construct.platform.FundingStageNew import FundingStage, fs_get_attr, fs_create, fs_get, fs_contribute, fs_status, fs_can_exchange, fs_add_to_circulation, fs_calculate_can_exchange, get_in_circulation, fs_claim_contributions, fs_refund, fs_get_addr_balance, fs_set_addr_balance, fs_claim_system_fee, fs_calculate_system_fee
+from construct.platform.SmartTokenShareNew import SmartTokenShare, sts_get_attr, sts_create, sts_get, get_total_in_circulation, sts_total_available_amount 
+from construct.platform.FundingStageNew import FundingStage, fs_get_attr, fs_create, fs_get, fs_contribute, fs_status, fs_can_exchange, fs_add_to_circulation, fs_calculate_can_exchange, get_in_circulation, fs_claim_contributions, fs_refund, fs_get_addr_balance, fs_set_addr_balance, fs_claim_system_fee, fs_calculate_system_fee, fs_available_amount
 from construct.platform.MilestoneNew import Milestone, ms_create, ms_get, ms_update_progress, ms_get_progress
 
 from construct.platform.FundingRoadmap import FundingRoadmap
@@ -83,7 +83,7 @@ def Main(operation, args):
         # return tests
 
         fr = FundingRoadmap()
-        kyc = kyc()
+        kyc = KYC()
 
         
         #    F U N D I N G    R O A D M A P   #
@@ -101,7 +101,7 @@ def Main(operation, args):
         # ARGS: project_id, symbol, decimals, owner, total_supply
         if operation == 'create_sts':            
             if len(args) == 5:                
-                sts_create(args[0], args[1], args[2], sargs[3], args[4])
+                sts_create(args[0], args[1], args[2], args[3], args[4])
                 return args[0]
 
         # ARGS: project_id, attribute: {'project_id', 'symbol', 'decimals', 'owner', 'total_supply', 'total_in_circulation'}
@@ -109,7 +109,6 @@ def Main(operation, args):
             if len(args) == 2:  
                 sts = sts_get(args[0])
                 return sts_get_attr(sts, args[1])
-                
 
         # ARGS: project_id
         if operation == 'total_tokens_available':
@@ -124,7 +123,7 @@ def Main(operation, args):
         # ARGS: project_id, funding_stage_id, start_block, end_block, supply, tokens_per_gas
         if operation == 'create_fs':
             if len(args) == 6: 
-                fs_create(args[0], args[1], args[2], sargs[3], args[4], args[5])
+                fs_create(args[0], args[1], args[2], args[3], args[4], args[5])
                 fr.add_funding_stages(args[0], [args[1]])
                 return args[1]
         
@@ -153,8 +152,8 @@ def Main(operation, args):
         # ARGS: project_id, milestone_id, title, subtitle, extra_info_hash
         if operation == 'create_ms':
             if len(args) == 5: 
-                ms_create(args[0], args[1], args[2], sargs[3], args[4])
-                fr.add_milestones(args[0], mss)
+                ms_create(args[0], args[1], args[2], args[3], args[4])
+                fr.add_milestones(args[0], [args[1]])
                 return args[1]
             
         # ARGS: project_id, milestone_id, updated_progress
@@ -193,7 +192,7 @@ def Main(operation, args):
         # ARGS: project_id, address, phys_address, first_name, last_name, id_type, id_number, id_expiry, file_location, file_hash
         if operation == 'kyc_submit':
             if len(args) == 10:
-                kyc.kyc_submit(args[0], args[1], args[2], sargs[3], args[4], args[5], args[6], args[7], args[8], args[9])
+                kyc.kyc_submit(args[0], args[1], args[2], args[3], args[4], args[5], args[6], args[7], args[8], args[9])
                 return args[1]
         
         # ARGS: project_id, [addresses]
