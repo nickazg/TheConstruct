@@ -23,10 +23,7 @@ from boa.blockchain.vm.Neo.Transaction import Transaction, GetReferences, GetOut
 
 
 from construct.common.StorageManager import StorageManager
-# from construct.platform.SmartTokenShare import SmartTokenShare
-# from construct.platform.SmartTokenShareHandler import SmartTokenShareHandler
-# from construct.platform.FundingStage import FundingStage
-# from construct.platform.FundingRoadmap import FundingRoadmap
+
 
 from construct.platform.SmartTokenShareNew import SmartTokenShare, sts_get_attr, sts_create, sts_get, get_total_in_circulation, sts_total_available_amount 
 from construct.platform.FundingStageNew import FundingStage, fs_get_attr, fs_create, fs_get, fs_contribute, fs_status, fs_can_exchange, fs_add_to_circulation, fs_calculate_can_exchange, get_in_circulation, fs_claim_contributions, fs_refund, fs_get_addr_balance, fs_set_addr_balance, fs_claim_system_fee, fs_calculate_system_fee, fs_available_amount
@@ -36,7 +33,7 @@ from construct.platform.FundingRoadmap import FundingRoadmap
 from construct.platform.KYC import KYC
 
 
-from construct.tests.Tests import run_tests
+# from construct.tests.Tests import run_tests
 from construct.common.Txio import Attachments, get_asset_attachments, get_asset_attachments_for_prev
 from construct.common.Utils import claim
 
@@ -85,13 +82,18 @@ def Main(operation, args):
         fr = FundingRoadmap()
         kyc = KYC()
 
+
+        
         
         #    F U N D I N G    R O A D M A P   #
 
+        project_id = args[0]
+
         # ARGS: project_id, [new_admins]
         if operation == 'add_project_admins':
-            if len(args) == 2: 
-                fr.add_project_admins(args[0], args[1])
+            if len(args) == 2:
+                new_admins = args[1]
+                fr.add_project_admins(project_id, [new_admins])
                 return True
         
                            
@@ -100,90 +102,125 @@ def Main(operation, args):
         
         # ARGS: project_id, symbol, decimals, owner, total_supply
         if operation == 'create_sts':            
-            if len(args) == 5:                
-                sts_create(args[0], args[1], args[2], args[3], args[4])
-                return args[0]
+            if len(args) == 5:
+                symbol = args[1]
+                decimals = 8 # hardcoded to 8
+                owner = args[3]
+                total_supply = args[4]                
+                
+                sts_create(project_id, symbol, decimals, owner, total_supply)
+                return project_id
 
         # ARGS: project_id, attribute: {'project_id', 'symbol', 'decimals', 'owner', 'total_supply', 'total_in_circulation'}
         if operation == 'sts_attribute':
-            if len(args) == 2:  
-                sts = sts_get(args[0])
-                return sts_get_attr(sts, args[1])
+            if len(args) == 2:
+                attr = args[0]
+                 
+                sts = sts_get(project_id)
+                return sts_get_attr(sts, attr)
 
         # ARGS: project_id
         if operation == 'total_tokens_available':
-            if len(args) == 1: 
-                sts = sts_get(args[0])
+            if len(args) == 1:
+
+                sts = sts_get(project_id)
                 return sts_total_available_amount(sts)
             
         
         
         #    F U N D I N G    S T A G E   #
+        
+        funding_stage_id = args[1] 
 
         # ARGS: project_id, funding_stage_id, start_block, end_block, supply, tokens_per_gas
         if operation == 'create_fs':
-            if len(args) == 6: 
-                fs_create(args[0], args[1], args[2], args[3], args[4], args[5])
-                fr.add_funding_stages(args[0], [args[1]])
-                return args[1]
+            if len(args) == 6:
+                start_block = args[2]
+                end_block = args[3]
+                supply = args[4]
+                tokens_per_gas = args[5]
+
+                fs_create(project_id, funding_stage_id, start_block, end_block, supply, tokens_per_gas)
+                fr.add_funding_stages(project_id, [funding_stage_id])
+                return funding_stage_id
         
         # ARGS: project_id, funding_stage_id, attribute: {'project_id', 'funding_stage_id', 'start_block', 'end_block', 'supply', 'tokens_per_gas', 'in_circulation'}
         if operation == 'fs_attribute':
-            if len(args) == 3:  
-                fs = fs_get(args[0], args[1])
-                return fs_get_attr(fs, args[2])
+            if len(args) == 3:
+                attr = args[2] 
+
+                fs = fs_get(project_id, funding_stage_id)
+                return fs_get_attr(fs, attr)
 
         # ARGS: project_id, funding_stage_id    
         if operation == 'fs_tokens_available':
             if len(args) == 2: 
-                fs = fs_get(args[0], args[1])
+
+                fs = fs_get(project_id, funding_stage_id )
                 return fs_available_amount(fs)
         
         # ARGS: project_id, funding_stage_id     
         if operation == 'fs_status':
-            if len(args) == 2: 
-                fs = fs_get(args[0], args[1])
+            if len(args) == 2:
+
+                fs = fs_get(project_id, funding_stage_id )
                 return fs_status(fs)       
                     
 
 
-        #    M I L E S T O N E    #
+        #     M I L E S T O N E    #
+
+        milestone_id = args[1] 
 
         # ARGS: project_id, milestone_id, title, subtitle, extra_info_hash
         if operation == 'create_ms':
-            if len(args) == 5: 
-                ms_create(args[0], args[1], args[2], args[3], args[4])
-                fr.add_milestones(args[0], [args[1]])
-                return args[1]
+            if len(args) == 5:
+                title = args[2]
+                subtitle = args[3] 
+                extra_info_hash = args[4]
+
+                ms_create(project_id, milestone_id, title, subtitle, extra_info_hash)
+                fr.add_milestones(project_id, [milestone_id])
+                return milestone_id
             
         # ARGS: project_id, milestone_id, updated_progress
         if operation == 'update_ms_progess':
-            if len(args) == 3: 
-                ms = ms_get(args[0], args[1])
-                ms_update_progress(ms, args[2])
-                return args[2]
+            if len(args) == 3:
+                updated_progress = args[2]
+
+                ms = ms_get(project_id, milestone_id)
+                ms_update_progress(ms, updated_progress)
+                return updated_progress
                     
 
 
-        #   C L A I M S   #
+        #    C L A I M S   #
+
+        funding_stage_id = args[1] 
 
         # ARGS: project_id, funding_stage_id, refund_addr  
         if operation == 'claim_fs_refund':
-            if len(args) == 3: 
-                fs = fs_get(args[0], args[1])
-                return fs_refund(args[2])                
+            if len(args) == 3:
+                refund_addr = args[2] 
+
+                fs = fs_get(project_id, funding_stage_id)
+                return fs_refund(refund_addr)                
 
         # ARGS: project_id, funding_stage_id, owner_addr
         if operation == 'claim_fs_contributions':
-            if len(args) == 3: 
-                fs = fs_get(args[0], args[1])
-                return fs_claim_contributions(args[2])    
+            if len(args) == 3:
+                owner_addr = args[2]
+
+                fs = fs_get(project_id, funding_stage_id)
+                return fs_claim_contributions(owner_addr)    
 
         # ARGS: project_id, funding_stage_id, system_owner_addr
         if operation == 'claim_fs_system_fee':
             if len(args) == 3: 
-                fs = fs_get(args[0], args[1])
-                return fs_claim_system_fee(args[2])
+                system_owner_addr = args[2]
+
+                fs = fs_get(project_id, funding_stage_id)
+                return fs_claim_system_fee(system_owner_addr)
 
         
         
@@ -192,27 +229,39 @@ def Main(operation, args):
         # ARGS: project_id, address, phys_address, first_name, last_name, id_type, id_number, id_expiry, file_location, file_hash
         if operation == 'kyc_submit':
             if len(args) == 10:
-                kyc.kyc_submit(args[0], args[1], args[2], args[3], args[4], args[5], args[6], args[7], args[8], args[9])
-                return args[1]
+                address = args[1]
+                phys_address = args[2]
+                first_name = args[3]
+                last_name = args[4]
+                id_type = args[5]
+                id_number = args[6]
+                id_expiry = args[7]
+                file_location = args[8]
+                file_hash = args[9]
+
+                kyc.kyc_submit(project_id, address, phys_address, first_name, last_name, id_type, id_number, id_expiry, file_location, file_hash)
+                return address
         
         # ARGS: project_id, [addresses]
         if operation == 'kyc_register':
             if len(args) == 2:
-                return kyc.kyc_register(args[0], args[1])
+                addresses = args[1]
+
+                return kyc.kyc_register(project_id, addresses)
         
         # ARGS: project_id, address
         if operation == 'kyc_status':
             if len(args) == 2:
-                return kyc.kyc_status(args[0], args[1])
+                address = args[1]
+
+                return kyc.kyc_status(project_id, address)
 
         # ARGS: project_id, address
         if operation == 'get_kyc_submission':
             if len(args) == 2:
-                return kyc.get_kyc_submission(args[0], args[1])
+                address = args[1]
 
-
-
-
+                return kyc.get_kyc_submission(project_id, address)
 
 
         # # TODO - Dont forget ;) 
