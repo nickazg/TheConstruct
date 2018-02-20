@@ -328,7 +328,7 @@ def fs_contribute(fs:FundingStage) -> bool:
 
     if not allowed:
         print("Cannot exchange value, refunding")
-        OnRefund(attachments.sender_addr, attachments.neo_attached)
+        OnRefund(attachments.sender_addr, attachments.gas_attached)
         return False
     
     # lookup the current balance of the address
@@ -362,6 +362,21 @@ def fs_set_addr_balance(fs:FundingStage, addr, new_balance):
     storage.put_triple(fs.project_id, fs.funding_stage_id, addr, new_balance)
 
 
+def fs_calculate_system_fee(fs:FundingStage):
+    
+    # No floats allowed 
+    # fee_percent = 5 # 5%
+    fee_percent = 5 # 10 ^ 8 = 0.05
+
+    # Calculates the gas amount contributed, decimal safe 10^8
+    gas_contributed = fs.in_circulation / fs.tokens_per_gas * 100000000
+    
+    # Some calculation
+    fee_calculated = gas_contributed * fee_percent / 100
+
+    return fee_calculated
+
+
 # If the funding stage fails, this method will return the GAS.
 def fs_refund(fs:FundingStage, refund_addr):
     """
@@ -388,10 +403,9 @@ def fs_refund(fs:FundingStage, refund_addr):
             current_sts_balance = fs_get_addr_balance(fs, refund_addr)
             
             # Calculate gas from current_sts_balance
-            gas_contribution = current_sts_balance / fs.tokens_per_gas
+            gas_contribution = current_sts_balance / fs.tokens_per_gas * 100000000
 
-
-            # unlocks current_sts_balance to refund_addr
+            # unlocks current_sts_balance to refund_addr, as 10^8
             storage.put_double('CLAIM', refund_addr, gas_contribution)
 
             # sets refund_addr balance to 0
@@ -402,14 +416,14 @@ def fs_refund(fs:FundingStage, refund_addr):
     return False
 
 # Project Owner can calim the contributions from sucessfull funding stage
-def fs_claim_contributions(fs:FundingStage, deposit_addr):
+def fs_claim_contributions(fs:FundingStage, owner_addr):
     """
     This is required to prep a claim for a verification transaction
     Args:
         fs (FundingStage):
             Funding Stage object containing specific attributes
 
-        deposit_addr (str):
+        owner_addr (str):
             Address of the claim deposit address
     
     Return:
@@ -417,15 +431,45 @@ def fs_claim_contributions(fs:FundingStage, deposit_addr):
             Can Claim
     """
     storage = StorageManager()
+    if CheckWitness(owner_addr):
+        
+        # If the funding stage complted sucessfully
+        if fs_status(fs) == 1:
 
-    # If the funding stage complted sucessfully
-    if fs_status(fs) == 1:    
-        
-        # Calculates the gas amount contributed
-        gas_contributed = fs.tokens_per_gas * fs.in_circulation
-        
-        # Sets the claim amount for the address
-        storage.put_double('CLAIM', deposit_addr, gas_contributed)
-        return True
+            # Checks the owner_addr matches the sts project owner
+            sts = sts_get(fs.project_id)
+            if sts.owner == owner_addr:
+            
+                # Calculates the gas amount contributed, decimal safe 10^8
+                gas_contributed = fs.in_circulation / fs.tokens_per_gas * 100000000
+
+                # Calculating fee
+                fee_calculated = fs_calculate_system_fee(fs)
+
+                # Deducting fees
+                gas_to_claim = gas_contributed - fee_calculated
+                
+                # Sets the claim amount for the address, as 10^8
+                storage.put_double('CLAIM', owner_addr, gas_to_claim)
+                return True
+    
+    return False
+
+
+def fs_claim_system_fee(fs:FundingStage, system_owner_addr):
+    storage = StorageManager()
+
+    if CheckWitness(system_owner_addr):
+
+        # If the funding stage complted sucessfully
+        if fs_status(fs) == 1:  
+
+            # Calculating fee
+            fee_calculated = fs_calculate_system_fee(fs)
+
+            # Sets the claim amount for the address, as 10^8
+            storage.put_double('CLAIM', system_owner_addr, fee_calculated)
+
+            return True
     
     return False
