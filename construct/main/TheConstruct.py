@@ -17,6 +17,10 @@ VERSION = "0.0.1"
 
 from boa.blockchain.vm.Neo.Runtime import GetTrigger, CheckWitness
 from boa.blockchain.vm.Neo.TriggerType import Application, Verification
+from boa.blockchain.vm.System.ExecutionEngine import GetScriptContainer, GetExecutingScriptHash
+from boa.blockchain.vm.Neo.Transaction import Transaction, GetReferences, GetOutputs, GetInputs, GetUnspentCoins
+
+
 
 from construct.common.StorageManager import StorageManager
 from construct.platform.SmartTokenShare import SmartTokenShare
@@ -25,7 +29,7 @@ from construct.platform.FundingStage import FundingStage
 from construct.platform.FundingRoadmap import FundingRoadmap
 
 from construct.tests.Tests import run_tests
-from construct.common.Txio import Attachments, get_asset_attachments
+from construct.common.Txio import Attachments, get_asset_attachments, get_asset_attachments_for_prev
 from construct.common.Utils import claim
 
 
@@ -44,17 +48,25 @@ def Main(operation, args):
     # Gets the transaction trigger
     trigger = GetTrigger()
     storage = StorageManager()
-    attachments = get_asset_attachments()    
+
 
 
     if trigger == Verification:
-        print('Verification')   
+        print('Verification')
+
+        attachments = get_asset_attachments()
+        prev_attachments = get_asset_attachments_for_prev()
+
+        gas_requested = prev_attachments.gas_attached - attachments.gas_attached
+
+        print('gas_requested')
+        print(gas_requested)
 
         # Get amount avaliable for address
         claim_amount = storage.get_double('CLAIM', attachments.receiver_addr)
 
         # If the request is the EXACT amount (not less), approve the tx
-        if claim_amount == attachments.gas_attached:
+        if claim_amount == gas_requested:
             print('Successfully send claim tx')
             return True     
 

@@ -6,7 +6,7 @@ from construct.common.StorageManager import StorageManager
 from construct.common.Txio import Attachments, get_asset_attachments
 
 from construct.platform.SmartTokenShareNew import SmartTokenShare, sts_get_attr, sts_create, sts_get, get_total_in_circulation 
-from construct.platform.FundingStageNew import FundingStage, fs_get_attr, fs_create, fs_get, fs_contribute, fs_status, fs_can_exchange, fs_add_to_circulation, fs_calculate_can_exchange, get_in_circulation, fs_claim_contributions, fs_refund, fs_get_addr_balance, fs_set_addr_balance
+from construct.platform.FundingStageNew import FundingStage, fs_get_attr, fs_create, fs_get, fs_contribute, fs_status, fs_can_exchange, fs_add_to_circulation, fs_calculate_can_exchange, get_in_circulation, fs_claim_contributions, fs_refund, fs_get_addr_balance, fs_set_addr_balance, fs_claim_system_fee, fs_calculate_system_fee
 
 from construct.platform.MilestoneNew import Milestone, ms_create, ms_get, ms_update_progress, ms_get_progress
 
@@ -232,6 +232,14 @@ class TheConstructTest():
             deposit_addr = args[1]
             fs = fs_get('projectID', fs_id)
             fs_claim_contributions(fs, deposit_addr)
+
+        if operation == 'fs_claim_fee':
+            print('fs_claim_fee')
+            fs_id = args[0]
+            owner_addr = b'j\x1agL0\xff\x926\x02\xde.a\x1fR\xe3FT\x0f\xba|'
+            fs = fs_get('projectID', fs_id)
+            fs_claim_system_fee(fs, owner_addr)
+
 
         if operation == 'fs_refund':
             fs_id = args[0]
