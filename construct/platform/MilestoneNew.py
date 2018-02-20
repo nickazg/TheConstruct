@@ -16,6 +16,32 @@ class Milestone():
     extra_info_hash = ''
     progress = 0
 
+
+def ms_get_attr(ms:Milestone, attr_name):
+    """
+    This is required to be able to read fs object variables in certain cases..
+    """
+
+    if attr_name == 'project_id':
+        return ms.project_id
+
+    if attr_name == 'milestone_id':
+        return ms.milestone_id
+
+    if attr_name == 'title':
+        return ms.title
+    
+    if attr_name == 'subtitle':
+        return ms.subtitle
+    
+    if attr_name == 'extra_info_hash':
+        return ms.extra_info_hash
+
+    if attr_name == 'progress':
+        return ms.progress
+
+
+
 def ms_create(project_id, milestone_id, title, subtitle, extra_info_hash) -> Milestone:
     """
     Creates a new Milestone using the input attributes, saves it to storage and returns

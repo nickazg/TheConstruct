@@ -385,7 +385,7 @@ def fs_refund(fs:FundingStage, refund_addr):
         fs (FundingStage):
             Funding Stage object containing specific attributes
 
-        refund_addr (str):
+        refund_addr (bytearray):
             Address of the refund address in question
     
     Return:
@@ -423,7 +423,7 @@ def fs_claim_contributions(fs:FundingStage, owner_addr):
         fs (FundingStage):
             Funding Stage object containing specific attributes
 
-        owner_addr (str):
+        owner_addr (bytearray):
             Address of the claim deposit address
     
     Return:
