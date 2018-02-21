@@ -385,7 +385,7 @@ def fs_refund(fs:FundingStage, refund_addr):
         fs (FundingStage):
             Funding Stage object containing specific attributes
 
-        refund_addr (str):
+        refund_addr (bytearray):
             Address of the refund address in question
     
     Return:
@@ -423,7 +423,7 @@ def fs_claim_contributions(fs:FundingStage, owner_addr):
         fs (FundingStage):
             Funding Stage object containing specific attributes
 
-        owner_addr (str):
+        owner_addr (bytearray):
             Address of the claim deposit address
     
     Return:
@@ -438,7 +438,7 @@ def fs_claim_contributions(fs:FundingStage, owner_addr):
 
             # Checks the owner_addr matches the sts project owner
             sts = sts_get(fs.project_id)
-            if sts.owner == owner_addr:
+            if sts_get_attr(sts, 'owner') == owner_addr:
             
                 # Calculates the gas amount contributed, decimal safe 10^8
                 gas_contributed = fs.in_circulation / fs.tokens_per_gas * 100000000
