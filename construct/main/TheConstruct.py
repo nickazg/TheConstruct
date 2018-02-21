@@ -112,7 +112,6 @@ def Main(operation, args):
                 sts_create(project_id, symbol, decimals, owner, total_supply)
                 return project_id
                 
-        #TODO - COULD NOT EXECUTE OP: Invalid list operation b'd' JMPIFNOT
         # ARGS: project_id, attribute: {'project_id', 'symbol', 'decimals', 'owner', 'total_supply', 'total_in_circulation'}
         if operation == 'sts_attribute':
             if len(args) == 2:
