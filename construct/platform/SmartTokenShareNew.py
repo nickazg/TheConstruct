@@ -19,7 +19,7 @@ def get_total_in_circulation(sts:SmartTokenShare) -> int:
     """
     return sts.total_in_circulation
 
-def sts_get_attr(sts:SmartTokenShare, attr_name:str):
+def sts_get_attr(sts:SmartTokenShare, attr_name):
     """
     This is required to be able to read sts object variables in certain cases..
     """    

@@ -86,14 +86,15 @@ def Main(operation, args):
         
         
         #    F U N D I N G    R O A D M A P   #
-
+        
         project_id = args[0]
 
         # ARGS: project_id, [new_admins]
         if operation == 'add_project_admins':
             if len(args) == 2:
                 new_admins = args[1]
-                fr.add_project_admins(project_id, [new_admins])
+                admins_to_add = [new_admins]
+                fr.add_project_admins(project_id, admins_to_add)
                 return True
         
                            
@@ -110,11 +111,12 @@ def Main(operation, args):
                 
                 sts_create(project_id, symbol, decimals, owner, total_supply)
                 return project_id
-
+                
+        #TODO - COULD NOT EXECUTE OP: Invalid list operation b'd' JMPIFNOT
         # ARGS: project_id, attribute: {'project_id', 'symbol', 'decimals', 'owner', 'total_supply', 'total_in_circulation'}
         if operation == 'sts_attribute':
             if len(args) == 2:
-                attr = args[0]
+                attr = args[1]
                  
                 sts = sts_get(project_id)
                 return sts_get_attr(sts, attr)
@@ -141,7 +143,8 @@ def Main(operation, args):
                 tokens_per_gas = args[5]
 
                 fs_create(project_id, funding_stage_id, start_block, end_block, supply, tokens_per_gas)
-                fr.add_funding_stages(project_id, [funding_stage_id])
+                fs_to_add = [funding_stage_id]
+                fr.add_funding_stages(project_id, fs_to_add)
                 return funding_stage_id
         
         # ARGS: project_id, funding_stage_id, attribute: {'project_id', 'funding_stage_id', 'start_block', 'end_block', 'supply', 'tokens_per_gas', 'in_circulation'}
@@ -180,7 +183,8 @@ def Main(operation, args):
                 extra_info_hash = args[4]
 
                 ms_create(project_id, milestone_id, title, subtitle, extra_info_hash)
-                fr.add_milestones(project_id, [milestone_id])
+                milestone_to_add = [milestone_id]
+                fr.add_milestones(project_id, milestone_to_add)
                 return milestone_id
             
         # ARGS: project_id, milestone_id, updated_progress
