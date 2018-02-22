@@ -59,11 +59,15 @@ from neocore.Cryptography.Crypto import Crypto
 
 # events = EventEmitter(wildcard=True)
 
+# ['157a025e90760b680a660126e6bdfe53b1decf03', 'create_fs', "['MyFirstProj', 'FUNDING_ID', 1, 9999, 10000, 100]"]
+# ['ae444436fe6f020d27a2effe3d7f02e3dbc98acc', 'create_sts', '[\'MyFirstProj\', \'MFP\', 8, bytearray(b\'#\\xba\\\'\\x03\\xc52c\\xe8\\xd6\\xe5"\\xdc2 39\\xdc\\xd8\\xee\\x\ne9\'), 1000000]']
 
 
 # If you want the log messages to also be saved in a logfile, enable the
 # next line. This configures a logfile with max 10 MB and 3 rotations:
 # settings.set_logfile("/tmp/logfile.log", max_bytes=1e7, backup_count=3)
+
+TEST = ['157a025e90760b680a660126e6bdfe53b1decf03', 'create_sts', '["MyFirstProj", "MFP", 8, bytearray(b"\\x01\\x05\\x01\\x01\\x01\\x01\\x02\\x0f\\\'\\x01\\x02\\x10\\\'\\x01\\x01d\\x01\\x01\\x00"), 1000000]']
 
 CONTRACT_SH = b''
 
@@ -71,23 +75,14 @@ CHAIN = 'privnet'
 
 class colors:
     HEADER = '\033[95m'
-    BLUE = '\033[94m'
+    BLUE = '\033[34m'
     GREEN = '\033[92m'
     WARNING = '\033[93m'
     FAIL = '\033[91m'
     ENDC = '\033[0m'
     BOLD = '\033[1m'
     UNDERLINE = '\033[4m'
-
-# def the_construct():
-#     """ Custom code run in a background thread.
-#     This function is run in a daemonized thread, which means it can be instantly killed at any
-#     moment, whenever the main thread quits. If you need more safety, don't use a  daemonized
-#     thread and handle exiting this thread in another way (eg. with signals and events).
-#     """
-#     while True:
-#         logger.info("Block %s / %s", str(Blockchain.Default().Height), str(Blockchain.Default().HeaderHeight))
-#         sleep(15)
+    
 
 class TheConstructInterface(object):
 
@@ -95,8 +90,15 @@ class TheConstructInterface(object):
     invoking = False
     operations_completed = [] 
     notify = None
+    rebuilding = False
+    active_color = ''
 
-    SC_hash = 'aaa37379f032bb70309982c68e2424cb2b6fe090'    
+    invoked_operation = ''
+
+    # SC_hash = '6f2bf7aa7148efa29f0a527b261c7ef17204685a'    
+    SC_hash = '157a025e90760b680a660126e6bdfe53b1decf03'    
+    # SC_hash = 'ae444436fe6f020d27a2effe3d7f02e3dbc98acc'    
+    # SC_hash = 'aaa37379f032bb70309982c68e2424cb2b6fe090'    
     Wallet = None
 
     def __init__(self, debug=False):
@@ -110,22 +112,58 @@ class TheConstructInterface(object):
         if debug:
             settings.set_log_smart_contract_events(True)
         
+        # EVENTS
         @events.on(SmartContractEvent.RUNTIME_NOTIFY)
         @events.on(SmartContractEvent.RUNTIME_LOG)
         @events.on(SmartContractEvent.EXECUTION_SUCCESS)
         @events.on(SmartContractEvent.EXECUTION_FAIL)
-        @events.on(SmartContractEvent.STORAGE)
+        @events.on(SmartContractEvent.STORAGE)        
         def on_sc_event(sc_event):
-            print('\n')
-            print('-------   EVENT  --------')
-            # print(sc_event)
-            print(sc_event.event_type)
-            print(sc_event.contract_hash)
-            print(sc_event.event_payload)
-            print('\n')
+            if sc_event.test_mode:
+                self.active_color = colors.WARNING
+            else:
+                self.active_color = colors.GREEN
+            
+            if str(sc_event.contract_hash) == str(self.SC_hash):
+                et = sc_event.event_type
+                results = sc_event.event_payload               
+                
+                if et == SmartContractEvent.RUNTIME_LOG:
+                    if sc_event.test_mode:
+                        try:
+                            decoded_result = results[0].decode("utf-8")
+                            if ':' in decoded_result:
+                                self.invoked_operation = decoded_result.split(':')[-1]
+                        except:
+                            pass
+                                
+                
+                if et == SmartContractEvent.EXECUTION_SUCCESS:
+                    print(self.active_color+'\n|--------   T H E    C O N S T R U C T  --------|'+colors.ENDC)
+                    
+                    for result in results:
+                        print('\033[1m Output:\033[0m \t\t\t', result)
+
+                    if sc_event.test_mode:
+                        print('\n \033[1mSuccessfully Sent Request:\033[0m\t', self.invoked_operation)
+                        print('\n Please wait for block to process.. ')                      
+                    else:
+                        print('\n \033[1mSuccessfully Executed Request:\033[0m\t', self.invoked_operation)
+                        self.invoking = False
+                        self.invoked_operation = ''
+                    
+                    print(self.active_color+'|-----------------------------------------------|'+colors.ENDC)
+                    print('\n')
+                    
 
 
+                elif debug:
+                    print(self.active_color+'\n|--------   T H E    C O N S T R U C T  --------|'+colors.ENDC)
+                    for result in results:
+                        print(' \033[1mOutput:\033[0m \t\t\t', result)
+                    print('\n')
 
+                
 
     def run(self):
         dbloop = task.LoopingCall(Blockchain.Default().PersistBlocks)
@@ -134,45 +172,62 @@ class TheConstructInterface(object):
         Blockchain.Default().PersistBlocks()  
         
         self.open_wallet('../neo-python-priv-wallet.db3', '1234567890')
-        print(self.Wallet.ToJson()['synced_balances'])
+        # print(self.Wallet.ToJson()['synced_balances'])
 
-        # sleep(4)
-        # print(self.Wallet._current_height)
-        # print(Blockchain.Default().Height)
-        # print(Blockchain.Default().HeaderHeight)
-
-
-        # while Blockchain.Default().Height + 3 < Blockchain.Default().HeaderHeight and self.Wallet._current_height < Blockchain.Default().Height:
-        while True:
-            logger.info("Block %s / %s", str(Blockchain.Default().Height), str(Blockchain.Default().HeaderHeight))
-            logger.info("Wallet %s / %s", str(self.Wallet._current_height), str(Blockchain.Default().Height))
-            if self.Wallet._current_height <= Blockchain.Default().Height-20:
-                print('Rebuilding..')
-                self.Wallet.Rebuild()
-                print(self.Wallet.ToJson()['synced_balances'])
+        self.height_check()
+        
+        # while self.running:
+        # logger.info("Block %s / %s", str(Blockchain.Default().Height), str(Blockchain.Default().HeaderHeight))
+        # logger.info("Wallet %s / %s", str(self.Wallet._current_height), str(Blockchain.Default().Height))
+        # if self.Wallet._current_height <= Blockchain.Default().Height-20:                
+        #     self.Wallet.Rebuild()
+        #     self.rebuilding = True               
             
-            if self.invoking:
-                self.wait_for_invoke_complete()
-                sleep(1)
-
-            if 'create_sts' not in self.operations_completed:
-                self.invoking = True
-                self.invoke_construct("create_sts", "[\"MyFirstProj\", \"MFP\", 8, bytearray(b\"\\x01\\x05\\x01\\x01\\x01\\x01\\x02\\x0f\\\'\\x01\\x02\\x10\\\'\\x01\\x01d\\x01\\x01\\x00\"), 1000000]")
-                self.operations_completed.append('create_sts')
-
+        #     while self.Wallet._current_height < Blockchain.Default().Height-2:
+        #         print('Rebuilding..')
+        #         sleep(5)
+        
+        # if self.invoking:
+        #     self.wait_for_invoke_complete()
+        
+        self.invoke_construct("create_sts", ["MyFirstProj", "MFP", 8, bytearray(b'#\xba\'\x03\xc52c\xe8\xd6\xe5"\xdc2 39\xdc\xd8\xee\xe9'), 1000000])
+        self.invoke_construct("create_fs", ["MyFirstProj", "FUNDING_ID", 1, 9999, 10000, 100])
+        
+        # self.invoke_construct("create_sts", ["MyFirstProj", "MFP", 8, bytearray(b"\\x01\\x05\\x01\\x01\\x01\\x01\\x02\\x0f\\\'\\x01\\x02\\x10\\\'\\x01\\x01d\\x01\\x01\\x00"), 1000000])
+        # self.invoke_construct("create_sts", "[\"MyFirstProj\", \"MFP\", 8, bytearray(b\"\\x01\\x05\\x01\\x01\\x01\\x01\\x02\\x0f\\\'\\x01\\x02\\x10\\\'\\x01\\x01d\\x01\\x01\\x00\"), 1000000]")
         # self.invoke_construct("create_fs", "[\"MyFirstProj\", \"FUNDING_ID\", 1, 9999, 10000, 100]")
         # self.invoke_construct("fs_status", "[\"MyFirstProj\", \"funding_ids\"]")
-        sleep(1)
-        # self.quit()
 
+
+        self.quit()
+
+
+    def height_check(self):
+        last_height = 0
+        while (Blockchain.Default().HeaderHeight - last_height) > 10:
+            print('Updating Height...')
+            last_height = Blockchain.Default().HeaderHeight
+            sleep(5)
+
+        print('Wallet Height: ', self.Wallet._current_height)
+        print('Blockchain Height: ', Blockchain.Default().Height)
+        print(self.Wallet.ToJson()['synced_balances'])
+
+        gas = self.Wallet.GetBalance(self.Wallet.GetCoinAssets()[1], True)
+        print('gas', gas)
+
+        if self.Wallet._current_height <= Blockchain.Default().Height-20: 
+                        
+            self.Wallet.Rebuild()
+            
+            while self.Wallet._current_height < Blockchain.Default().Height-2:
+                print('Rebuilding Wallet..')
+                sleep(5)
     
-       
     def wait_for_invoke_complete(self):
-        while self.invoking:        
-            logger.info("listening..  Block {} / {} \r".format(str(Blockchain.Default().Height), str(Blockchain.Default().HeaderHeight)))
-            alert = self.notify.get_by_contract(self.SC_hash)
-            logger.info(alert)
-            sleep(2)
+        while self.invoking:
+            sleep(2)        
+        
 
     # CREATE WALLET
     def create_wallet(self, path, password):
@@ -215,33 +270,38 @@ class TheConstructInterface(object):
 
     # INVOKE
     def invoke_construct(self, operation, args):
-        arguments = [self.SC_hash, operation, args]
-        print(arguments)
+         
+        
+        self.invoking = True
+
+        arguments = [self.SC_hash, operation, str(args)]
+        
         tx, fee, results, num_ops = TestInvokeContract(self.Wallet, arguments)
+        
         if tx is not None and results is not None:
-            for result in results:
-                print(colors.WARNING+"RESULT:\t"+result.GetString()+colors.ENDC)
-
-            result = InvokeContract(self.Wallet, tx, fee)
-            
-            return 
+            result = InvokeContract(self.Wallet, tx, fee)    
+        
         else:
-            print('invoke failed')
-            return
+            print('Invoke failed')
+            self.quit()
 
+        self.wait_for_invoke_complete()
 
+    # QUIT
     def quit(self):
         print('Shutting down. This may take a bit...')
-        self.go_on = False
-        NotificationDB.close()
+        self.running = False
         Blockchain.Default().Dispose()
         reactor.stop()
         NodeLeader.Instance().Shutdown()
+        NotificationDB.close()
+        exit(1)
 
 
 def main():
 
     parser = argparse.ArgumentParser()
+    parser.add_argument("-d", "--debug", action="store_true", default=False, help="Debug")
     parser.add_argument("-m", "--mainnet", action="store_true", default=False,
                         help="Use MainNet instead of the default TestNet")
     parser.add_argument("-p", "--privnet", action="store_true", default=False,
@@ -266,18 +326,16 @@ def main():
         settings.setup_mainnet()
     elif args.privnet:
         settings.setup_privnet()
-
+    
     # Instantiate the blockchain and subscribe to notifications
     blockchain = LevelDBBlockchain(settings.LEVELDB_PATH)
     Blockchain.RegisterBlockchain(blockchain)
     
-    # ndb = NotificationDB.instance()
-    # ndb.start()
     # Try to set up a notification db
     if NotificationDB.instance():
         NotificationDB.instance().start()
 
-    cli = TheConstructInterface(debug=False)
+    cli = TheConstructInterface(debug=args.debug)
 
     # Run
     reactor.suggestThreadPoolSize(15)
