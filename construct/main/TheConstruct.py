@@ -218,7 +218,15 @@ def Main(operation, args):
             if len(args) == 2:
 
                 fs = fs_get(project_id, funding_stage_id )
-                return fs_contribute(fs)                      
+                return fs_contribute(fs)   
+
+        # ARGS: project_id, funding_stage_id, addr    
+        if operation == 'fs_balance':
+            print('execute:fs_balance')
+            if len(args) == 2:
+                addr = args[2]
+                fs = fs_get(project_id, funding_stage_id )
+                return fs_get_addr_balance(fs, addr)   
 
 
         #     M I L E S T O N E    #
