@@ -221,8 +221,8 @@ def Main(operation, args):
                 return fs_contribute(fs)   
 
         # ARGS: project_id, funding_stage_id, addr    
-        if operation == 'fs_balance':
-            print('execute:fs_balance')
+        if operation == 'fs_addr_balance':
+            print('execute:fs_addr_balance')
             if len(args) == 2:
                 addr = args[2]
                 fs = fs_get(project_id, funding_stage_id )
