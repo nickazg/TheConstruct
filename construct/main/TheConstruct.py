@@ -54,8 +54,6 @@ def Main(operation, args):
     trigger = GetTrigger()
     storage = StorageManager()
 
-
-
     if trigger == Verification:
         print('Verification')
 
@@ -91,6 +89,7 @@ def Main(operation, args):
 
         # ARGS: project_id, [new_admins]
         if operation == 'add_project_admins':
+            print('execute:add_project_admins')
             if len(args) == 2:
                 new_admins = args[1]
                 admins_to_add = [new_admins]
@@ -102,7 +101,8 @@ def Main(operation, args):
         #    S M A R T    T O K E N    S H A R E   #
         
         # ARGS: project_id, symbol, decimals, owner, total_supply
-        if operation == 'create_sts':            
+        if operation == 'create_sts':
+            print('execute:create_sts')            
             if len(args) == 5:
                 symbol = args[1]
                 decimals = 8 # hardcoded to 8
@@ -114,6 +114,7 @@ def Main(operation, args):
                 
         # ARGS: project_id, attribute: {'project_id', 'symbol', 'decimals', 'owner', 'total_supply', 'total_in_circulation'}
         if operation == 'sts_attribute':
+            print('execute:sts_attribute')
             if len(args) == 2:
                 attr = args[1]
                  
@@ -122,6 +123,7 @@ def Main(operation, args):
 
         # ARGS: project_id
         if operation == 'total_tokens_available':
+            print('execute:total_tokens_available')
             if len(args) == 1:
 
                 sts = sts_get(project_id)
@@ -135,6 +137,7 @@ def Main(operation, args):
 
         # ARGS: project_id, funding_stage_id, start_block, end_block, supply, tokens_per_gas
         if operation == 'create_fs':
+            print('execute:create_fs')
             if len(args) == 6:
                 start_block = args[2]
                 end_block = args[3]
@@ -148,6 +151,7 @@ def Main(operation, args):
         
         # ARGS: project_id, funding_stage_id, attribute: {'project_id', 'funding_stage_id', 'start_block', 'end_block', 'supply', 'tokens_per_gas', 'in_circulation'}
         if operation == 'fs_attribute':
+            print('execute:fs_attribute')
             if len(args) == 3:
                 attr = args[2] 
 
@@ -156,6 +160,7 @@ def Main(operation, args):
 
         # ARGS: project_id, funding_stage_id    
         if operation == 'fs_tokens_available':
+            print('execute:fs_tokens_available')
             if len(args) == 2: 
 
                 fs = fs_get(project_id, funding_stage_id )
@@ -163,6 +168,7 @@ def Main(operation, args):
         
         # ARGS: project_id, funding_stage_id     
         if operation == 'fs_status':
+            print('execute:fs_status')
             if len(args) == 2:
 
                 fs = fs_get(project_id, funding_stage_id )
@@ -176,6 +182,7 @@ def Main(operation, args):
 
         # ARGS: project_id, milestone_id, title, subtitle, extra_info_hash
         if operation == 'create_ms':
+            print('execute:create_ms')
             if len(args) == 5:
                 title = args[2]
                 subtitle = args[3] 
@@ -188,6 +195,7 @@ def Main(operation, args):
             
         # ARGS: project_id, milestone_id, updated_progress
         if operation == 'update_ms_progess':
+            print('execute:update_ms_progess')
             if len(args) == 3:
                 updated_progress = args[2]
 
@@ -203,6 +211,7 @@ def Main(operation, args):
 
         # ARGS: project_id, funding_stage_id, refund_addr  
         if operation == 'claim_fs_refund':
+            print('execute:claim_fs_refund')
             if len(args) == 3:
                 refund_addr = args[2] 
 
@@ -211,6 +220,7 @@ def Main(operation, args):
 
         # ARGS: project_id, funding_stage_id, owner_addr
         if operation == 'claim_fs_contributions':
+            print('execute:claim_fs_contributions')
             if len(args) == 3:
                 owner_addr = args[2]
 
@@ -219,6 +229,7 @@ def Main(operation, args):
 
         # ARGS: project_id, funding_stage_id, system_owner_addr
         if operation == 'claim_fs_system_fee':
+            print('execute:claim_fs_system_fee')
             if len(args) == 3: 
                 system_owner_addr = args[2]
 
@@ -231,6 +242,7 @@ def Main(operation, args):
 
         # ARGS: project_id, address, phys_address, first_name, last_name, id_type, id_number, id_expiry, file_location, file_hash
         if operation == 'kyc_submit':
+            print('execute:kyc_submit')
             if len(args) == 10:
                 address = args[1]
                 phys_address = args[2]
@@ -247,6 +259,7 @@ def Main(operation, args):
         
         # ARGS: project_id, [addresses]
         if operation == 'kyc_register':
+            print('execute:kyc_register')
             if len(args) == 2:
                 addresses = args[1]
 
@@ -254,6 +267,7 @@ def Main(operation, args):
         
         # ARGS: project_id, address
         if operation == 'kyc_status':
+            print('execute:kyc_status')
             if len(args) == 2:
                 address = args[1]
 
@@ -261,6 +275,7 @@ def Main(operation, args):
 
         # ARGS: project_id, address
         if operation == 'get_kyc_submission':
+            print('execute:get_kyc_submission')
             if len(args) == 2:
                 address = args[1]
 
