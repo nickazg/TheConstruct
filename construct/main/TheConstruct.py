@@ -95,8 +95,46 @@ def Main(operation, args):
                 admins_to_add = [new_admins]
                 fr.add_project_admins(project_id, admins_to_add)
                 return True
+
+        # ARGS: project_id
+        if operation == 'get_active_index':
+            print('execute:get_active_index')
+            if len(args) == 1:
+                return fr.get_active_index(project_id)        
         
-                           
+        # ARGS: project_id
+        if operation == 'get_funding_stages':
+            print('execute:get_funding_stages')
+            if len(args) == 1:
+                funding_stages = fr.get_funding_stages(project_id)
+                return funding_stages
+
+        # ARGS: project_id
+        if operation == 'get_active_fs':
+            print('execute:get_active_fs')
+            if len(args) == 1:
+                active_idx = fr.get_active_index(project_id)
+                funding_stages = fr.get_funding_stages(project_id)
+                active_funding_stage = funding_stages[active_idx]
+                return active_funding_stage
+
+        # ARGS: project_id
+        if operation == 'get_milestones':
+            print('execute:get_milestones')
+            if len(args) == 1:
+                milestones = fr.get_milestones(project_id)
+                return milestones
+        
+        # ARGS: project_id
+        if operation == 'get_active_ms':
+            print('execute:get_active_ms')
+            if len(args) == 1:
+                active_idx = fr.get_active_index(project_id)
+                milestones = fr.get_milestones(project_id)
+                active_milestone = milestones[active_idx]
+                return active_milestone
+        
+        
         
         #    S M A R T    T O K E N    S H A R E   #
         
@@ -173,7 +211,14 @@ def Main(operation, args):
 
                 fs = fs_get(project_id, funding_stage_id )
                 return fs_status(fs)       
-                    
+        
+        # ARGS: project_id, funding_stage_id     
+        if operation == 'fs_contribute':
+            print('execute:fs_contribute')
+            if len(args) == 2:
+
+                fs = fs_get(project_id, funding_stage_id )
+                return fs_contribute(fs)                      
 
 
         #     M I L E S T O N E    #
@@ -202,7 +247,13 @@ def Main(operation, args):
                 ms = ms_get(project_id, milestone_id)
                 ms_update_progress(ms, updated_progress)
                 return updated_progress
-                    
+        
+        # ARGS: project_id, milestone_id
+        if operation == 'get_ms_progess':
+            print('execute:get_ms_progess')
+            if len(args) == 2:
+                ms = ms_get(project_id, milestone_id)
+                return ms_get_progress(ms)                    
 
 
         #    C L A I M S   #

@@ -57,21 +57,10 @@ from neo.EventHub import events, SmartContractEvent
 
 from neocore.Cryptography.Crypto import Crypto
 
-# events = EventEmitter(wildcard=True)
-
-# ['157a025e90760b680a660126e6bdfe53b1decf03', 'create_fs', "['MyFirstProj', 'FUNDING_ID', 1, 9999, 10000, 100]"]
-# ['ae444436fe6f020d27a2effe3d7f02e3dbc98acc', 'create_sts', '[\'MyFirstProj\', \'MFP\', 8, bytearray(b\'#\\xba\\\'\\x03\\xc52c\\xe8\\xd6\\xe5"\\xdc2 39\\xdc\\xd8\\xee\\x\ne9\'), 1000000]']
-
-
 # If you want the log messages to also be saved in a logfile, enable the
 # next line. This configures a logfile with max 10 MB and 3 rotations:
 # settings.set_logfile("/tmp/logfile.log", max_bytes=1e7, backup_count=3)
 
-TEST = ['157a025e90760b680a660126e6bdfe53b1decf03', 'create_sts', '["MyFirstProj", "MFP", 8, bytearray(b"\\x01\\x05\\x01\\x01\\x01\\x01\\x02\\x0f\\\'\\x01\\x02\\x10\\\'\\x01\\x01d\\x01\\x01\\x00"), 1000000]']
-
-CONTRACT_SH = b''
-
-CHAIN = 'privnet'
 
 class colors:
     HEADER = '\033[95m'
@@ -95,10 +84,8 @@ class TheConstructInterface(object):
 
     invoked_operation = ''
 
-    # SC_hash = '6f2bf7aa7148efa29f0a527b261c7ef17204685a'    
-    SC_hash = '157a025e90760b680a660126e6bdfe53b1decf03'    
-    # SC_hash = 'ae444436fe6f020d27a2effe3d7f02e3dbc98acc'    
-    # SC_hash = 'aaa37379f032bb70309982c68e2424cb2b6fe090'    
+    # SC_hash = '157a025e90760b680a660126e6bdfe53b1decf03'
+    SC_hash = 'a5d8a604e1ba94d95af52f59dbbfbc05d89b071b'  # 7304
     Wallet = None
 
     def __init__(self, debug=False):
@@ -174,36 +161,49 @@ class TheConstructInterface(object):
         self.open_wallet('../neo-python-priv-wallet.db3', '1234567890')
         # print(self.Wallet.ToJson()['synced_balances'])
 
-        self.height_check()
+
+        # Check Node and Wallet status
+        self.height_check()  
         
-        # while self.running:
-        # logger.info("Block %s / %s", str(Blockchain.Default().Height), str(Blockchain.Default().HeaderHeight))
-        # logger.info("Wallet %s / %s", str(self.Wallet._current_height), str(Blockchain.Default().Height))
-        # if self.Wallet._current_height <= Blockchain.Default().Height-20:                
-        #     self.Wallet.Rebuild()
-        #     self.rebuilding = True               
-            
-        #     while self.Wallet._current_height < Blockchain.Default().Height-2:
-        #         print('Rebuilding..')
-        #         sleep(5)
+        # Test Methods to invoke
         
-        # if self.invoking:
-        #     self.wait_for_invoke_complete()
+        # self.invoke_construct("create_sts", ["MyFirstProj", "MFP", 8, bytearray(b'#\xba\'\x03\xc52c\xe8\xd6\xe5"\xdc2 39\xdc\xd8\xee\xe9'), 1000000])
+        # self.invoke_construct("create_fs", ["MyFirstProj", "first_stage", 1, 9999, 10000, 100])
+        # self.invoke_construct("create_ms", ["MyFirstProj", "first_milestone", "SEED", "asdjnasd", "asdasd"])
+        self.invoke_construct("fs_contribute", ["MyFirstProj", "first_stage"], gas=5)
+        self.invoke_construct("fs_status", ["MyFirstProj", "first_stage"])
+        self.invoke_construct("fs_attribute", ["MyFirstProj", "first_stage", "in_circulation"])
         
-        self.invoke_construct("create_sts", ["MyFirstProj", "MFP", 8, bytearray(b'#\xba\'\x03\xc52c\xe8\xd6\xe5"\xdc2 39\xdc\xd8\xee\xe9'), 1000000])
-        self.invoke_construct("create_fs", ["MyFirstProj", "FUNDING_ID", 1, 9999, 10000, 100])
-        
-        # self.invoke_construct("create_sts", ["MyFirstProj", "MFP", 8, bytearray(b"\\x01\\x05\\x01\\x01\\x01\\x01\\x02\\x0f\\\'\\x01\\x02\\x10\\\'\\x01\\x01d\\x01\\x01\\x00"), 1000000])
-        # self.invoke_construct("create_sts", "[\"MyFirstProj\", \"MFP\", 8, bytearray(b\"\\x01\\x05\\x01\\x01\\x01\\x01\\x02\\x0f\\\'\\x01\\x02\\x10\\\'\\x01\\x01d\\x01\\x01\\x00\"), 1000000]")
-        # self.invoke_construct("create_fs", "[\"MyFirstProj\", \"FUNDING_ID\", 1, 9999, 10000, 100]")
-        # self.invoke_construct("fs_status", "[\"MyFirstProj\", \"funding_ids\"]")
 
 
         self.quit()
 
+    # INVOKE
+    def invoke_construct(self, operation, args, gas=None):        
+        self.invoking = True
+        
+        if gas:
+            gas = '--attach-gas='+str(gas)
 
+        arguments = [self.SC_hash, operation, str(args), gas]
+        
+        tx, fee, results, num_ops = TestInvokeContract(self.Wallet, arguments)
+        
+        if tx is not None and results is not None:
+            result = InvokeContract(self.Wallet, tx, fee)    
+        
+        else:
+            print('Invoke failed')
+            self.quit()
+
+        self.wait_for_invoke_complete()
+
+    # CHECK NODE HEIGHT
     def height_check(self):
         last_height = 0
+        neo = self.Wallet.GetBalance(self.Wallet.GetCoinAssets()[0])
+        gas = self.Wallet.GetBalance(self.Wallet.GetCoinAssets()[1])
+        
         while (Blockchain.Default().HeaderHeight - last_height) > 10:
             print('Updating Height...')
             last_height = Blockchain.Default().HeaderHeight
@@ -211,15 +211,10 @@ class TheConstructInterface(object):
 
         print('Wallet Height: ', self.Wallet._current_height)
         print('Blockchain Height: ', Blockchain.Default().Height)
-        print(self.Wallet.ToJson()['synced_balances'])
 
-        gas = self.Wallet.GetBalance(self.Wallet.GetCoinAssets()[1], True)
-        print('gas', gas)
-
-        if self.Wallet._current_height <= Blockchain.Default().Height-20: 
+        if self.Wallet._current_height <= Blockchain.Default().Height-20 or gas.ToInt() == 0: 
                         
-            self.Wallet.Rebuild()
-            
+            self.Wallet.Rebuild()            
             while self.Wallet._current_height < Blockchain.Default().Height-2:
                 print('Rebuilding Wallet..')
                 sleep(5)
@@ -227,7 +222,7 @@ class TheConstructInterface(object):
     def wait_for_invoke_complete(self):
         while self.invoking:
             sleep(2)        
-        
+        sleep(0.5)
 
     # CREATE WALLET
     def create_wallet(self, path, password):
@@ -268,24 +263,7 @@ class TheConstructInterface(object):
         except Exception as e:
             print("Could not open wallet: %s" % e)
 
-    # INVOKE
-    def invoke_construct(self, operation, args):
-         
-        
-        self.invoking = True
 
-        arguments = [self.SC_hash, operation, str(args)]
-        
-        tx, fee, results, num_ops = TestInvokeContract(self.Wallet, arguments)
-        
-        if tx is not None and results is not None:
-            result = InvokeContract(self.Wallet, tx, fee)    
-        
-        else:
-            print('Invoke failed')
-            self.quit()
-
-        self.wait_for_invoke_complete()
 
     # QUIT
     def quit(self):
