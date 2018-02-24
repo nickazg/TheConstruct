@@ -122,8 +122,6 @@ class StorageManager():
             # get the data
             item = substr(newdata, start, item_len)
 
-            print(item)
-
             # store it in collection
             new_collection[i] = item
 

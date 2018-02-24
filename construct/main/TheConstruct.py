@@ -20,7 +20,7 @@ from boa.blockchain.vm.Neo.Action import RegisterAction
 from construct.platform.SmartTokenShare import SmartTokenShare, sts_get_attr, sts_create, sts_get, get_total_in_circulation, sts_total_available_amount 
 from construct.platform.FundingStage import FundingStage, fs_get_attr, fs_create, fs_get, fs_contribute, fs_status, fs_can_exchange, fs_add_to_circulation, fs_calculate_can_exchange, get_in_circulation, fs_claim_contributions, fs_refund, fs_get_addr_balance, fs_set_addr_balance, fs_claim_system_fee, fs_calculate_system_fee, fs_available_amount
 from construct.platform.Milestone import Milestone, ms_create, ms_get, ms_update_progress, ms_get_progress
-from construct.platform.FundingRoadmap import FundingRoadmap, fr_add_list, fr_get_list, fr_add_funding_stages, fr_get_funding_stages, fr_add_milestones, fr_get_milestones, fr_add_project_admins, fr_get_project_admins, fr_set_active_index, fr_get_active_index, fr_update_milestone_progress
+from construct.platform.FundingRoadmap import FundingRoadmap, fr_list_append, fr_add_list, fr_get_list, fr_add_funding_stage, fr_get_funding_stages, fr_add_milestone, fr_get_milestones, fr_add_project_admin, fr_get_project_admins, fr_set_active_index, fr_get_active_index, fr_update_milestone_progress
 from construct.platform.KYC import KYC
 
 # THE CONSTRUCT - COMMON
@@ -70,19 +70,22 @@ def Main(operation, args):
         print('Application')
 
         kyc = KYC()   
-        
+
+        # TODO - Permissions
+        # TODO - Refund
+        # TODO - Claim
+        # TODO - Milestone Voting
         #    F U N D I N G    R O A D M A P   #
         
         project_id = args[0]
 
-        # ARGS: project_id, [new_admins]
+        # ARGS: project_id, new_admin
         if operation == 'add_project_admins':
             OnOperationInvoke('add_project_admins')
             print('execute:add_project_admins')
             if len(args) == 2:
-                new_admins = args[1]
-                admins_to_add = [new_admins]
-                fr_add_project_admins(project_id, admins_to_add)
+                new_admin = args[1]
+                fr_add_project_admin(project_id, new_admin)
                 return True
             return invalid_args_msg
 
@@ -203,8 +206,7 @@ def Main(operation, args):
                 tokens_per_gas = args[5]
 
                 fs_create(project_id, funding_stage_id, start_block, end_block, supply, tokens_per_gas)
-                fs_to_add = [funding_stage_id]
-                fr_add_funding_stages(project_id, fs_to_add)
+                fr_add_funding_stage(project_id, funding_stage_id)
                 return funding_stage_id
             return invalid_args_msg
         
@@ -273,8 +275,7 @@ def Main(operation, args):
                 extra_info_hash = args[4]
 
                 ms_create(project_id, milestone_id, title, subtitle, extra_info_hash)
-                milestone_to_add = [milestone_id]
-                fr_add_milestones(project_id, milestone_to_add)
+                fr_add_milestone(project_id, milestone_id)
                 return milestone_id
             return invalid_args_msg        
         

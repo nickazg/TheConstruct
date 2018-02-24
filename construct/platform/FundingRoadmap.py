@@ -17,19 +17,7 @@ class FundingRoadmap():
     project_id = ''
     active_idx = 0
 
-# def fr_get_methods(address):        
-#     # public
-#     methods = ['getMilestones', 'getFundinsStages', 'getActiveIndex']
-    
-#     # MIGHT NOT work like this... 
-#     project_admins = fr_get_project_admins()
-#     if address in project_admins:
-#         # admin
-#         methods += ['addMilestones', 'addFundingStages', 'setActiveIndex']
-
-#     return methods
-
-def fr_add_list(project_id, key, new_list:list):
+def fr_list_append(project_id, key, new_item):
     """Adds the input list of funding stages to storage (as serialized array)
     Args:
         project_id (list): ID for referencing the project
@@ -37,17 +25,24 @@ def fr_add_list(project_id, key, new_list:list):
     """   
     storage = StorageManager()
 
-    # Serializes list 
-    serialized_new_list = storage.serialize_array(new_list)
-
     # Gets current stored list
-    serialized_list = storage.get_double(key, project_id)
+    current_serialized_list = storage.get_double(key, project_id)
+
+    # Converts serialized list to normal list
+    current_list = storage.deserialize_bytearray(current_serialized_list)
+    current_list_len = len(current_list)
+    output_list_len = current_list_len + 1
+
+    # Creates new list and appends new item to the end
+    output_list = list(length=output_list_len)
+    output_list[current_list_len] = new_item
     
-    # Updates list
-    serialized_combined_lists = concat(serialized_list, serialized_new_list)
+    # Serializes list 
+    serialized_output_list = storage.serialize_array(output_list)
 
     # Saves updated serialized list to storage
-    storage.put_double(key, project_id, serialized_combined_lists)
+    storage.put_double(key, project_id, serialized_output_list)
+
 
 def fr_get_list(project_id, key):
     """    
@@ -69,13 +64,13 @@ def fr_get_list(project_id, key):
 
     return output_list
 
-def fr_add_funding_stages(project_id, new_funding_stages:list):
+def fr_add_funding_stage(project_id, new_funding_stage):
     """Adds the input list of funding stages to storage (as serialized array)
     Args:
         project_id (list): ID for referencing the project
         new_funding_stages (list): list of funding stages to save to storage
     """  
-    fr_add_list(project_id, 'FR_stages', new_funding_stages)
+    fr_list_append(project_id, 'FR_stages', new_funding_stage)
 
 def fr_get_funding_stages(project_id):
     """    
@@ -86,23 +81,18 @@ def fr_get_funding_stages(project_id):
     Return:
         (list): The number of addresses to registered for KYC
     """
-    # funding_stages = fr_get_list(project_id, 'FR_stages')
-    storage = StorageManager()
-    # Gets current stored list
-    serialized_list = storage.get_double('FR_stages', project_id)
-    # Converts serialized list to normal list
-    funding_stages = storage.deserialize_bytearray(serialized_list)
+    funding_stages = fr_get_list(project_id, 'FR_stages')
     print('funding_stages')
     print(funding_stages)
     return funding_stages
 
-def fr_add_milestones(project_id, new_milestones:list):
+def fr_add_milestone(project_id, new_milestone):
     """Adds the input list of milestones to storage (as serialized array)
     Args:
         project_id (list): ID for referencing the project
         new_milestones (list): list of milestones to add
     """ 
-    fr_add_list(project_id, 'FR_milestones', new_milestones)  
+    fr_list_append(project_id, 'FR_milestones', new_milestone)  
 
 def fr_get_milestones(project_id):
     """    
@@ -117,13 +107,13 @@ def fr_get_milestones(project_id):
 
     return milestones
 
-def fr_add_project_admins(project_id, new_admins:list):
+def fr_add_project_admin(project_id, new_admin):
     """Adds the input list of admins to storage (as serialized array)
     Args:
         project_id (list): ID for referencing the project
         new_milestones (list): list of admins to add
     """ 
-    fr_add_list(project_id, 'FR_admins', new_admins)    
+    fr_list_append(project_id, 'FR_admins', new_admin)    
 
 def fr_get_project_admins(project_id):
     """    
