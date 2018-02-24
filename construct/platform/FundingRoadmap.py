@@ -12,6 +12,8 @@ from construct.platform.FundingStageNew import FundingStage, fs_get_attr, fs_cre
 from construct.platform.MilestoneNew import Milestone, ms_create, ms_get, ms_update_progress, ms_get_progress
 
 
+
+
 class FundingRoadmap():
     """
     Interface for Managing the Funding Roadmap
@@ -163,29 +165,49 @@ class FundingRoadmap():
             project_id (list): ID for referencing the project
             progress (int): new progress (100% completes stage/milestone)   
         """
+        print('project_id')
+        print(project_id)
         active_idx = self.get_active_index(project_id)
+        print('active_idx')
+        print(active_idx)
         milestones = self.get_milestones(project_id)
         funding_stages = self.get_funding_stages(project_id)
 
         active_milestone = milestones[active_idx]
         active_funding_stage = funding_stages[active_idx]
-        
+
         fs = fs_get(project_id, active_funding_stage)
         fs_status = fs_status(fs)
+        
+        print('fs_status')
+        print(fs_status)
 
         if fs_status != 1:
             print('Current Funding Stage NOT complete')
             return False
             
-        if progress >= 100:
-            print('progress 100%')
+        # ms = ms_get(project_id, active_milestone)  
+        # updated_progress = ms_update_progress(ms, progress)
+
+        if progress > 100:
             progress = 100
-            next_idx = active_idx + 1
             
-            storage = StorageManager()
-            storage.put_double(project_id, 'FR_active_idx', next_idx)
-            # self.set_active_index(project_id, next_idx)
-        
+        if progress == 100:
+            print('progress 100%')
+            next_idx = active_idx + 1
+            print('next_idx')
+            print(next_idx)
+            
+            if next_idx > len(milestones):
+                print('Completed last milestone')
+                return
+
+            self.set_active_index(project_id, next_idx)
+
+        # print('project_id')
+        # print(project_id)
         ms = ms_get(project_id, active_milestone)
-        ms_update_progress(ms, progress)
+        updated_progress = ms_update_progress(ms, progress) 
+        
+
         

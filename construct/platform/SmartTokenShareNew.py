@@ -102,6 +102,7 @@ def sts_get(project_id) -> SmartTokenShare:
     
     # Pull STS info
     sts_info_serialized = storage.get_double('STS', project_id)
+    print(sts_info_serialized)
     sts_info = storage.deserialize_bytearray(sts_info_serialized)
 
     # Saves vars to object
@@ -111,6 +112,9 @@ def sts_get(project_id) -> SmartTokenShare:
     sts.owner = sts_info[2]
     sts.total_supply = sts_info[3]
     sts.total_in_circulation = sts_info[4]
+
+    print('sts_get')
+    print(sts.owner)
 
     return sts
 

@@ -109,14 +109,17 @@ class KYC():
         """
         # Gets sts object
         sts = sts_get(project_id)
-
+        print('kyc_register')
+        print(sts.owner)
         ok_count = 0
         
-        # Ignoring the first arg which should be the project_id
-        # addresses = args[1:]
+        check_addr = sts.owner
+        
+        check = CheckWitness(check_addr)
+        print('check')
+        print(check)
 
-        if CheckWitness(sts.owner):
-
+        if CheckWitness(check_addr):
             for address in addresses:
 
                 if len(address) == 20:
@@ -126,6 +129,10 @@ class KYC():
 
                     OnKYCRegister(project_id, address)
                     ok_count += 1
+        else:
+            print(sts.owner)
+            print('Only the project owner can register kyc addresses')            
+            return 0
 
         return ok_count
 
