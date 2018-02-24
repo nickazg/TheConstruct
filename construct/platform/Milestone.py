@@ -1,61 +1,177 @@
 from boa.blockchain.vm.Neo.Runtime import CheckWitness, Notify
 from boa.blockchain.vm.Neo.Action import RegisterAction
-from boa.code.builtins import concat
+# from boa.code.builtins import concat
 
-from construct.platform.SmartTokenShare import SmartTokenShare
 from construct.common.StorageManager import StorageManager
 
 class Milestone():
     """
-    Interface for managing milestones
+    Object for managing milestones
     """
-    def create(self, project_id, milestone_id, title, subtitle, extra_info_hash):
+    project_id = ''
+    milestone_id = ''
+    title = ''
+    subtitle = '' 
+    extra_info_hash = ''
+    progress = 0
+
+
+def ms_get_attr(ms:Milestone, attr_name):
+    """
+    This is required to be able to read fs object variables in certain cases..
+    """
+
+    if attr_name == 'project_id':
+        return ms.project_id
+
+    if attr_name == 'milestone_id':
+        return ms.milestone_id
+
+    if attr_name == 'title':
+        return ms.title
     
-        storage = StorageManager()
-        
-        # Sets progress to 0
-        progress = 0
+    if attr_name == 'subtitle':
+        return ms.subtitle
+    
+    if attr_name == 'extra_info_hash':
+        return ms.extra_info_hash
 
-        # Info structure
-        milestone_info = [progress, title, subtitle, extra_info_hash]
+    if attr_name == 'progress':
+        return ms.progress
 
-        # Saving info to storage
-        milestone_info_serialized = storage.serialize_array(milestone_info)
-        storage.put_triple('MS', project_id, milestone_id, milestone_info_serialized)
-       
-    def update_progress(self, project_id, milestone_id, updated_progress):
-        storage = StorageManager()
 
-        # Pull milestone info
-        milestone_info_serialized = storage.get_triple('MS', project_id, milestone_id)
-        milestone_info = storage.deserialize_bytearray(milestone_info_serialized)
-        
-        # Milestone vars
-        progress = milestone_info[0]
-        title = milestone_info[1]
-        subtitle = milestone_info[2]
-        extra_info_hash = milestone_info[3]
 
-        # If the updated progress is higher
-        if updated_progress > progress:
+def ms_create(project_id, milestone_id, title, subtitle, extra_info_hash) -> Milestone:
+    """
+    Creates a new Milestone using the input attributes, saves it to storage and returns
+    a Milestone object
+    Args:
+        project_id (str):
+            ID for referencing the project
+
+        milestone_id (str):
+            ID for referencing the Milestone
             
-            # Output milestone info
-            updated_milestone_info = [updated_progress, title, subtitle, extra_info_hash]
+        title (str):
+            Block to start fund
 
-            # Saving info to storage
-            updated_milestone_info_serialized = storage.serialize_array(updated_milestone_info)
-            storage.put_triple('MS', project_id, milestone_id, updated_milestone_info_serialized)
+        subtitle (str):
+            Block to end fund
+
+        extra_info_hash (str):
+            Supply of the token in this fs
+
+    Return:
+        (Milestone):
+            Returns a Milestone object containing these attributes
+    """
+    # init objects
+    storage = StorageManager()
+    ms = Milestone()
+
+    # Saves vars to object
+    ms.project_id = project_id
+    ms.milestone_id = milestone_id
+    ms.title = title
+    ms.subtitle = subtitle 
+    ms.extra_info_hash = extra_info_hash   
+
+    # Sets progress to 0
+    ms.progress = 0
+
+    # Info structure
+    milestone_info = [0, title, subtitle, extra_info_hash]
+
+    # Saving info to storage
+    milestone_info_serialized = storage.serialize_array(milestone_info)
+    storage.put_triple('MS', project_id, milestone_id, milestone_info_serialized)
+
+    return ms
+    
+def ms_get(project_id, milestone_id) -> Milestone:
+    """
+    Pulls an existing Milestone from storage using the input attributes, and returns
+    a Milestone object
+    Args:
+        project_id (str):
+            ID for referencing the project
+
+        milestone_id (str):
+            ID for referencing the Milestone
+            
+    Return:
+        (Milestone):
+            Returns a Milestone object containing attributes
+    """
+    storage = StorageManager()
+    ms = Milestone()
+    
+    # Pull Milestone info
+    milestone_info_serialized = storage.get_triple('MS', project_id, milestone_id)
+    milestone_info = storage.deserialize_bytearray(milestone_info_serialized)
+    
+    # Saves vars to object
+    ms.project_id = project_id
+    ms.milestone_id = milestone_id
+    ms.title = milestone_info[1]
+    ms.subtitle = milestone_info[2]
+    ms.extra_info_hash = milestone_info[3]
+    ms.progress = milestone_info[0]
+
+    return ms
 
 
-    def get_progress(self, project_id, milestone_id):
-
-        storage = StorageManager()
+def ms_update_progress(ms:Milestone, updated_progress):
+    """
+    Args:
+        ms (Milestone):
+            Milestone object containing specific attributes
         
-        # Pull milestone info
-        milestone_info_serialized = storage.get_triple('MS', project_id, milestone_id)
-        milestone_info = storage.deserialize_bytearray(milestone_info_serialized)
+        updated_progress (int):
+            New progress of the milestone
 
-        # Milestone vars
-        progress = milestone_info[0]
+    Return:
+        (int): The avaliable tokens for the Milestone
+    """
+    storage = StorageManager()
 
-        return progress
+    # If the updated progress is higher
+    if updated_progress > ms.progress:
+        
+        # Clamp at 100%
+        if updated_progress > 100:
+            updated_progress = 100
+        # print('ms.project_id2')
+        # print(ms.project_id)
+
+        # Updates object variable
+        ms.progress = updated_progress
+        # print('ms.project_id3')
+        # print(ms.project_id)
+
+        # print('updated_progress')
+        # print(updated_progress)
+        # print('ms.progress')
+        # print(ms.progress)
+
+        # print('ms.project_id4')
+        # print(ms.project_id)
+        
+        # Output milestone info
+        updated_milestone_info = [updated_progress, ms.title, ms.subtitle, ms.extra_info_hash]
+        # print('ms.project_id5')
+        # print(ms.project_id)
+        # Saving info to storage
+        updated_milestone_info_serialized = storage.serialize_array(updated_milestone_info)
+        storage.put_triple('MS', ms.project_id, ms.milestone_id, updated_milestone_info_serialized)
+        # print('ms.project_id6')
+        # print(ms.project_id)
+
+        # return updated_progress
+
+
+def ms_get_progress(ms:Milestone):
+    """
+    This is required specifically for this variable
+    """
+    return ms.progress

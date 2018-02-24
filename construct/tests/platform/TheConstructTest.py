@@ -1,14 +1,11 @@
-# from construct.platform.FundingStage import FundingStage
 from construct.platform.FundingRoadmap import FundingRoadmap
-# from construct.platform.SmartTokenShare import SmartTokenShare
-# from construct.platform.Milestone import Milestone
 from construct.common.StorageManager import StorageManager
 from construct.common.Txio import Attachments, get_asset_attachments
 
-from construct.platform.SmartTokenShareNew import SmartTokenShare, sts_get_attr, sts_create, sts_get, get_total_in_circulation 
-from construct.platform.FundingStageNew import FundingStage, fs_get_attr, fs_create, fs_get, fs_contribute, fs_status, fs_can_exchange, fs_add_to_circulation, fs_calculate_can_exchange, get_in_circulation, fs_claim_contributions, fs_refund, fs_get_addr_balance, fs_set_addr_balance, fs_claim_system_fee, fs_calculate_system_fee
+from construct.platform.SmartTokenShare import SmartTokenShare, sts_get_attr, sts_create, sts_get, get_total_in_circulation 
+from construct.platform.FundingStage import FundingStage, fs_get_attr, fs_create, fs_get, fs_contribute, fs_status, fs_can_exchange, fs_add_to_circulation, fs_calculate_can_exchange, get_in_circulation, fs_claim_contributions, fs_refund, fs_get_addr_balance, fs_set_addr_balance, fs_claim_system_fee, fs_calculate_system_fee
 
-from construct.platform.MilestoneNew import Milestone, ms_create, ms_get, ms_update_progress, ms_get_progress
+from construct.platform.Milestone import Milestone, ms_create, ms_get, ms_update_progress, ms_get_progress
 
 class TheConstructTest():
     """
@@ -33,11 +30,7 @@ class TheConstructTest():
 
     def test(self, operation, args):
 
-        
-        # sts = SmartTokenShare()
-        fr = FundingRoadmap()
-        # fs = FundingStage()
-        # ms = Milestone()
+
 
         storage = StorageManager()
         attachments = get_asset_attachments()
@@ -62,10 +55,10 @@ class TheConstructTest():
 
             admins = [self.owner]
 
-            fr.add_funding_stages(self.project_id, fss)
-            fr.add_milestones(self.project_id, mss)
-            fr.add_project_admins(self.project_id, admins)
-            fr.set_active_index(self.project_id, 0)
+            fr_add_funding_stages(self.project_id, fss)
+            fr_add_milestones(self.project_id, mss)
+            fr_add_project_admins(self.project_id, admins)
+            fr_set_active_index(self.project_id, 0)
 
             return True
             
@@ -73,7 +66,7 @@ class TheConstructTest():
         if operation == 'get_funding_stages':
             print('get_funding_stages')
 
-            stages = fr.get_funding_stages(self.project_id)
+            stages = fr_get_funding_stages(self.project_id)
             print(stages)
 
             return stages
@@ -94,8 +87,8 @@ class TheConstructTest():
             # Registers KYC address
             storage.put_triple(self.project_id, 'KYC_address', attachments.sender_addr, True)
             
-            active_idx = fr.get_active_index(self.project_id)
-            funding_stages = fr.get_funding_stages(self.project_id)
+            active_idx = fr_get_active_index(self.project_id)
+            funding_stages = fr_get_funding_stages(self.project_id)
             active_funding_stage = funding_stages[active_idx]
 
             fs = fs_get(self.project_id, active_funding_stage)
@@ -105,13 +98,13 @@ class TheConstructTest():
             print('contribute#')
 
         if operation == 'get_idx':
-            active_idx = fr.get_active_index(self.project_id)
+            active_idx = fr_get_active_index(self.project_id)
             print(active_idx)
             return active_idx
 
         if operation == 'get_active_fs':
-            active_idx = fr.get_active_index(self.project_id)
-            funding_stages = fr.get_funding_stages(self.project_id)
+            active_idx = fr_get_active_index(self.project_id)
+            funding_stages = fr_get_funding_stages(self.project_id)
             active_funding_stage = funding_stages[active_idx]
             print(active_funding_stage)
             return active_funding_stage
@@ -141,8 +134,8 @@ class TheConstructTest():
 
         if operation == 'funding_stage_status':
             print('#funding_stage_status')
-            active_idx = fr.get_active_index(self.project_id)
-            funding_stages = fr.get_funding_stages(self.project_id)
+            active_idx = fr_get_active_index(self.project_id)
+            funding_stages = fr_get_funding_stages(self.project_id)
             active_funding_stage = funding_stages[active_idx]
             
 
@@ -154,14 +147,14 @@ class TheConstructTest():
             return status
 
         if operation == 'current_index':
-            active_idx = fr.get_active_index(self.project_id)
+            active_idx = fr_get_active_index(self.project_id)
             print(active_idx)
             return active_idx
         
         if operation == 'milestone_progress':
             print('#milestone_progress')
-            active_idx = fr.get_active_index(self.project_id)
-            milestones = fr.get_milestones(self.project_id)
+            active_idx = fr_get_active_index(self.project_id)
+            milestones = fr_get_milestones(self.project_id)
             active_milestone = milestones[active_idx]
 
             ms = ms_get(self.project_id, active_milestone)
@@ -172,7 +165,7 @@ class TheConstructTest():
 
         if operation == 'complete_milestone':
             print('complete_milestone')
-            fr.update_milestone_progress(self.project_id, 100)
+            fr_update_milestone_progress(self.project_id, 100)
             
         if operation == 'sts_get':
             sts = sts_get('projectID')
@@ -197,8 +190,8 @@ class TheConstructTest():
                 return get_total_in_circulation(sts)
 
         if operation == 'fs_get':
-            active_idx = fr.get_active_index('projectID')
-            funding_stages = fr.get_funding_stages('projectID')
+            active_idx = fr_get_active_index('projectID')
+            funding_stages = fr_get_funding_stages('projectID')
             active_funding_stage = funding_stages[active_idx]
             
             fs = fs_get('projectID', active_funding_stage)
