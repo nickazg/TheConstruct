@@ -84,7 +84,7 @@ def Main(operation, args):
         if operation == 'check_claim_owed':
             OnOperationInvoke('check_claim_owed')
             print('execute:check_claim_owed')
-            len(args) == 2:
+            if len(args) == 2:
                 refund_addr = args[1]
                 return storage.get_double('CLAIM', refund_addr)  
 
