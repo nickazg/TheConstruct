@@ -24,15 +24,15 @@
     "milestones": [
         {
             "id":               "first_milestone",
-            "title":            "Pro",
-            "subtitle":         "Compl",
-            "extra_info_hash":  "o3ufh249uj308ohw0fjp2409fj90jwiji"
+            "title":            "first",
+            "subtitle":         "first",
+            "extra_info_hash":  "first"
         },
         {
             "id":               "second_milestone",
-            "title":            "Deploy_SC",
-            "subtitle":         "Deploy_SC_t",
-            "extra_info_hash":  "rsfufasdadsaasdasd23f2fqf2ff"
+            "title":            "second",
+            "subtitle":         "second",
+            "extra_info_hash":  "second"
         }
     ]
 }

@@ -56,6 +56,7 @@ from neocore.KeyPair import KeyPair
 from neocore.UInt256 import UInt256
 from neocore.UInt160 import UInt160
 from neocore.BigInteger import BigInteger
+from neo.Prompt.Utils import parse_param, lookup_addr_str
 
 from neo.EventHub import events, SmartContractEvent
 
@@ -257,7 +258,8 @@ class TheConstructInterface(object):
 
     invoked_operation = ''
 
-    SC_hash = '308be08fa79829653a90365534d2e711509a2d24'  # 8000
+    # SC_hash = '308be08fa79829653a90365534d2e711509a2d24'  # 8000
+    SC_hash = '5ad591176ef9197fe216a9750b2a75e9eb877b1f'  # 8000
     Wallet = None
 
     project_id = ''
@@ -341,6 +343,7 @@ class TheConstructInterface(object):
         Blockchain.Default().PersistBlocks()
 
         self.arg_handler(self.input_args)
+
         # self.quit()
 
         # self.open_wallet('../new_neo-python-priv-wallet.db3', to_aes_key('1234567890'))
@@ -547,14 +550,6 @@ class TheConstructInterface(object):
 
         return summary
 
-
-    # def print_summary(self, summary_dict=None):
-        # box(70, 2, 'THE CONSTRUCT')
-        # box(20, 5, 'Funding Stage', 'sadasds', 'asdjknasdjajkdn', count=3)
-        # box(20, 5, 'Milestone Stage', 'sadasds', 'asdjknasdjajkdn', count=3)
-        # print('\n')
-
-
     def invoke_setup_config(self, config, from_json=False, test=False):         
         if from_json:
             json_file = open(config)
@@ -578,9 +573,12 @@ class TheConstructInterface(object):
         if len(funding_stages) != len(milestones):
             print('Number of Funding Stages and Milestones need to match')
             return 
+        
+        # Getting SH bytearray
+        project_owner_data = lookup_addr_str(self.Wallet, project.owner).Data
             
         # CREATE SMART TOKEN SHARE
-        self.invoke_construct("create_sts", [project.id, project.symbol, 8, project.owner, project.total_supply], test=test)
+        self.invoke_construct("create_sts", [project.id, project.symbol, 8, project_owner_data, project.total_supply], test=test)
 
         # CREATE FUNDING STAGES
         for funding_stage in funding_stages:
@@ -799,11 +797,7 @@ def main():
 
 
 if __name__ == "__main__":
-    # print(dir(Crypto))
-    # # print(  dir(binascii) )
-    # # print(Crypto.ToScriptHash('AK2nJJpJr6o664CWJKi1QRXjqeic2zRp8y'))
     main()
-    # from neo.Wallets.Wallet import Wallet
-    # print(Wallet.ToScriptHash('AK2nJJpJr6o664CWJKi1QRXjqeic2zRp8y'))
+
     
 
