@@ -257,7 +257,7 @@ class TheConstructInterface(object):
 
     invoked_operation = ''
 
-    SC_hash = 'b684cd047af111c46a32d4061d66858c2b018adf'  # 8000
+    SC_hash = '308be08fa79829653a90365534d2e711509a2d24'  # 8000
     Wallet = None
 
     project_id = ''
@@ -410,13 +410,8 @@ class TheConstructInterface(object):
         # FR CONFIG JSON
         print('args.fr_config', args.fr_config)
         if args.fr_config:
-            # try:                
-                self.project_id = self.fr_config['project']['id']
                 self.invoke_setup_config(args.fr_config, from_json=True, test=False)
-            # except:
-            #     print('Invalid fr config file passed in')
-            #     return          
-        
+
         # PROJECT - REQUIRED
         if args.project:
             self.project_id = args.project
@@ -567,6 +562,7 @@ class TheConstructInterface(object):
             json_data = json.loads(json_str)
             config = json_data
 
+        self.project_id = config['project']['id']
         project = Struct(config['project'])
         funding_stages = config['funding_stages']
         milestones = config['milestones']        
