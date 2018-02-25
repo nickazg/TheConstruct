@@ -594,7 +594,7 @@ class TheConstructInterface(object):
         # Importing Contract to Pubkey(to_addr)
         import_contract_args = [self.SC_hash, pub_key]
         # ImportContractAddr(self.Wallet, import_contract_args)
-        
+        from_addr = ''
         # Pre Claim Invoke (Unlock funds to "to_addr")
         self.invoke_construct(claim_type, [self.project_id, fs_id, to_addr])
         
