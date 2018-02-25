@@ -2,7 +2,7 @@ from boa.blockchain.vm.Neo.Runtime import CheckWitness, Notify
 from boa.blockchain.vm.Neo.Action import RegisterAction
 from boa.code.builtins import concat
 
-from construct.platform.SmartTokenShare import SmartTokenShare
+from construct.platform.SmartTokenShare import SmartTokenShare, sts_get_attr, sts_create, sts_get, get_total_in_circulation 
 from construct.common.StorageManager import StorageManager
 
 OnTransfer = RegisterAction('transfer', 'project_id', 'addr_from', 'addr_to', 'amount')
@@ -20,28 +20,24 @@ class SmartTokenShareHandler():
         return methods
 
     def handle_sts(self, operation, args):
-        sts = SmartTokenShare()
+        
 
         # project_id always first arg
         project_id = args[0]
+
+        sts = sts_get(project_id)
         
         storage = StorageManager()
         arg_error = 'Incorrect Arg Length'
         
         if operation == 'decimals':
-            sts_info = sts.get_info(project_id)
-            decimals = sts_info[sts.decimals_idx]
-            return decimals
+            return sts.decimals
 
         elif operation == 'symbol':
-            sts_info = sts.get_info(project_id)
-            symbol = sts_info[sts.symbol_idx]
-            return symbol
+            return sts.symbol
 
         elif operation == 'totalSupply':
-            sts_info = sts.get_info(project_id)
-            total_supply = sts_info[sts.total_supply_idx]
-            return total_supply
+            return sts.total_supply
 
         elif operation == 'balanceOf':
             if len(args) == 2:
