@@ -87,17 +87,28 @@ In the current ICO space, a project generally only gets one opportunity to recei
     - [3.1.4. **Funding Roadmap Forking**](#314-funding-roadmap-forking)
 - [4. KYC (Know Your Customer)](#4-kyc-know-your-customer)
 - [5. Platfrom Structure](#5-platfrom-structure)
-- [6. Account types](#6-account-types)
-  - [6.1. Generic:](#61-generic)
-  - [6.2. Investor:](#62-investor)
-  - [6.3. Developer:](#63-developer)
-  - [6.4. *Project Admin:*](#64-project-admin)
-- [7. The Construct Requirements *TODO](#7-the-construct-requirements-todo)
-- [8. Fee Structure](#8-fee-structure)
-- [9. ​​Smart Contract Invoke Operations (Mockup)](#9-%E2%80%8B%E2%80%8Bsmart-contract-invoke-operations-mockup)
-  - [9.1. Contracts Deployed:](#91-contracts-deployed)
-  - [9.2. Contract Requirements](#92-contract-requirements)
-- [10. References](#10-references)
+- [6. Outstanding Tasks](#6-outstanding-tasks)
+- [7. The Construct CLI (Python)](#7-the-construct-cli-python)
+  - [7.1. Installation:](#71-installation)
+  - [7.2. Useage](#72-useage)
+  - [7.3. Examples:](#73-examples)
+    - [7.3.1. Creating a new project, based on config file](#731-creating-a-new-project-based-on-config-file)
+    - [7.3.2. Summary of existing project](#732-summary-of-existing-project)
+    - [7.3.3. Add address to KYC (as project owner only)](#733-add-address-to-kyc-as-project-owner-only)
+    - [7.3.4. Contribute to project](#734-contribute-to-project)
+    - [7.3.5. Set Active Milestone Progress](#735-set-active-milestone-progress)
+    - [7.3.6. Claim Contributions on sucessful fund as project owner](#736-claim-contributions-on-sucessful-fund-as-project-owner)
+    - [7.3.7. Claim refund on failed fund as contributor](#737-claim-refund-on-failed-fund-as-contributor)
+    - [7.3.8. Invoke any other public operation](#738-invoke-any-other-public-operation)
+- [8. ​​Smart Contract Operations](#8-%E2%80%8B%E2%80%8Bsmart-contract-operations)
+  - [8.1. Contract Hash:](#81-contract-hash)
+  - [8.2. Operations:](#82-operations)
+    - [8.2.1. Funding Roadmap Operations](#821-funding-roadmap-operations)
+    - [8.2.2. Smart Token Share Operations](#822-smart-token-share-operations)
+    - [8.2.3. Funding Stage Operations](#823-funding-stage-operations)
+    - [8.2.4. Milestone Operations](#824-milestone-operations)
+    - [8.2.5. KYC Operations](#825-kyc-operations)
+- [9. References](#9-references)
 
 <!-- /TOC -->
 
@@ -226,154 +237,153 @@ Below is our platform configuration model we use to communicate between the NEO 
 
 
 
-# 6. Account types  
-Accounts can be a combination of multiple types
-## 6.1. Generic:
-All accounts by default will be of the generic type. This is the base account which can do everything from invest, propose, create or contribute projects as a project-member, but will remain uncategorised. 
-
-A generic account can be classed as a **Project Admin** for specific projects, either from creating or being assigned a project.
-
-Every account will have its own address, which can either be imported (Private Key, Json) or generated automatically and saved locally
-
-**The Construct will not store private keys, and will not be responsible for any loss*
-
-## 6.2. Investor:
-An Investor account is required to receive tokens distributed for an ICO. A registered investor needs to pass the KYC process.
-
-## 6.3. Developer:
-A Developer is based off a Generic account so can do everything they can do, however only developers can submit code to projects, audit contracts and peer review other developers. Every developer will also have their own rating. Developers will need to pass a registration process.
-
-## 6.4. *Project Admin:*
-Specific to a certain project, an assigned Project Admin is allowed to edit all mutable parameters of the project. Only the original Project Admin can add/remove other admins. A requirement for a Project Admin is that they pass the KYC process
-
-<br>
 <br>
 
-# 7. The Construct Requirements *TODO
+# 6. Outstanding Tasks
+  - Function to migrate the contract for future updates
+  - Editable ```start_block``` and ```end_block``` till first block begins
+  - Milestone reverse voting (votes to deem milestone uncomplete)
 
-*Key: [ Number of days ]*
-- [ ] **Whitepaper [ 2 ]**
-  - [x] Summary
-  - [x] Investment Crowd Funding
-  - [x] KYC
-  - [x] Account types
-  - [ ] Smart Contract Invoke Operations
-- [ ] **Smart Contract**
-  - [ ] **Smart Token Shares [ 3 ]**
-    - [ ] Associated Project
-    - [ ] Supply
-    - [ ] Ownership Balances
-  - [ ] **Funding Roadmap [ 3 ]**
-    - [ ] Milestone Indexes and Fork Index
-    - [ ] Funding Stage Indexes and Fork Index
-  - [ ] **Funding Stage [ 4 ]**
-    - [ ] Goal
-    - [ ] End Timestamp
-    - [ ] Total Shares 
-    - [ ] Balance
-    - [ ] Desciption
-  - [ ] **Milestone [ 3 ]**
-    - [ ] Status
-    - [ ] Progress
-    - [ ] Desciption
-  - [ ] **Project Registry [ 4 ]**
-    - [ ] Projects
-      - [ ] Name
-      - [ ] Admins
-      - [ ] Funding Roadmap
-  - [ ] **User Registry [ 3 ]**
-    - [ ] Users
-      - [ ] Name
-      - [ ] Invested Projects
-      - [ ] Admin Projects
-  - [ ] **KYC  [ 2 ]**
-    - [ ] Associated User
-    - [ ] Status
-    - [ ] Hash of documents
-- [ ] **Website**
-  - [ ] **Client Side [ 14 ]**
-    - [ ] Graphic User Interface
-      - [ ] Local NEO Node and Wallet, connecting directly to NEO
-        - [ ] Deposits
-        - [ ] Withdrawls
-        - [ ] Share Transfers
-        - [ ] Data Verification
-        - [ ] Wallets/Accounts are stored and opened locally
-      - [ ] Connections to Realtime Server 
-        - [ ] All Images
-        - [ ] All Website files
-  - [ ] **Server Side [ 14 ]**
-    - [ ] Realtime Database of all public storage from Smart Contract
-      - [ ] Projects
-      - [ ] Users
-      - [ ] Roadmaps
-        - [ ] Milestones
-        - [ ] Funding Stage
-    - [ ] Realtime Storage of all files, public and private (with Hashes stored on smart contract)
-      - [ ] Images
-      - [ ] Large data files
-    - [ ] Periodic data analysis and stats of all systems 
+# 7. The Construct CLI (Python)
+*This is currently the main interface for the smart contract, convience functions have been built do deploy new projects, edit and inspect current ones. Along with the ability to contribute and claim contributions or refunds.*
 
-# 8. Fee Structure
-*Doesn't include NEO system fees.*
+## 7.1. Installation:
 
-| Action        | Fee (GAS)     |
-| ------------- |:-------------:|
-| Register Project| 10 |
-| Register Contract| 5 |
-| Register Developer | 1 |
-| Register User | 0 |
-| Create Fund   |  10  |
-| Create CrowdFund   |  5  |
-| Complete Fund   |  1 %  |
-| Complete CrowdFund   |  1 %  |
+The Construct CLI is dependant on neo-python libraries, it replaces the default neo-python prompt
+
+1. clone neo-python
+
+```
+https://github.com/CityOfZion/neo-python.git
+```
+
+2. clone TheConstruct
+```
+https://github.com/nickazg/TheConstruct.git
+```
+
+3. 
+```
+cd neo-python/
+```
+
+4. open the usual venv for neo-python
+```
+python3.5 -m venv venv
+source venv/bin/activate
+```
+
+5. Install neo-python dependencies
+```
+pip install -U setuptools pip wheel
+pip install -e .
+```
+
+6. Now we can run The Construct CLI 
+```
+python ../TheConstruct/node/python_cli.py
+```
+## 7.2. Useage
+If in doubt run --help :) 
+```
+python ../TheConstruct/node/python_cli.py --help
+```
+
+## 7.3. Examples:
+
+All CLI calls require ```-w mywallet.db3 -pass password1234``` to authorize tx's
+
+And will require ```-pro MyFirstProject``` unless ```-invoke``` and ```-args``` are used
+
+### 7.3.1. Creating a new project, based on config file
+```
+python_cli.py -con TheConstruct/example_config.json -w mywallet.db3 -pass password1234 
+```
+
+### 7.3.2. Summary of existing project
+```
+python_cli.py -sum -pro MyFirstProject -w mywallet.db3 -pass password1234
+```
+
+### 7.3.3. Add address to KYC (as project owner only)
+```
+python_cli.py -pro MyFirstProject -kreg bytearray(b'#\xba\'\x03\xc52c\xe8\xd6\xe5"\xdc2 39\xdc\xd8\xee\xe9') -w mywallet.db3 -pass password1234
+```
+
+### 7.3.4. Contribute to project 
+```
+python_cli.py -pro MyFirstProject -fs first_stage -send 10 -w mywallet.db3 -pass password1234
+```
+
+### 7.3.5. Set Active Milestone Progress
+```
+python_cli.py -invoke update_active_ms_progress -args ['MyFirstProject', 100] -w mywallet.db3 -pass password1234
+```
+
+### 7.3.6. Claim Contributions on sucessful fund as project owner
+```
+python_cli.py -cc -pro MyFirstProject -fs first_stage -w mywallet.db3 -pass password1234
+```
+
+### 7.3.7. Claim refund on failed fund as contributor
+```
+python_cli.py -cr bytearray(b'#\xba\'\x03\xc52c\xe8\xd6\xe5"\xdc2 39\xdc\xd8\xee\xe9')-pro MyFirstProject -fs first_stage -w mywallet.db3 -pass password1234
+```
+
+### 7.3.8. Invoke any other public operation
+```
+python_cli.py -invoke operation -args [arg1, arg2, .... ] -w mywallet.db3 -pass password1234
+```
 
 
+# 8. ​​Smart Contract Operations
+## 8.1. Contract Hash:
+- c62e05e70d22e444ec34bed5f8911a6fb79024f6
 
-# 9. ​​Smart Contract Invoke Operations (Mockup)
-## 9.1. Contracts Deployed:
-- Construct Platform
+## 8.2. Operations:
+  *Check source code for more details*
+  
+  https://github.com/nickazg/TheConstruct/blob/master/construct/main/TheConstruct.py
+
+### 8.2.1. Funding Roadmap Operations
+  - check_claim_owed
+  - reset_claim_owed
+  - add_project_admins
+  - get_active_index
+  - get_funding_stages
+  - get_active_fs
+  - get_milestones
+  - get_active_ms
+  - update_active_ms_progress
+
+### 8.2.2. Smart Token Share Operations
+  - create_sts
+  - sts_attribute
+  - total_tokens_available
+
+### 8.2.3. Funding Stage Operations
+  - create_fs
+  - fs_attribute
+  - fs_tokens_available
+  - fs_status
+  - fs_contribute
+  - fs_addr_balance
+
+### 8.2.4. Milestone Operations
+  - create_ms
+  - ms_attribute
+  - get_ms_progess
+  - claim_fs_refund
+  - claim_fs_contributions
+  - claim_fs_system_fee
+
+### 8.2.5. KYC Operations
+  - kyc_submit
+  - kyc_register
+  - kyc_status
+  - get_kyc_submission
 
 
-## 9.2. Contract Requirements
-- Store and Create Projects
-  - Unique Name
-  - Milestone Hashes
-  - Contract Hashes
-  - Developer Hashes
-  - Fund Hashes
-- Store and Create Accounts
-  - Address Hash
-  - Type ( Generic, Developer )
-  - Display Name
-  - Project Hashes
-  - Fund Hashes
-- Verify and Audit Contacts
-  - Store verification signatures
-- Store and Create Milestones
-  - Roadmap Hash
-  - Milestone Hash
-  - Project Hash
-  - Stage Index
-  - Fund Hash (Milestone Fund)
-- Store, Create, Manage Distribute Funds
-  - Fund Hash
-  - Project Hash
-  - Fund Limits
-  - Fund Goal
-  - Token Share Supply
-  - Milestone Hash
-  - Contributor Hashes
-  - Contributor Contributions 
-  - Distribute or Refund Funds
-- Store and Distribute Smart Token Shares
-  - Project Hash
-  - Token Name
-  - Registry of Shareholders (Address Hashes)
-- KYC Store and Check Hashes
-  - Info Hashes
-  - KYC Status
-
-# 10. References
+# 9. References
 
 [1] https://icowatchlist.com/statistics/year/2017, 2017

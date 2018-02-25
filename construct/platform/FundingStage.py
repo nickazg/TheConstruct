@@ -396,7 +396,7 @@ def fs_refund(fs:FundingStage, refund_addr):
 
     if CheckWitness(refund_addr):
 
-        # If the funding stage completed sucessfully
+        # If the funding stage failed
         if fs_status(fs) != 1:   
 
             # lookup the current balance of the address

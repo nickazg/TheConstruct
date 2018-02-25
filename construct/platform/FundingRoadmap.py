@@ -181,11 +181,7 @@ def fr_update_milestone_progress(project_id, progress):
         project_id (list): ID for referencing the project
         progress (int): new progress (100% completes stage/milestone)   
     """
-    print('project_id')
-    print(project_id)
     active_idx = fr_get_active_index(project_id)
-    print('active_idx')
-    print(active_idx)
     milestones = fr_get_milestones(project_id)
     funding_stages = fr_get_funding_stages(project_id)
 
@@ -195,28 +191,19 @@ def fr_update_milestone_progress(project_id, progress):
     fs = fs_get(project_id, active_funding_stage)
     check_fs_status = fs_status(fs)
     
-    print('check_fs_status')
-    print(check_fs_status)
 
     if check_fs_status != 1:
         print('Current Funding Stage NOT complete')
         return False
         
-    # ms = ms_get(project_id, active_milestone)  
-    # updated_progress = ms_update_progress(ms, progress)
-
     if progress > 100:
         progress = 100
         
     if progress == 100:
         print('progress 100%')
-        next_idx = active_idx + 1
-        print('next_idx')
-        print(next_idx)            
+        next_idx = active_idx + 1          
         fr_set_active_index(project_id, next_idx)
 
-    # print('project_id')
-    # print(project_id)
     ms = ms_get(project_id, active_milestone)
     ms_update_progress(ms, progress)
     

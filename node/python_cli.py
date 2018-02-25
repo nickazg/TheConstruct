@@ -61,10 +61,21 @@ from neo.EventHub import events, SmartContractEvent
 
 from neocore.Cryptography.Crypto import Crypto
 
+from neo.Wallets.utils import to_aes_key
+
 
 # If you want the log messages to also be saved in a logfile, enable the
 # next line. This configures a logfile with max 10 MB and 3 rotations:
 # settings.set_logfile("/tmp/logfile.log", max_bytes=1e7, backup_count=3)
+import binascii
+from neo.Prompt.Utils import parse_param
+from neo.Core.FunctionCode import FunctionCode
+from neo.Core.State.ContractState import ContractPropertyState
+from prompt_toolkit import prompt
+import json
+from neo.Prompt.Utils import get_arg
+from neo.SmartContract.Contract import Contract
+
 
 def ImportContractAddr(wallet, args):
 
@@ -148,6 +159,10 @@ def box(width, height, title='', subtitle='', message='', count=1):
     line(count, '_', width, gap=g_width)
 
 
+def safe(unsafe_str, undo=False):
+    if undo:
+        return unsafe_str.replace('_', ' ')
+    return unsafe_str.replace(' ', '_')
 
 # Creates an object from a dict (one layer)
 class Struct(object):
@@ -156,7 +171,7 @@ class Struct(object):
 
 fr_config = {
     'project': {
-        'id':                   'TheConstructTwo',
+        'id':                   'TheConstruct',
         'symbol':               'STR',
         'owner':                bytearray(b'#\xba\'\x03\xc52c\xe8\xd6\xe5\"\xdc2 39\xdc\xd8\xee\xe9'),
         'total_supply':         1000000,
@@ -194,15 +209,15 @@ fr_config = {
     'milestones': [
         {
             'id':               'first_milestone',
-            'title':            'Proof of Work',
-            'subtitle':         'Complete a proof of work model',
-            'extra_info_hash':  'o3ufh249uj308ohw0fjp2409fj90jwijifsfjpw09jowfg0swp',
+            'title':            'Pro',
+            'subtitle':         'Compl',
+            'extra_info_hash':  'o3ufh249uj308ohw0fjp2409fj90jwiji',
         },
         {
             'id':               'second_milestone',
-            'title':            'Deploy SC',
-            'subtitle':         'Deploy SC to Mainnet',
-            'extra_info_hash':  'rsfufasdadsaasdasd23f2fqf2ff23f23fg23f23f32f2f3f32',
+            'title':            'Deploy_SC',
+            'subtitle':         'Deploy_SC_t',
+            'extra_info_hash':  'rsfufasdadsaasdasd23f2fqf2ff',
         },
         # {
         #     'id':               'third_milestone',
@@ -242,13 +257,14 @@ class TheConstructInterface(object):
 
     invoked_operation = ''
 
-    SC_hash = 'fce044d66ff2a56cd75b7d70386de8ceb562a89f'  # 8000
+    SC_hash = 'b684cd047af111c46a32d4061d66858c2b018adf'  # 8000
     Wallet = None
 
     project_id = ''
 
     def __init__(self, input_args=None, debug=False):
         self.input_parser = InputParser()
+        self.input_args = input_args
         self.start_height = Blockchain.Default().Height
         self.start_dt = datetime.datetime.utcnow()
         settings.set_log_smart_contract_events(False)
@@ -322,45 +338,62 @@ class TheConstructInterface(object):
         dbloop = task.LoopingCall(Blockchain.Default().PersistBlocks)
         dbloop.start(.1)
 
-        Blockchain.Default().PersistBlocks()  
-        
-        self.open_wallet('../neo-python-priv-wallet.db3', '1234567890')
+        Blockchain.Default().PersistBlocks()
+
+        self.arg_handler(self.input_args)
+        # self.quit()
+
+        # self.open_wallet('../new_neo-python-priv-wallet.db3', to_aes_key('1234567890'))
 
 
         # Check Node and Wallet status
         self.height_check()  
         
         # Test Methods to invoke
-        addrs = [ 
-            bytearray(b'#\xba\'\x03\xc52c\xe8\xd6\xe5"\xdc2 39\xdc\xd8\xee\xe9')]
+        # addrs = [ 
+        #     bytearray(b'#\xba\'\x03\xc52c\xe8\xd6\xe5"\xdc2 39\xdc\xd8\xee\xe9')]
 
-        print('CONTRACT: ', self.SC_hash)
-        self.project_id = fr_config['project']['id']
-        # self.invoke_setup_config(fr_config, test=False)
-        # # # self.invoke_construct("create_sts", [self.project_id, "MFP", 8, bytearray(b'#\xba\'\x03\xc52c\xe8\xd6\xe5"\xdc2 39\xdc\xd8\xee\xe9'), 1000000])
-        # # # self.invoke_construct("create_fs", [self.project_id, "first_stage", 1, 999999, 1000, 100])
-        # # # self.invoke_construct("create_fs", [self.project_id, "second_stage", 1, 999999, 1000, 100])
-        # # # self.invoke_construct("create_ms", [self.project_id, "first_milestone", "SEED", "asdjnasd", "asdasd"])
+        # print('CONTRACT: ', self.SC_hash)
+        # self.project_id = fr_config['project']['id']
+        # self.invoke_setup_config('../TheConstruct/example_config.json', from_json=True, test=False)
+        # # self.invoke_setup_config(fr_config, test=False)
+        # # # # # # self.invoke_construct("create_sts", [self.project_id, "MFP", 8, bytearray(b'#\xba\'\x03\xc52c\xe8\xd6\xe5"\xdc2 39\xdc\xd8\xee\xe9'), 1000000])
+        # # # # # # self.invoke_construct("create_fs", [self.project_id, "first_stage", 1, 999999, 1000, 100])
+        # # # # # # self.invoke_construct("create_fs", [self.project_id, "second_stage", 1, 999999, 1000, 100])
+        # # # # # # self.invoke_construct("create_ms", [self.project_id, "first_milestone", "SEED", "asdjnasd", "asdasd"])
 
         # self.invoke_construct("kyc_register", [self.project_id] + addrs)        
-        # # # self.invoke_construct("kyc_status", [self.project_id] + addrs)        
-        # self.invoke_construct("fs_contribute", [self.project_id, "first_stage"], gas=3)
-        # self.invoke_construct("fs_status", [self.project_id, "first_stage"], readonly=True)
-        # # self.invoke_construct("fs_attribute", [self.project_id, "second_stage", "in_circulation"], readonly=True)
-        # # self.invoke_construct("fs_attribute", [self.project_id, "second_stage", "supply"], readonly=True)
-        # # self.invoke_construct("get_active_index", [self.project_id], readonly=True)
-        self.invoke_construct("update_active_ms_progress", [self.project_id, 100])
-        # # self.invoke_construct("get_active_index", [self.project_id], readonly=True)
-        # self.invoke_construct("get_ms_progess", [self.project_id, 'first_milestone'], readonly=True)
-        # # self.invoke_construct("fs_status", [self.project_id, "second_stage"], readonly=True)
-        # # self.invoke_construct("get_active_fs", [self.project_id], readonly=True)
-        # # # self.invoke_construct("get_active_ms", [self.project_id], readonly=True)
-        # self.invoke_construct("get_funding_stages", [self.project_id], readonly=True)
-        # self.invoke_construct("get_milestones", [self.project_id], readonly=True)
+        # # # # # # # self.invoke_construct("kyc_status", [self.project_id] + addrs)        
+        # self.invoke_construct("fs_contribute", [self.project_id, "first_stage"], gas=10)
+        # # # self.invoke_construct("fs_status", [self.project_id, "first_stage"], readonly=True)
+        # # # # self.invoke_construct("fs_attribute", [self.project_id, "second_stage", "in_circulation"], readonly=True)
+        # # # # self.invoke_construct("fs_attribute", [self.project_id, "second_stage", "supply"], readonly=True)
+        # # # # self.invoke_construct("get_active_index", [self.project_id], readonly=True)
+        # self.invoke_construct("update_active_ms_progress", [self.project_id, 100])
+        # # # self.invoke_construct("get_active_index", [self.project_id], readonly=True)
+        # # self.invoke_construct("get_ms_progess", [self.project_id, 'first_milestone'], readonly=True)
+        # # # self.invoke_construct("fs_status", [self.project_id, "second_stage"], readonly=True)
+        # # # self.invoke_construct("get_active_fs", [self.project_id], readonly=True)
+        # # # # self.invoke_construct("get_active_ms", [self.project_id], readonly=True)
+        # # self.invoke_construct("get_funding_stages", [self.project_id], readonly=True)
+        # # self.invoke_construct("get_milestones", [self.project_id], readonly=True)
 
-        # self.project_id = self.project_id
-        pprint.pprint(self.get_project_summary())      
-        # self.print_summary()
+        # b_to_addr = 'AK2nJJpJr6o664CWJKi1QRXjqeic2zRp8y'
+        # # b_to_addr = bytearray(b'#\xba\'\x03\xc52c\xe8\xd6\xe5"\xdc2 39\xdc\xd8\xee\xe9')
+
+        # # # Ae6papa38CSj526mN6vhMMXGkXWtdCM5GD
+        # # b_from_addr = bytearray(b'\xf4\xe8\x1d\x02_\xb1\x89iT\xab\xd76\x9c\x14:V\x19c\x13^')
+        
+        # b_from_addr = 'ASDS3BfYoF1Pz7uTF6hpAxCwD4CKo8ZAae'
+        # # b_from_addr = bytearray(b'r\x86\xb2\x15\xfc\xc4\x95\xab\x18\xf9\n\xbe\x17\x08\xff;\xd5\xf5\x18\xfe')
+
+        
+        # # self.invoke_construct_claim('claim_fs_contributions','first_stage', to_addr='AK2nJJpJr6o664CWJKi1QRXjqeic2zRp8y', from_addr='Ae6papa38CSj526mN6vhMMXGkXWtdCM5GD')
+        # # self.invoke_construct_claim('claim_fs_contributions','first_stage', to_addr=b_to_addr, from_addr=b_from_addr)
+
+
+        # # self.project_id = self.project_id
+        # pprint.pprint(self.get_project_summary())              
         self.quit()
 
 
@@ -368,18 +401,21 @@ class TheConstructInterface(object):
         
         # WALLET - REQUIRED
         if args.wallet and args.password:
-            self.open_wallet(args.wallet, args.password)
+            self.open_wallet(args.wallet, to_aes_key(args.password))
+            self.height_check()
         else:
             print('Need to pass in wallet path AND password eg  "-w /path/to/wallet.db3  -pass 1234"')
+            return
 
         # FR CONFIG JSON
+        print('args.fr_config', args.fr_config)
         if args.fr_config:
-            try:
-                import json
-                self.fr_config = json.load(open(args.fr_config))
+            # try:                
                 self.project_id = self.fr_config['project']['id']
-            except:
-                print('Invalid fr config file passed in')            
+                self.invoke_setup_config(args.fr_config, from_json=True, test=False)
+            # except:
+            #     print('Invalid fr config file passed in')
+            #     return          
         
         # PROJECT - REQUIRED
         if args.project:
@@ -387,6 +423,7 @@ class TheConstructInterface(object):
         
         if not self.project_id:
             print('Need to pass in project id  "-pro MyProject"')
+            return
         
         # SUMMARY
         if args.summary:
@@ -395,19 +432,27 @@ class TheConstructInterface(object):
 
         
         # CONTRIBUTE 
-        if args.send_gas and args.funding_stage_id:
-            fs_id = args.funding_stage_id
+        if args.send_gas and args.funding_stage:
+            fs_id = args.funding_stage
             gas_to_send = int(args.send_gas)
             self.invoke_construct("fs_contribute", [self.project_id, fs_id], gas=gas_to_send)
         
-        elif args.send_gas and not args.funding_stage_id:
+        elif args.send_gas and args.funding_stage:
             print('Funding stage needs to be specified if sending gas eg: "-fs first_stage -send 10"')    
         
         
         # INVOKE
         if args.invoke and args.args:
             self.invoke_construct( args.invoke, eval(args.args), int(args.send_gas))
+            
+        
+        if args.claim_contributions and args.funding_stage and args.to_addr and args.from_addr:
+            fs_id = args.funding_stage
+            self.invoke_construct_claim('claim_fs_contributions', fs_id, to_addr=args.to_addr, from_addr=args.from_addr)
 
+
+        # parser.add_argument("-fs", "--funding_stage", action="store", help="Funding Stage")
+        # parser.add_argument("-ms", "--milestone", action="store", help="Milestone)
     
     
         # parser.add_argument("-cr", "--claim_refund", action="store", help="Claim refund")
@@ -468,7 +513,7 @@ class TheConstructInterface(object):
                 
                 # For Strings
                 if ms_attr in ['title', 'subtitle', 'extra_info_hash']:
-                    summary['milestones'][ms_id][ms_attr] = [item.GetString() for item in attr][0]
+                    summary['milestones'][ms_id][ms_attr] = [ safe(item.GetString(), True) for item in attr][0]
                 
                 # For Ints
                 elif ms_attr in ['progress']:
@@ -515,8 +560,13 @@ class TheConstructInterface(object):
         # print('\n')
 
 
-    def invoke_setup_config(self, config, test=False):         
-        
+    def invoke_setup_config(self, config, from_json=False, test=False):         
+        if from_json:
+            json_file = open(config)
+            json_str = json_file.read()
+            json_data = json.loads(json_str)
+            config = json_data
+
         project = Struct(config['project'])
         funding_stages = config['funding_stages']
         milestones = config['milestones']        
@@ -552,7 +602,7 @@ class TheConstructInterface(object):
                 return 
 
             ms = Struct(milestone)
-            self.invoke_construct("create_ms", [project.id, ms.id, ms.title, ms.subtitle, ms.extra_info_hash], test=test)
+            self.invoke_construct("create_ms", [project.id, ms.id, safe(ms.title), safe(ms.subtitle), ms.extra_info_hash], test=test)
 
     # INVOKE
     def invoke_construct(self, operation, args, gas=None, readonly=False, test=False, wait=False):        
@@ -560,7 +610,7 @@ class TheConstructInterface(object):
         self.op_output = None
         
         arguments = [self.SC_hash, operation, str(args)]
-        
+        print('arguments', arguments)
         if gas:
             gas = '--attach-gas='+str(gas)
             arguments = [self.SC_hash, operation, str(args), gas]
@@ -583,30 +633,34 @@ class TheConstructInterface(object):
 
         self.wait_for_invoke_complete()
  
-    def invoke_construct_claim(self, claim_type, fs_id, to_addr):
+    def invoke_construct_claim(self, claim_type, fs_id, from_addr, to_addr):
 
-        # Finding Pubkey for "to_addr"
-        pub_key = ''
-        for addr in self.Wallet.Pubkeys():
-            if addr['Address'] == to_addr:
-                pub_key = addr['Public Key']
+        # # Finding Pubkey for "to_addr"
+        # pub_key = ''
+        # for addr in self.Wallet.PubKeys():
+        #     if addr['Address'] == to_addr:
+        #         pub_key = addr['Public Key']
 
-        # Importing Contract to Pubkey(to_addr)
-        import_contract_args = [self.SC_hash, pub_key]
-        # ImportContractAddr(self.Wallet, import_contract_args)
-        from_addr = ''
+        # # Importing Contract to Pubkey(to_addr)
+        # import_contract_args = [self.SC_hash, pub_key]
+        # from_addr = ImportContractAddr(self.Wallet, import_contract_args)
+        # # from_addr = ''
+        # # print('from_addr', from_addr)
+        
         # Pre Claim Invoke (Unlock funds to "to_addr")
         self.invoke_construct(claim_type, [self.project_id, fs_id, to_addr])
         
         # Checking amount owed on contract storage (Instant/No Fee)
-        claim_owed_raw = self.invoke_construct(claim_type, [self.project_id, to_addr], readonly=True, wait=True)
-        claim_owed = claim_owed_raw[0].GetBigInteger()
+        claim_owed_raw = self.invoke_construct('check_claim_owed', [self.project_id, to_addr], readonly=True, wait=True)
+        claim_owed = claim_owed_raw[0].GetBigInteger() / Fixed8.D
+        print('owed checeked', claim_owed)
 
         if claim_owed > 0:
         
             # Calim Verification Tx
-            verification_args = ['gas', to_addr, claim_owed, '--from-addr='+from_addr]
-            construct_and_send(self, self.Wallet, arguments)
+            verification_args = ['gas', to_addr, str(claim_owed), '--from-addr='+str(from_addr)]
+            print('verification_args', verification_args)
+            construct_and_send(self, self.Wallet, verification_args)
     
     # CHECK NODE HEIGHT
     def height_check(self):
@@ -691,17 +745,18 @@ def main():
                         help="Use MainNet instead of the default TestNet")
     parser.add_argument("-p", "--privnet", action="store_true", default=False,
                         help="Use PrivNet instead of the default TestNet")
-    # parser.add_argument("-c", "--config", action="store", help="Use a specific config file")
-    parser.add_argument('--version', action='version',
-                        version='neo-python v{version}'.format(version=__version__))
-
     
     parser.add_argument("-w", "--wallet", action="store", help="Wallet path")
     parser.add_argument("-pass", "--password", action="store", help="Wallet path")
     parser.add_argument("-pro", "--project", action="store", help="Project")
-    parser.add_argument("-con", "--config", action="store", help="Funding Roadmap config")
-    parser.add_argument("-sum", "--summary", action="store", help="Get Summary of project")
+    parser.add_argument("-fs", "--funding_stage", action="store", help="Funding Stage")
+    parser.add_argument("-ms", "--milestone", action="store", help="Milestone")
+    parser.add_argument("-con", "--fr_config", action="store", help="Funding Roadmap config")
+    parser.add_argument("-sum", "--summary", action="store_true", default=False, help="Get Summary of project")
 
+    parser.add_argument("-to_addr", "--to_addr", action="store", help="To Addr")
+    parser.add_argument("-from_addr", "--from_addr", action="store", help="From addr")
+    
     parser.add_argument("-send", "--send_gas", action="store", help="Contribute to project")
     parser.add_argument("-cr", "--claim_refund", action="store", help="Claim refund")
     parser.add_argument("-cc", "--claim_contributions", action="store", help="Claim contributions")
@@ -717,17 +772,12 @@ def main():
 
     args = parser.parse_args()
 
-    if args.config and (args.mainnet or args.privnet):
-        print("Cannot use both --config and --mainnet/--privnet arguments, please use only one.")
-        exit(1)
     if args.mainnet and args.privnet:
         print("Cannot use both --mainnet and --privnet arguments")
         exit(1)
 
     # Setup depending on command line arguments. By default, the testnet settings are already loaded.
-    if args.config:
-        settings.setup(args.config)
-    elif args.mainnet:
+    if args.mainnet:
         settings.setup_mainnet()
     elif args.privnet:
         settings.setup_privnet()
@@ -753,32 +803,11 @@ def main():
 
 
 if __name__ == "__main__":
+    # print(dir(Crypto))
+    # # print(  dir(binascii) )
+    # # print(Crypto.ToScriptHash('AK2nJJpJr6o664CWJKi1QRXjqeic2zRp8y'))
     main()
+    # from neo.Wallets.Wallet import Wallet
+    # print(Wallet.ToScriptHash('AK2nJJpJr6o664CWJKi1QRXjqeic2zRp8y'))
     
-
-fr_config_template = {
-    'project': {
-        'id':                   '',
-        'symbol':               '',
-        'owner':               b'',
-        'total_supply':         0,
-    },
-    'funding_stages':[
-        { 
-            'id':               'first_stage',
-            'start_block':      0,
-            'end_block':        0,
-            'supply':           0,
-            'tokens_per_gas':   0,
-        }
-    ],
-    'milestones':[ 
-        {
-            'id':               'first_milestone',
-            'title':            '',
-            'subtitle':         '',
-            'extra_info_hash':  '',
-        }
-    ]
-}
 

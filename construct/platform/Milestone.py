@@ -141,33 +141,18 @@ def ms_update_progress(ms:Milestone, updated_progress):
         # Clamp at 100%
         if updated_progress > 100:
             updated_progress = 100
-        # print('ms.project_id2')
-        # print(ms.project_id)
 
         # Updates object variable
         ms.progress = updated_progress
-        # print('ms.project_id3')
-        # print(ms.project_id)
-
-        # print('updated_progress')
-        # print(updated_progress)
-        # print('ms.progress')
-        # print(ms.progress)
-
-        # print('ms.project_id4')
-        # print(ms.project_id)
         
         # Output milestone info
         updated_milestone_info = [updated_progress, ms.title, ms.subtitle, ms.extra_info_hash]
-        # print('ms.project_id5')
-        # print(ms.project_id)
+
         # Saving info to storage
         updated_milestone_info_serialized = storage.serialize_array(updated_milestone_info)
         storage.put_triple('MS', ms.project_id, ms.milestone_id, updated_milestone_info_serialized)
-        # print('ms.project_id6')
-        # print(ms.project_id)
 
-        # return updated_progress
+        return updated_progress
 
 
 def ms_get_progress(ms:Milestone):

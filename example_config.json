@@ -1,0 +1,38 @@
+{
+    "project": {
+        "id":                   "TheConstruct",
+        "symbol":               "STR",
+        "owner":                "AK2nJJpJr6o664CWJKi1QRXjqeic2zRp8y",
+        "total_supply":         1000000
+    },
+    "funding_stages": [
+        {
+            "id":               "first_stage",
+            "start_block":      10000,
+            "end_block":        99000,
+            "supply":           100000,
+            "tokens_per_gas":   10000 
+        },
+        {
+            "id":               "second_stage",
+            "start_block":      12000,
+            "end_block":        14100,
+            "supply":           250000,
+            "tokens_per_gas":   500 
+        }
+    ],
+    "milestones": [
+        {
+            "id":               "first_milestone",
+            "title":            "Pro",
+            "subtitle":         "Compl",
+            "extra_info_hash":  "o3ufh249uj308ohw0fjp2409fj90jwiji"
+        },
+        {
+            "id":               "second_milestone",
+            "title":            "Deploy_SC",
+            "subtitle":         "Deploy_SC_t",
+            "extra_info_hash":  "rsfufasdadsaasdasd23f2fqf2ff"
+        }
+    ]
+}

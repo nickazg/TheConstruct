@@ -3,10 +3,10 @@ TheConstruct - NEO smart contract - https://github.com/nickazg/TheConstruct
 
 Author: Nick Grobler
 Email: nickazg@gmail.com
-Date: Jan 17 2017
+Date: Feb 25 2017
 """
 
-VERSION = "0.0.1"
+VERSION = "0.0.9"
 
 # BOA
 from boa.blockchain.vm.Neo.Runtime import GetTrigger, CheckWitness
@@ -71,14 +71,11 @@ def Main(operation, args):
 
         kyc = KYC()   
 
-        # TODO - Permissions
-        # TODO - Refund
-        # TODO - Claim
-        # TODO - Edit fs Start/End blocks before starting
-        # TODO - Milestone Voting
         #    F U N D I N G    R O A D M A P   #
         
         project_id = args[0]
+
+        sts =  sts_get(project_id)
         
         # ARGS: project_id, refund_addr
         if operation == 'check_claim_owed':
@@ -86,16 +83,25 @@ def Main(operation, args):
             print('execute:check_claim_owed')
             if len(args) == 2:
                 refund_addr = args[1]
-                return storage.get_double('CLAIM', refund_addr)  
+                return storage.get_double('CLAIM', refund_addr)
+
+        # ARGS: project_id, refund_addr
+        if operation == 'reset_claim_owed':
+            OnOperationInvoke('reset_claim_owed')
+            print('execute:reset_claim_owed')
+            if len(args) == 2:
+                refund_addr = args[1]
+                return storage.put_double('CLAIM', refund_addr, 0)
 
         # ARGS: project_id, new_admin
         if operation == 'add_project_admins':
             OnOperationInvoke('add_project_admins')
             print('execute:add_project_admins')
             if len(args) == 2:
-                new_admin = args[1]
-                fr_add_project_admin(project_id, new_admin)
-                return True
+                if CheckWitness(sts.owner):
+                    new_admin = args[1]
+                    fr_add_project_admin(project_id, new_admin)
+                    return True
             return invalid_args_msg
 
         # ARGS: project_id
@@ -151,11 +157,12 @@ def Main(operation, args):
             OnOperationInvoke('update_active_ms_progress')
             print('execute:update_active_ms_progress')
             if len(args) == 2:
-                updated_progress = args[1]
+                if CheckWitness(sts.owner):
+                    updated_progress = args[1]
 
-                progress = fr_update_milestone_progress(project_id, updated_progress)                
-                
-                return progress
+                    progress = fr_update_milestone_progress(project_id, updated_progress)                
+                    
+                    return progress
             return invalid_args_msg
         
         
@@ -209,14 +216,15 @@ def Main(operation, args):
             OnOperationInvoke('create_fs')
             print('execute:create_fs')
             if len(args) == 6:
-                start_block = args[2]
-                end_block = args[3]
-                supply = args[4]
-                tokens_per_gas = args[5]
+                if CheckWitness(sts.owner):
+                    start_block = args[2]
+                    end_block = args[3]
+                    supply = args[4]
+                    tokens_per_gas = args[5]
 
-                fs_create(project_id, funding_stage_id, start_block, end_block, supply, tokens_per_gas)
-                fr_add_funding_stage(project_id, funding_stage_id)
-                return funding_stage_id
+                    fs_create(project_id, funding_stage_id, start_block, end_block, supply, tokens_per_gas)
+                    fr_add_funding_stage(project_id, funding_stage_id)
+                    return funding_stage_id
             return invalid_args_msg
         
         # ARGS: project_id, funding_stage_id, attribute: {'project_id', 'funding_stage_id', 'start_block', 'end_block', 'supply', 'tokens_per_gas', 'in_circulation'}
@@ -279,13 +287,14 @@ def Main(operation, args):
             OnOperationInvoke('create_ms')
             print('execute:create_ms')
             if len(args) == 5:
-                title = args[2]
-                subtitle = args[3] 
-                extra_info_hash = args[4]
+                if CheckWitness(sts.owner):
+                    title = args[2]
+                    subtitle = args[3] 
+                    extra_info_hash = args[4]
 
-                ms_create(project_id, milestone_id, title, subtitle, extra_info_hash)
-                fr_add_milestone(project_id, milestone_id)
-                return milestone_id
+                    ms_create(project_id, milestone_id, title, subtitle, extra_info_hash)
+                    fr_add_milestone(project_id, milestone_id)
+                    return milestone_id
             return invalid_args_msg        
 
         # ARGS: project_id, milestone_id, attribute: {'project_id', 'milestone_id', 'title', 'subtitle', 'extra_info_hash', 'progress'}
@@ -320,7 +329,7 @@ def Main(operation, args):
                 refund_addr = args[2] 
 
                 fs = fs_get(project_id, funding_stage_id)
-                return fs_refund(refund_addr)
+                return fs_refund(fs, refund_addr)
             return invalid_args_msg                
 
         # ARGS: project_id, funding_stage_id, owner_addr
@@ -331,7 +340,7 @@ def Main(operation, args):
                 owner_addr = args[2]
 
                 fs = fs_get(project_id, funding_stage_id)
-                return fs_claim_contributions(owner_addr)   
+                return fs_claim_contributions(fs, owner_addr)   
             return invalid_args_msg 
 
         # ARGS: project_id, funding_stage_id, system_owner_addr
@@ -342,7 +351,7 @@ def Main(operation, args):
                 system_owner_addr = args[2]
 
                 fs = fs_get(project_id, funding_stage_id)
-                return fs_claim_system_fee(system_owner_addr)
+                return fs_claim_system_fee(fs, system_owner_addr)
             return invalid_args_msg
 
         
@@ -370,12 +379,13 @@ def Main(operation, args):
         
         # ARGS: project_id, addresses -> 
         if operation == 'kyc_register':
-            OnOperationInvoke('kyc_register')
-            print('execute:kyc_register')
-            if len(args) > 1:
-                # addresses = args[1:]
+            if CheckWitness(sts.owner):
+                OnOperationInvoke('kyc_register')
+                print('execute:kyc_register')
+                if len(args) > 1:
+                    # addresses = args[1:]
 
-                return kyc.kyc_register(project_id, args)
+                    return kyc.kyc_register(project_id, args)
             return invalid_args_msg
         
         # ARGS: project_id, address
@@ -400,12 +410,3 @@ def Main(operation, args):
 
         
         return invaild_op_msg
-
-        # # TODO - Dont forget ;) 
-        # # Fork contract to new version, all storage is transferred.
-        # # See: https://github.com/neo-project/neo/blob/master/neo/SmartContract/StateMachine.cs#L210
-        # if operation == 'contract_migrate':
-
-        #     # Check if the invoker is the owner of this contract
-        #     if CheckWitness(OWNER):
-        #         print("Migrate Contract!")
