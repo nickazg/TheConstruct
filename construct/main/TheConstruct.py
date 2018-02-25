@@ -19,7 +19,7 @@ from boa.blockchain.vm.Neo.Action import RegisterAction
 # THE CONSTRUCT - PLATFORMS
 from construct.platform.SmartTokenShare import SmartTokenShare, sts_get_attr, sts_create, sts_get, get_total_in_circulation, sts_total_available_amount 
 from construct.platform.FundingStage import FundingStage, fs_get_attr, fs_create, fs_get, fs_contribute, fs_status, fs_can_exchange, fs_add_to_circulation, fs_calculate_can_exchange, get_in_circulation, fs_claim_contributions, fs_refund, fs_get_addr_balance, fs_set_addr_balance, fs_claim_system_fee, fs_calculate_system_fee, fs_available_amount
-from construct.platform.Milestone import Milestone, ms_create, ms_get, ms_update_progress, ms_get_progress
+from construct.platform.Milestone import Milestone, ms_create, ms_get, ms_get_attr, ms_update_progress, ms_get_progress
 from construct.platform.FundingRoadmap import FundingRoadmap, fr_list_append, fr_add_list, fr_get_list, fr_add_funding_stage, fr_get_funding_stages, fr_add_milestone, fr_get_milestones, fr_add_project_admin, fr_get_project_admins, fr_set_active_index, fr_get_active_index, fr_update_milestone_progress
 from construct.platform.KYC import KYC
 
@@ -74,10 +74,19 @@ def Main(operation, args):
         # TODO - Permissions
         # TODO - Refund
         # TODO - Claim
+        # TODO - Edit fs Start/End blocks before starting
         # TODO - Milestone Voting
         #    F U N D I N G    R O A D M A P   #
         
         project_id = args[0]
+        
+        # ARGS: project_id, refund_addr
+        if operation == 'check_claim_owed':
+            OnOperationInvoke('check_claim_owed')
+            print('execute:check_claim_owed')
+            len(args) == 2:
+                refund_addr = args[1]
+                return storage.get_double('CLAIM', refund_addr)  
 
         # ARGS: project_id, new_admin
         if operation == 'add_project_admins':
@@ -278,7 +287,17 @@ def Main(operation, args):
                 fr_add_milestone(project_id, milestone_id)
                 return milestone_id
             return invalid_args_msg        
-        
+
+        # ARGS: project_id, milestone_id, attribute: {'project_id', 'milestone_id', 'title', 'subtitle', 'extra_info_hash', 'progress'}
+        if operation == 'ms_attribute':
+            OnOperationInvoke('ms_attribute')
+            print('execute:ms_attribute')
+            if len(args) == 3:
+                attr = args[2] 
+
+                ms = ms_get(project_id, milestone_id)
+                return ms_get_attr(ms, attr)
+
         # ARGS: project_id, milestone_id
         if operation == 'get_ms_progess':
             OnOperationInvoke('get_ms_progess')
@@ -289,10 +308,10 @@ def Main(operation, args):
             return invalid_args_msg                    
 
 
-        #    C L A I M S   #
+        #    C L A I M S   #             
 
         funding_stage_id = args[1] 
-
+    
         # ARGS: project_id, funding_stage_id, refund_addr  
         if operation == 'claim_fs_refund':
             OnOperationInvoke('claim_fs_refund')

@@ -25,23 +25,43 @@ def fr_list_append(project_id, key, new_item):
     """   
     storage = StorageManager()
 
+    print('new_item')
+    print(new_item)
+
     # Gets current stored list
-    current_serialized_list = storage.get_double(key, project_id)
+    current_serialized_list = storage.get_double(project_id, key)
 
     # Converts serialized list to normal list
     current_list = storage.deserialize_bytearray(current_serialized_list)
     current_list_len = len(current_list)
-    output_list_len = current_list_len + 1
+    print('current_list_len')
+    print(current_list_len)
 
-    # Creates new list and appends new item to the end
-    output_list = list(length=output_list_len)
-    output_list[current_list_len] = new_item
+    if current_list_len == 0:
+        output_list = [new_item]
     
+    else:
+        output_list = current_list
+        output_list.append(new_item)  
+        # Notify(output_list)
+        # output_list_len = current_list_len + 1
+        # print('output_list_len')
+        # print(output_list_len)
+        
+        # # Creates new list and appends new item to the end
+        # output_list = list(length=output_list_len)
+        # for i in range(0, current_list_len):    
+        #     output_list[i] = current_list[i]    
+    
+    # output_list[-1] = new_item
+
     # Serializes list 
     serialized_output_list = storage.serialize_array(output_list)
+    print('serialized_output_list')
+    print(serialized_output_list)
 
     # Saves updated serialized list to storage
-    storage.put_double(key, project_id, serialized_output_list)
+    storage.put_double(project_id, key, serialized_output_list)
 
 
 def fr_get_list(project_id, key):
@@ -56,7 +76,7 @@ def fr_get_list(project_id, key):
     storage = StorageManager()
 
     # Gets current stored list
-    serialized_list = storage.get_double(key, project_id)
+    serialized_list = storage.get_double(project_id, key)
 
     # Converts serialized list to normal list
     output_list = storage.deserialize_bytearray(serialized_list)
@@ -173,12 +193,12 @@ def fr_update_milestone_progress(project_id, progress):
     active_funding_stage = funding_stages[active_idx]
 
     fs = fs_get(project_id, active_funding_stage)
-    fs_status = fs_status(fs)
+    check_fs_status = fs_status(fs)
     
-    print('fs_status')
-    print(fs_status)
+    print('check_fs_status')
+    print(check_fs_status)
 
-    if fs_status != 1:
+    if check_fs_status != 1:
         print('Current Funding Stage NOT complete')
         return False
         
