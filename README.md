@@ -306,8 +306,9 @@ python_cli.py -sum -pro MyFirstProject -w mywallet.db3 -pass password1234
 ```
 
 ### 7.3.3. Add address to KYC (as project owner only)
+*notice bytearray in quotes "" and esacape double quotes with \*
 ```
-python_cli.py -pro MyFirstProject -kreg bytearray(b'#\xba\'\x03\xc52c\xe8\xd6\xe5"\xdc2 39\xdc\xd8\xee\xe9') -w mywallet.db3 -pass password1234
+python_cli.py -pro MyFirstProject -kreg "bytearray(b'#\xba\'\x03\xc52c\xe8\xd6\xe5\"\xdc2 39\xdc\xd8\xee\xe9')" -w mywallet.db3 -pass password1234
 ```
 
 ### 7.3.4. Contribute to project 
@@ -326,8 +327,9 @@ python_cli.py -cc -pro MyFirstProject -fs first_stage -w mywallet.db3 -pass pass
 ```
 
 ### 7.3.7. Claim refund on failed fund as contributor
+*notice bytearray in quotes "" and esacape double quotes with \*
 ```
-python_cli.py -cr bytearray(b'#\xba\'\x03\xc52c\xe8\xd6\xe5"\xdc2 39\xdc\xd8\xee\xe9')-pro MyFirstProject -fs first_stage -w mywallet.db3 -pass password1234
+python_cli.py -cr "bytearray(b'#\xba\'\x03\xc52c\xe8\xd6\xe5\"\xdc2 39\xdc\xd8\xee\xe9')" -pro MyFirstProject -fs first_stage -w mywallet.db3 -pass password1234
 ```
 
 ### 7.3.8. Invoke any other public operation

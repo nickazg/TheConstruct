@@ -259,7 +259,7 @@ class TheConstructInterface(object):
     invoked_operation = ''
 
     # SC_hash = '308be08fa79829653a90365534d2e711509a2d24'  # 8000
-    SC_hash = '7505a16e2c4675ea64afae1052b5695cd7deddb5'  # 8000
+    SC_hash = '17e92c33e613e0f2f34fda070451e50ec2f14e01'  # 8000
     Wallet = None
 
     project_id = ''
@@ -441,7 +441,8 @@ class TheConstructInterface(object):
         
         # INVOKE
         if args.invoke and args.args:
-            self.invoke_construct( args.invoke, eval(args.args), int(args.send_gas))
+            print('args.args', args.args)
+            self.invoke_construct( args.invoke, eval(args.args))
             
         
         if args.claim_contributions and args.funding_stage and args.to_addr and args.from_addr:

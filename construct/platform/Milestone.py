@@ -153,8 +153,6 @@ def ms_update_progress(ms:Milestone, updated_progress):
         updated_milestone_info_serialized = storage.serialize_array(updated_milestone_info)
         storage.put_triple('MS', ms.project_id, ms.milestone_id, updated_milestone_info_serialized)
 
-        return updated_progress
-
 
 def ms_get_progress(ms:Milestone):
     """
