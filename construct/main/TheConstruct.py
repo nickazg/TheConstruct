@@ -6,7 +6,7 @@ Email: nickazg@gmail.com
 Date: Feb 25 2017
 """
 
-VERSION = "0.0.9"
+VERSION = "1.0.0"
 
 # BOA
 from boa.blockchain.vm.Neo.Runtime import GetTrigger, CheckWitness

@@ -107,7 +107,8 @@ class TheConstructInterface(object):
 
     invoked_operation = ''
 
-    SC_hash = '17e92c33e613e0f2f34fda070451e50ec2f14e01' 
+    # v1.0.0
+    SC_hash = 'bc0e19a4fd0560d1b6d1f0825996a8b1d85d71f8' 
     Wallet = None
 
     project_id = ''
