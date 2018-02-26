@@ -259,7 +259,7 @@ class TheConstructInterface(object):
     invoked_operation = ''
 
     # SC_hash = '308be08fa79829653a90365534d2e711509a2d24'  # 8000
-    SC_hash = '5ad591176ef9197fe216a9750b2a75e9eb877b1f'  # 8000
+    SC_hash = '7505a16e2c4675ea64afae1052b5695cd7deddb5'  # 8000
     Wallet = None
 
     project_id = ''
@@ -449,15 +449,21 @@ class TheConstructInterface(object):
             self.invoke_construct_claim('claim_fs_contributions', fs_id, to_addr=args.to_addr, from_addr=args.from_addr)
 
 
-        # parser.add_argument("-fs", "--funding_stage", action="store", help="Funding Stage")
-        # parser.add_argument("-ms", "--milestone", action="store", help="Milestone)
-    
-    
-        # parser.add_argument("-cr", "--claim_refund", action="store", help="Claim refund")
-        # parser.add_argument("-cc", "--claim_contributions", action="store", help="Claim contributions")
+        if args.claim_refund and args.funding_stage and args.to_addr and args.from_addr:
+            fs_id = args.funding_stage
+            self.invoke_construct_claim('claim_refund', fs_id, to_addr=args.to_addr, from_addr=args.from_addr)
 
-        # parser.add_argument("-kyc", "--kyc_status", action="store", help="Get kyc status")
-        # parser.add_argument("-kreg", "--kyc_register", action="store", help="Register KYC addr")
+        # KYC 
+        if args.kyc_register:
+            addr = args.kyc_register
+            self.invoke_construct("kyc_register", [self.project_id, addr])
+
+        if args.kyc_status:
+            addr = args.kyc_status
+            self.invoke_construct("kyc_status", [self.project_id, addr])
+
+        # parser.add_argument("-ms", "--milestone", action="store", help="Milestone)
+
     
     def get_project_summary(self):
         

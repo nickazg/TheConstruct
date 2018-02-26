@@ -42,18 +42,7 @@ def fr_list_append(project_id, key, new_item):
     
     else:
         output_list = current_list
-        output_list.append(new_item)  
-        # Notify(output_list)
-        # output_list_len = current_list_len + 1
-        # print('output_list_len')
-        # print(output_list_len)
-        
-        # # Creates new list and appends new item to the end
-        # output_list = list(length=output_list_len)
-        # for i in range(0, current_list_len):    
-        #     output_list[i] = current_list[i]    
-    
-    # output_list[-1] = new_item
+        output_list.append(new_item)
 
     # Serializes list 
     serialized_output_list = storage.serialize_array(output_list)

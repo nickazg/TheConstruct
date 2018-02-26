@@ -75,12 +75,12 @@ def ms_create(project_id, milestone_id, title, subtitle, extra_info_hash) -> Mil
     ms.title = title
     ms.subtitle = subtitle 
     ms.extra_info_hash = extra_info_hash   
-
+    
     # Sets progress to 0
     ms.progress = 0
 
     # Info structure
-    milestone_info = [0, title, subtitle, extra_info_hash]
+    milestone_info = [title, subtitle, extra_info_hash, 0]
 
     # Saving info to storage
     milestone_info_serialized = storage.serialize_array(milestone_info)
@@ -110,13 +110,14 @@ def ms_get(project_id, milestone_id) -> Milestone:
     milestone_info_serialized = storage.get_triple('MS', project_id, milestone_id)
     milestone_info = storage.deserialize_bytearray(milestone_info_serialized)
     
-    # Saves vars to object
-    ms.project_id = project_id
-    ms.milestone_id = milestone_id
-    ms.title = milestone_info[1]
-    ms.subtitle = milestone_info[2]
-    ms.extra_info_hash = milestone_info[3]
-    ms.progress = milestone_info[0]
+    if len(milestone_info) == 4:
+        # Saves vars to object
+        ms.project_id = project_id
+        ms.milestone_id = milestone_id
+        ms.title = milestone_info[0]
+        ms.subtitle = milestone_info[1]
+        ms.extra_info_hash = milestone_info[2]
+        ms.progress = milestone_info[3]
 
     return ms
 
@@ -146,7 +147,7 @@ def ms_update_progress(ms:Milestone, updated_progress):
         ms.progress = updated_progress
         
         # Output milestone info
-        updated_milestone_info = [updated_progress, ms.title, ms.subtitle, ms.extra_info_hash]
+        updated_milestone_info = [ms.title, ms.subtitle, ms.extra_info_hash, updated_progress]
 
         # Saving info to storage
         updated_milestone_info_serialized = storage.serialize_array(updated_milestone_info)
