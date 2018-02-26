@@ -296,33 +296,34 @@ python ../TheConstruct/node/python_cli.py --help
 ## 7.3. Examples:
 
   - All CLI calls require ```-w mywallet.db3 -pass password1234``` to authorize tx's
-
   - And will require ```-pro MyFirstProject``` unless ```-invoke``` and ```-args``` are used
+  - ```--coznet``` flag is used, works the same as neo-python prompt
+  
 
 ### 7.3.1. Creating a new project, based on config file
 ```
-python_cli.py -con TheConstruct/example_config.json -w mywallet.db3 -pass password1234 
+python_cli.py --coznet -con TheConstruct/example_config.json -w mywallet.db3 -pass password1234 
 ```
 
 ### 7.3.2. Summary of existing project
 ```
-python_cli.py -sum -pro MyFirstProject -w mywallet.db3 -pass password1234
+python_cli.py --coznet -sum -pro MyFirstProject -w mywallet.db3 -pass password1234
 ```
 
 ### 7.3.3. Add address to KYC (as project owner only)
   - bytearray in quotes "" and esacape double quotes with \
 ```
-python_cli.py -pro MyFirstProject -kreg "bytearray(b'#\xba\'\x03\xc52c\xe8\xd6\xe5\"\xdc2 39\xdc\xd8\xee\xe9')" -w mywallet.db3 -pass password1234
+python_cli.py --coznet -pro MyFirstProject -kreg "bytearray(b'#\xba\'\x03\xc52c\xe8\xd6\xe5\"\xdc2 39\xdc\xd8\xee\xe9')" -w mywallet.db3 -pass password1234
 ```
 
 ### 7.3.4. Contribute to project 
 ```
-python_cli.py -pro MyFirstProject -fs first_stage -send 10 -w mywallet.db3 -pass password1234
+python_cli.py --coznet -pro MyFirstProject -fs first_stage -send 10 -w mywallet.db3 -pass password1234
 ```
 
 ### 7.3.5. Set Active Milestone Progress
 ```
-python_cli.py -invoke update_active_ms_progress -args ['MyFirstProject', 100] -w mywallet.db3 -pass password1234
+python_cli.py --coznet -invoke update_active_ms_progress -args ['MyFirstProject', 100] -w mywallet.db3 -pass password1234
 ```
 
 ### 7.3.6. Claim Contributions on sucessful fund as project owner
@@ -330,14 +331,14 @@ python_cli.py -invoke update_active_ms_progress -args ['MyFirstProject', 100] -w
   - You are required to import this contract with your public key manually beforehand (in neo-python), this will be the ```-from-addr```
   - This will claim the funds MINUS the fee
 ```
-python_cli.py -cc -to_addr AK2nJJpJr6o664CWJKi1QRXjqeic2zRp8y -from-addr AFtntqjFSmyxDCp1TukxGRfqaAypBBc7DW -pro MyFirstProject -fs first_stage -w mywallet.db3 -pass password1234
+python_cli.py --coznet -cc -to_addr AK2nJJpJr6o664CWJKi1QRXjqeic2zRp8y -from-addr AFtntqjFSmyxDCp1TukxGRfqaAypBBc7DW -pro MyFirstProject -fs first_stage -w mywallet.db3 -pass password1234
 ```
 
 ### 7.3.7. Claim refund on failed fund as contributor
   - bytearray in quotes "" and esacape double quotes with \
   - You are required to import this contract with your public key manually beforehand (in neo-python), this will be the ```-from-addr```
 ```
-python_cli.py -cr -to_addr AK2nJJpJr6o664CWJKi1QRXjqeic2zRp8y -from-addr AFtntqjFSmyxDCp1TukxGRfqaAypBBc7DW -pro MyFirstProject -fs first_stage -w mywallet.db3 -pass password1234
+python_cli.py --coznet -cr -to_addr AK2nJJpJr6o664CWJKi1QRXjqeic2zRp8y -from-addr AFtntqjFSmyxDCp1TukxGRfqaAypBBc7DW -pro MyFirstProject -fs first_stage -w mywallet.db3 -pass password1234
 ```
 
 ### 7.3.8. Invoke any other public operation

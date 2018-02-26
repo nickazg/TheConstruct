@@ -9,7 +9,7 @@
         {
             "id":               "first_stage",
             "start_block":      10000,
-            "end_block":        99000,
+            "end_block":        999000,
             "supply":           100000,
             "tokens_per_gas":   10000 
         },

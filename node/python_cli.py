@@ -550,7 +550,9 @@ def main():
                         help="Use MainNet instead of the default TestNet")
     parser.add_argument("-p", "--privnet", action="store_true", default=False,
                         help="Use PrivNet instead of the default TestNet")
-    
+    parser.add_argument("--coznet", action="store_true", default=False,
+                       help="Use the CoZ network instead of the default TestNet")
+
     parser.add_argument("-w", "--wallet", action="store", help="Wallet path")
     parser.add_argument("-pass", "--password", action="store", help="Wallet path")
     parser.add_argument("-pro", "--project", action="store", help="Project")
@@ -586,6 +588,8 @@ def main():
         settings.setup_mainnet()
     elif args.privnet:
         settings.setup_privnet()
+    elif args.coznet:
+        settings.setup_coznet()
     
     # Instantiate the blockchain and subscribe to notifications
     blockchain = LevelDBBlockchain(settings.LEVELDB_PATH)
