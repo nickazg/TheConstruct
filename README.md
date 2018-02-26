@@ -86,7 +86,7 @@ In the current ICO space, a project generally only gets one opportunity to recei
     - [3.1.3. **Funding Stages**](#313-funding-stages)
     - [3.1.4. **Funding Roadmap Forking**](#314-funding-roadmap-forking)
 - [4. KYC (Know Your Customer)](#4-kyc-know-your-customer)
-- [5. Platfrom Structure](#5-platfrom-structure)
+- [5. Platfrom Structure *(WIP)*](#5-platfrom-structure-wip)
 - [6. Outstanding Tasks](#6-outstanding-tasks)
 - [7. The Construct CLI (Python)](#7-the-construct-cli-python)
   - [7.1. Installation:](#71-installation)
@@ -219,7 +219,9 @@ All information required for a KYC approval will be assessed and approved by The
 <br>
 <br>
 
-# 5. Platfrom Structure
+# 5. Platfrom Structure *(WIP)*
+*This is currently incomplete, only a CLI is in production, this is the future goal*
+
 We have designed **The Constructs** platform to be built upon the the NEO blockchain. Using NEO has been a conscious choice over other platforms for multiple reasons. 
 
 First of all, NEO is fast and will only get faster as more nodes are added to the network. It has proven to maintain this speed under heavy system load (seen during ICO's). Neo uses a unique dBFT protocol (Delegated Byzantine Fault Tolerance) which only requires transactions one confirmation for 100% certainty, and uses substantially less power than a Proof-of-work protocol (used by Ethereum and Bitcoin). These advantages create a stable, fast, cheap and secure decentralized network for everyone.
@@ -243,6 +245,8 @@ Below is our platform configuration model we use to communicate between the NEO 
   - Function to migrate the contract for future updates
   - Editable ```start_block``` and ```end_block``` till first block begins
   - Milestone reverse voting (votes to deem milestone uncomplete)
+  - Automatically import contract to public key
+  - Streamline refund process to automatically input ```-to_addr``` and ```-from_addr```
 
 # 7. The Construct CLI (Python)
 *This is currently the main interface for the smart contract, convience functions have been built do deploy new projects, edit and inspect current ones. Along with the ability to contribute and claim contributions or refunds.*
@@ -291,9 +295,9 @@ python ../TheConstruct/node/python_cli.py --help
 
 ## 7.3. Examples:
 
-All CLI calls require ```-w mywallet.db3 -pass password1234``` to authorize tx's
+  - All CLI calls require ```-w mywallet.db3 -pass password1234``` to authorize tx's
 
-And will require ```-pro MyFirstProject``` unless ```-invoke``` and ```-args``` are used
+  - And will require ```-pro MyFirstProject``` unless ```-invoke``` and ```-args``` are used
 
 ### 7.3.1. Creating a new project, based on config file
 ```
@@ -306,7 +310,7 @@ python_cli.py -sum -pro MyFirstProject -w mywallet.db3 -pass password1234
 ```
 
 ### 7.3.3. Add address to KYC (as project owner only)
-*notice bytearray in quotes "" and esacape double quotes with \*
+  - bytearray in quotes "" and esacape double quotes with \
 ```
 python_cli.py -pro MyFirstProject -kreg "bytearray(b'#\xba\'\x03\xc52c\xe8\xd6\xe5\"\xdc2 39\xdc\xd8\xee\xe9')" -w mywallet.db3 -pass password1234
 ```
@@ -322,14 +326,18 @@ python_cli.py -invoke update_active_ms_progress -args ['MyFirstProject', 100] -w
 ```
 
 ### 7.3.6. Claim Contributions on sucessful fund as project owner
+  - bytearray in quotes "" and esacape double quotes with \
+  - You are required to import this contract with your public key manually beforehand (in neo-python), this will be the ```-from-addr```
+  - This will claim the funds MINUS the fee
 ```
-python_cli.py -cc -pro MyFirstProject -fs first_stage -w mywallet.db3 -pass password1234
+python_cli.py -cc -to_addr AK2nJJpJr6o664CWJKi1QRXjqeic2zRp8y -from-addr AFtntqjFSmyxDCp1TukxGRfqaAypBBc7DW -pro MyFirstProject -fs first_stage -w mywallet.db3 -pass password1234
 ```
 
 ### 7.3.7. Claim refund on failed fund as contributor
-*notice bytearray in quotes "" and esacape double quotes with \*
+  - bytearray in quotes "" and esacape double quotes with \
+  - You are required to import this contract with your public key manually beforehand (in neo-python), this will be the ```-from-addr```
 ```
-python_cli.py -cr "bytearray(b'#\xba\'\x03\xc52c\xe8\xd6\xe5\"\xdc2 39\xdc\xd8\xee\xe9')" -pro MyFirstProject -fs first_stage -w mywallet.db3 -pass password1234
+python_cli.py -cr -to_addr AK2nJJpJr6o664CWJKi1QRXjqeic2zRp8y -from-addr AFtntqjFSmyxDCp1TukxGRfqaAypBBc7DW -pro MyFirstProject -fs first_stage -w mywallet.db3 -pass password1234
 ```
 
 ### 7.3.8. Invoke any other public operation
