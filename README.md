@@ -348,7 +348,7 @@ python_cli.py -invoke operation -args [arg1, arg2, .... ] -w mywallet.db3 -pass 
 
 # 8. ​​Smart Contract Operations
 ## 8.1. Contract Hash:
-- 308be08fa79829653a90365534d2e711509a2d24
+- bc0e19a4fd0560d1b6d1f0825996a8b1d85d71f8
 
 ## 8.2. Operations:
   *Check source code for more details*
