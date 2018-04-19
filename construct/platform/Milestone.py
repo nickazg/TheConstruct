@@ -1,47 +1,46 @@
-from boa.blockchain.vm.Neo.Runtime import CheckWitness, Notify
-from boa.blockchain.vm.Neo.Action import RegisterAction
-# from boa.code.builtins import concat
+from boa.interop.Neo.Runtime import CheckWitness, Notify
+from boa.interop.Neo.Action import RegisterAction
 
-from construct.common.StorageManager import StorageManager
+from construct.common.StorageManager import attrs_is_valid, serialize, deserialize, get_triple, put_triple
 
-class Milestone():
-    """
-    Object for managing milestones
-    """
-    project_id = ''
-    milestone_id = ''
-    title = ''
-    subtitle = '' 
-    extra_info_hash = ''
-    progress = 0
+# Struct for storing the Milestone
+ATTRS = {}
+ATTRS['project_id'] = ''
+ATTRS['milestone_id'] =  ''
+ATTRS['title'] = ''
+ATTRS['subtitle'] = ''
+ATTRS['extra_info_hash'] = ''
+ATTRS['progress'] = 0
 
 
-def ms_get_attr(ms:Milestone, attr_name):
+def ms_is_valid(attrs):
+    # Keys to check
+    keys = [
+        'project_id',
+        'milestone_id',
+        'title',
+        'subtitle',
+        'extra_info_hash',
+        'progress']
+    
+    is_valid = attrs_is_valid(attrs, keys)
+
+    if not is_valid:
+        Notify('Invalid Milestone Attrs..')
+
+    return is_valid
+
+def ms_get_attr(attrs, attr_name):
     """
     This is required to be able to read fs object variables in certain cases..
     """
+    # Check if invalid
+    if not ms_is_valid(attrs):
+        return
 
-    if attr_name == 'project_id':
-        return ms.project_id
+    return attrs[attr_name]
 
-    if attr_name == 'milestone_id':
-        return ms.milestone_id
-
-    if attr_name == 'title':
-        return ms.title
-    
-    if attr_name == 'subtitle':
-        return ms.subtitle
-    
-    if attr_name == 'extra_info_hash':
-        return ms.extra_info_hash
-
-    if attr_name == 'progress':
-        return ms.progress
-
-
-
-def ms_create(project_id, milestone_id, title, subtitle, extra_info_hash) -> Milestone:
+def ms_create(project_id, milestone_id, title, subtitle, extra_info_hash):
     """
     Creates a new Milestone using the input attributes, saves it to storage and returns
     a Milestone object
@@ -65,64 +64,45 @@ def ms_create(project_id, milestone_id, title, subtitle, extra_info_hash) -> Mil
         (Milestone):
             Returns a Milestone object containing these attributes
     """
-    # init objects
-    storage = StorageManager()
-    ms = Milestone()
+    # If sts with project id already exists
+    pre_existing = ms_load_attrs(project_id, milestone_id)
+    if pre_existing:
+        return pre_existing
+
+    # New funding stage attrs dict
+    ms = ATTRS
 
     # Saves vars to object
-    ms.project_id = project_id
-    ms.milestone_id = milestone_id
-    ms.title = title
-    ms.subtitle = subtitle 
-    ms.extra_info_hash = extra_info_hash   
+    ms['project_id'] = project_id
+    ms['milestone_id'] = milestone_id
+    ms['title'] = title
+    ms['subtitle'] = subtitle
+    ms['extra_info_hash'] = extra_info_hash
+    ms['progress'] = 0
     
-    # Sets progress to 0
-    ms.progress = 0
-
-    # Info structure
-    milestone_info = [title, subtitle, extra_info_hash, 0]
-
-    # Saving info to storage
-    milestone_info_serialized = storage.serialize_array(milestone_info)
-    storage.put_triple('MS', project_id, milestone_id, milestone_info_serialized)
-
-    return ms
-    
-def ms_get(project_id, milestone_id) -> Milestone:
-    """
-    Pulls an existing Milestone from storage using the input attributes, and returns
-    a Milestone object
-    Args:
-        project_id (str):
-            ID for referencing the project
-
-        milestone_id (str):
-            ID for referencing the Milestone
-            
-    Return:
-        (Milestone):
-            Returns a Milestone object containing attributes
-    """
-    storage = StorageManager()
-    ms = Milestone()
-    
-    # Pull Milestone info
-    milestone_info_serialized = storage.get_triple('MS', project_id, milestone_id)
-    milestone_info = storage.deserialize_bytearray(milestone_info_serialized)
-    
-    if len(milestone_info) == 4:
-        # Saves vars to object
-        ms.project_id = project_id
-        ms.milestone_id = milestone_id
-        ms.title = milestone_info[0]
-        ms.subtitle = milestone_info[1]
-        ms.extra_info_hash = milestone_info[2]
-        ms.progress = milestone_info[3]
-
     return ms
 
+def ms_load_attrs(project_id, milestone_id):    
+    # Pulling serialized attrs from storage
+    serialized_attrs = get_triple('MS', project_id, milestone_id)
+    attrs = deserialize(serialized_attrs)
 
-def ms_update_progress(ms:Milestone, updated_progress):
+    # Check if invalid
+    if not ms_is_valid(attrs):
+        return
+    
+    return attrs
+
+def ms_save_attrs(attrs):    
+    # Check if invalid
+    if not ms_is_valid(attrs):
+        return
+
+    # Putting serialized attrs to storage
+    serialized_attrs = serialize(attrs)
+    put_triple('MS', attrs['project_id'], attrs['milestone_id'], serialized_attrs)
+
+def ms_update_progress(attrs, updated_progress):
     """
     Args:
         ms (Milestone):
@@ -134,28 +114,15 @@ def ms_update_progress(ms:Milestone, updated_progress):
     Return:
         (int): The avaliable tokens for the Milestone
     """
-    storage = StorageManager()
-
     # If the updated progress is higher
-    if updated_progress > ms.progress:
+    if updated_progress > attrs['progress']:
         
         # Clamp at 100%
         if updated_progress > 100:
             updated_progress = 100
 
         # Updates object variable
-        ms.progress = updated_progress
+        attrs['progress'] = updated_progress
         
-        # Output milestone info
-        updated_milestone_info = [ms.title, ms.subtitle, ms.extra_info_hash, updated_progress]
-
-        # Saving info to storage
-        updated_milestone_info_serialized = storage.serialize_array(updated_milestone_info)
-        storage.put_triple('MS', ms.project_id, ms.milestone_id, updated_milestone_info_serialized)
-
-
-def ms_get_progress(ms:Milestone):
-    """
-    This is required specifically for this variable
-    """
-    return ms.progress
+    
+    return attrs['progress']

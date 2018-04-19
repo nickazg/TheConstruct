@@ -1,168 +1,107 @@
-from boa.blockchain.vm.Neo.Runtime import CheckWitness, Notify
-from boa.blockchain.vm.Neo.Action import RegisterAction
-from boa.code.builtins import concat, list, range, take, substr
+from boa.interop.Neo.Runtime import CheckWitness, Notify
+from boa.interop.Neo.Action import RegisterAction
+from boa.builtins import concat, list, range, take, substr
 
+from construct.common.StorageManager import attrs_is_valid, array_concat, get_double, put_double, serialize, deserialize
 
-from construct.common.StorageManager import StorageManager
+from construct.platform.FundingStage import fs_load_attrs, fs_save_attrs, fs_status
+from construct.platform.Milestone import ms_load_attrs, ms_save_attrs, ms_update_progress
 
-from construct.platform.FundingStage import FundingStage, fs_get_attr, fs_create, fs_get, fs_contribute, fs_status, fs_can_exchange, fs_add_to_circulation, fs_calculate_can_exchange, get_in_circulation
-from construct.platform.Milestone import Milestone, ms_create, ms_get, ms_update_progress, ms_get_progress
+# Struct for storing the Funding Roadmap
+ATTRS = {}
+ATTRS['project_id'] = ''
+ATTRS['active_idx'] =  0
+ATTRS['funding_stages'] = []
+ATTRS['milestones'] = []
+ATTRS['admins'] = []
 
-
-
-class FundingRoadmap():
-    """
-    Interface for Managing the Funding Roadmap
-    """
-    project_id = ''
-    active_idx = 0
-
-def fr_list_append(project_id, key, new_item):
-    """Adds the input list of funding stages to storage (as serialized array)
-    Args:
-        project_id (list): ID for referencing the project
-        new_list (list): list of funding stages to save to storage
-    """   
-    storage = StorageManager()
-
-    print('new_item')
-    print(new_item)
-
-    # Gets current stored list
-    current_serialized_list = storage.get_double(project_id, key)
-
-    # Converts serialized list to normal list
-    current_list = storage.deserialize_bytearray(current_serialized_list)
-    current_list_len = len(current_list)
-    print('current_list_len')
-    print(current_list_len)
-
-    if current_list_len == 0:
-        output_list = [new_item]
+def fr_is_valid(attrs):
+    # Keys to check
+    keys = ['project_id', 'active_idx', 'funding_stages', 'milestones', 'admins']
     
-    else:
-        output_list = current_list
-        output_list.append(new_item)
+    is_valid = attrs_is_valid(attrs, keys)
 
-    # Serializes list 
-    serialized_output_list = storage.serialize_array(output_list)
-    print('serialized_output_list')
-    print(serialized_output_list)
+    if not is_valid:
+        Notify('Invalid Funding Roadmap Attrs..')
 
-    # Saves updated serialized list to storage
-    storage.put_double(project_id, key, serialized_output_list)
+    return is_valid
 
+def fr_create(project_id):
+    # New funding roadmap attrs dict
+    fr = ATTRS
 
-def fr_get_list(project_id, key):
-    """    
-    Registers all input addresses
-    Args:
-        project_id (list): ID for referencing the project
+    # Saves updated project_id
+    fr['project_id'] = project_id
 
-    Return:
-        (list): Output list for key
+    return fr
+
+def fr_load_attrs(project_id):    
+    # Pulling serialized attrs from storage
+    serialized_attrs = get_double('FR', project_id)
+    if not serialized_attrs:
+        Notify('No Attrs exist for Funding Roadmap, Creating new one.')
+        return fr_create(project_id)
+
+    attrs = deserialize(serialized_attrs)
+    
+    # Check if invalid
+    if not fr_is_valid(attrs):
+        return
+    
+    return attrs
+
+def fr_save_attrs(attrs):
+    # Putting serialized attrs to storage
+    serialized_attrs = serialize(attrs)
+    put_double('FR', attrs['project_id'], serialized_attrs)
+
+def fr_get_attr(attrs, attr_name):
     """
-    storage = StorageManager()
+    This is required to be able to read fs object variables in certain cases..
+    """
+    # Check if invalid
+    if not fr_is_valid(attrs):
+        return
 
-    # Gets current stored list
-    serialized_list = storage.get_double(project_id, key)
+    return attrs[attr_name]
 
-    # Converts serialized list to normal list
-    output_list = storage.deserialize_bytearray(serialized_list)
-    # output_list = ['sdad','sdads']
-
-    return output_list
-
-def fr_add_funding_stage(project_id, new_funding_stage):
+def fr_add_funding_stage(attrs, new_funding_stage):
     """Adds the input list of funding stages to storage (as serialized array)
     Args:
         project_id (list): ID for referencing the project
         new_funding_stages (list): list of funding stages to save to storage
-    """  
-    fr_list_append(project_id, 'FR_stages', new_funding_stage)
-
-def fr_get_funding_stages(project_id):
-    """    
-    Registers all input addresses
-    Args:
-        project_id (list): ID for referencing the project
-
-    Return:
-        (list): The number of addresses to registered for KYC
     """
-    funding_stages = fr_get_list(project_id, 'FR_stages')
-    print('funding_stages')
-    print(funding_stages)
-    return funding_stages
+    updated = array_concat(attrs['funding_stages'], [new_funding_stage])
+    attrs['funding_stages'] = updated
 
-def fr_add_milestone(project_id, new_milestone):
+def fr_add_milestone(attrs, new_milestone):
     """Adds the input list of milestones to storage (as serialized array)
     Args:
         project_id (list): ID for referencing the project
         new_milestones (list): list of milestones to add
     """ 
-    fr_list_append(project_id, 'FR_milestones', new_milestone)  
+    updated = array_concat(attrs['milestones'], [new_milestone])
+    attrs['milestones'] = updated
 
-def fr_get_milestones(project_id):
-    """    
-    Gets all milestones saved to storage
-    Args:
-        project_id (list): ID for referencing the project
-        
-    Return:
-        (list): The number of milestones
-    """
-    milestones = fr_get_list(project_id, 'FR_milestones')
-
-    return milestones
-
-def fr_add_project_admin(project_id, new_admin):
+def fr_add_project_admin(attrs, new_admin):
     """Adds the input list of admins to storage (as serialized array)
     Args:
         project_id (list): ID for referencing the project
         new_milestones (list): list of admins to add
     """ 
-    fr_list_append(project_id, 'FR_admins', new_admin)    
+    updated = array_concat(attrs['admins'], [new_admin])
+    attrs['admins'] = updated  
 
-def fr_get_project_admins(project_id):
-    """    
-    Gets all admins saved to storage
-    Args:
-        project_id (list): ID for referencing the project
-    
-    Return:
-        (list): The number of admins
-    """
-    admins = fr_get_list(project_id, 'FR_admins')
-
-    return admins
-
-
-def fr_set_active_index(project_id, idx):
+def fr_set_active_index(attrs, idx):
     """    
     Sets the active index
     Args:
         project_id (list): ID for referencing the project
         idx (int): new active index    
     """
-    storage = StorageManager()
-    storage.put_double(project_id, 'FR_active_idx', idx)
+    attrs['active_idx'] = idx
 
-def fr_get_active_index(project_id):
-    """    
-    Gets the active index
-    Args:
-        project_id (list): ID for referencing the project
-    
-    Return:
-        (int): Index
-    """
-    storage = StorageManager()
-    idx = storage.get_double(project_id, 'FR_active_idx')
-    return idx
-
-
-def fr_update_milestone_progress(project_id, progress):
+def fr_update_milestone_progress(attrs, progress):
     """    
     Updates the progress of the active index, and runs neccerray checks
     
@@ -170,18 +109,17 @@ def fr_update_milestone_progress(project_id, progress):
         project_id (list): ID for referencing the project
         progress (int): new progress (100% completes stage/milestone)   
     """
-    active_idx = fr_get_active_index(project_id)
-    milestones = fr_get_milestones(project_id)
-    funding_stages = fr_get_funding_stages(project_id)
+    active_idx = fr_get_attr(attrs, 'active_idx')
+    milestones = fr_get_attr(attrs, 'milestones')
+    funding_stages = fr_get_attr(attrs, 'funding_stages')
 
     active_milestone = milestones[active_idx]
     active_funding_stage = funding_stages[active_idx]
 
-    fs = fs_get(project_id, active_funding_stage)
-    check_fs_status = fs_status(fs)
-    
+    ms_attrs = ms_load_attrs(attrs['project_id'], active_milestone)
+    fs_attrs = fs_load_attrs(attrs['project_id'], active_funding_stage)
 
-    if check_fs_status != 1:
+    if fs_status(fs_attrs) != 1:
         print('Current Funding Stage NOT complete')
         return False
         
@@ -191,12 +129,10 @@ def fr_update_milestone_progress(project_id, progress):
     if progress == 100:
         print('progress 100%')
         next_idx = active_idx + 1          
-        fr_set_active_index(project_id, next_idx)
+        fr_set_active_index(attrs, next_idx)
 
-    ms = ms_get(project_id, active_milestone)
-    ms_update_progress(ms, progress)
-    
+    # Update and save milestone attrs to storage 
+    ms_update_progress(ms_attrs, progress)   
+    ms_save_attrs(ms_attrs)
+
     return progress
-        
-
-        

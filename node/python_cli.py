@@ -8,7 +8,6 @@ import argparse
 import datetime
 import json
 import os
-import psutil
 import traceback
 import logging
 import sys
@@ -16,9 +15,6 @@ import pprint
 
 from time import sleep
 
-from pymitter import EventEmitter
-
-from logzero import logger
 from twisted.internet import reactor, task
 
 from neo.Network.NodeLeader import NodeLeader
@@ -50,7 +46,6 @@ from neo.Prompt.Commands.Wallet import DeleteAddress, ImportWatchAddr, ImportTok
     ShowUnspentCoins
 from neo.Prompt.Utils import get_arg
 from neo.Prompt.InputParser import InputParser
-from neo.Settings import settings, DIR_PROJECT_ROOT
 from neo.UserPreferences import preferences
 from neocore.KeyPair import KeyPair
 from neocore.UInt256 import UInt256
@@ -609,10 +604,17 @@ def main():
     reactor.run()
 
 
+# load_run /Users/nick/Documents/Git/NeoDev/TheConstruct/compiled/TheConstruct.avm create_sts 0705 05 1 1 ['project_id', 'symbol', 8, bytearray(b'#\xba\'\x03\xc52c\xe8\xd6\xe5"\xdc2 39\xdc\xd8\xee\xe9'), 1000]
+# load_run /Users/nick/Documents/Git/NeoDev/TheConstruct/compiled/TheConstruct.avm create_sts 0710 05 1 1 ['project_id', 'symbol',]
+
+# import contract /Users/nick/Documents/Git/NeoDev/TheConstruct/compiled/TheConstruct.avm 0705 05 1 1
+# testinvoke 544ccb68f3460c3740fa43212d2c542faec28373 create_sts ['project_id', 'symbol', 8, 'AcoVmRFW2BBYWBYM2sAiCwXoQ4AmnGuDLu', 1000]
+# testinvoke 25b0956ab0b3267528e39d959e8d36c4426d8879 create_sts ['project_id', 'symbol']
 
 
 if __name__ == "__main__":
     main()
 
     
+
 

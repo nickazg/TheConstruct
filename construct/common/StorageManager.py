@@ -1,131 +1,116 @@
-from boa.blockchain.vm.Neo.Storage import GetContext, Get, Put, Delete
-from boa.code.builtins import concat, list, range, take, substr
+from boa.interop.Neo.Storage import GetContext, Get, Put, Delete
+from boa.interop.Neo.Runtime import Serialize, Deserialize
+from boa.builtins import concat, list, range, take, substr, has_key, keys, values
 
-class StorageManager():
-    """
-    Wrapper for the default storage api and adds convenient  functionality
-    """
-    ctx = GetContext()
+"""
+Wrapper for the default storage api and adds convenient  functionality
+"""
 
-    def get(self, key):
-        return Get(self.ctx, key)
-    
-    def get_double(self, key_one, key_two):
-        storage_key = concat(key_one, key_two)
-        return self.get(storage_key)
+CTX = GetContext()
 
-    def get_triple(self, key_one, key_two, key_three):
-        storage_key_two = concat(key_one, key_two)
-        storage_key_three = concat(storage_key_two, key_three)
-        return self.get(storage_key_three)
+def get(key):
+    return Get(CTX, key)
 
-    def put(self, key, value):
-        Put(self.ctx, key, value)
-    
-    def put_double(self, key_one, key_two, value):
-        storage_key = concat(key_one, key_two)
-        return self.put(storage_key, value)
+def get_double(key_one, key_two):
+    storage_key = concat(key_one, key_two)
+    return get(storage_key)
 
-    def put_triple(self, key_one, key_two, key_three, value):
-        storage_key_two = concat(key_one, key_two)
-        storage_key_three = concat(storage_key_two, key_three)
-        return self.put(storage_key_three, value)
+def get_triple(key_one, key_two, key_three):
+    storage_key_two = concat(key_one, key_two)
+    storage_key_three = concat(storage_key_two, key_three)
+    return get(storage_key_three)
 
-    def delete(self, key):
-        Delete(self.ctx, key)
+def put(key, value):
+    Put(CTX, key, value)
 
-    def delete_double(self, key_one, key_two):
-        storage_key = concat(key_one, key_two)
-        return self.delete(storage_key)
-    
-    def delete_triple(self, key_one, key_two, key_three):
-        storage_key_two = concat(key_one, key_two)
-        storage_key_three = concat(storage_key_two, key_three)
-        return self.delete(storage_key_three)
+def put_double(key_one, key_two, value):
+    storage_key = concat(key_one, key_two)
+    return put(storage_key, value)
 
-    def serialize_array(self, items):
-        # serialize the length of the list
-        itemlength = self.serialize_var_length_item(items)
+def put_triple(key_one, key_two, key_three, value):
+    storage_key_two = concat(key_one, key_two)
+    storage_key_three = concat(storage_key_two, key_three)
+    return put(storage_key_three, value)
+
+def delete(key):
+    Delete(CTX, key)
+
+def delete_double(key_one, key_two):
+    storage_key = concat(key_one, key_two)
+    return delete(storage_key)
+
+def delete_triple(key_one, key_two, key_three):
+    storage_key_two = concat(key_one, key_two)
+    storage_key_three = concat(storage_key_two, key_three)
+    return delete(storage_key_three)
+
+def serialize(item):
+    print('serialize')
+    if item:
+        item_keys = keys(item)
+        item_values = values(item)
+
+        num_items = len(item_values)
+
+        output_array = list(length=num_items+1)
+        # output_array[0] = item_keys
+
+        print('asdasd')
+        # for i in range(0, num_items):
+        #     print(i)
+            # output_array[i] = item_values[i]        
+
+        return Serialize(output_array)
+
+def deserialize(item):
+    print('deserialize')
+    if item:
+        input_array = Deserialize(item)
+        item_keys = input_array[0]
+
+        num_keys = len(item_keys)
+
+        output_dict = {}
+
+        for i in range(0, num_keys):
+            item_key = item_keys[i]
+            item_value = input_array[i+1]
+            
+            output_dict[item_key] = item_value
         
-        output = itemlength
+        return output_dict
 
-        # now go through and append all your stuff
-        for item in items:
+def serialize_array(item):
+    if item:
+        return Serialize(item)
 
-            # get the variable length of the item
-            # to be serialized
-            itemlen = self.serialize_var_length_item(item)
+def deserialize_array(item):
+    if item:
+        return Deserialize(item)
 
-            # add that indicator
-            output = concat(output, itemlen)
-
-            # now add the item
-            output = concat(output, item)
-
-        # return the stuff
-        return output
-
-
-    def serialize_var_length_item(self, item:list):
-        # get the length of your stuff
-        stuff_len = len(item)
-
-        # now we need to know how many bytes the length of the array
-        # will take to store
-
-        # this is one byte
-        if stuff_len <= 255:
-            byte_len = b'\x01'
-        # two byte
-        elif stuff_len <= 65535:
-            byte_len = b'\x02'
-        # hopefully 4 byte
+def array_concat(array1, array2):
+    new_length = len(array1) + len(array2)
+    new_array = list(length=new_length)
+    for i in range(0, new_length):
+        if i < len(array1):
+            new_array[i] = array1[i]
         else:
-            byte_len = b'\x04'
+            i_offset = i - len(array1)
+            new_array[i] = array2[i_offset]
+        
+    return new_array
 
-        out = concat(byte_len, stuff_len)
+def attrs_set(attrs, key, value):
+    if has_key(attrs, key):
+        attrs[key] = value
+        return True
+    return False
 
-        return out
-
-    def deserialize_bytearray(self, data):
-
-        # neo-boa bug, Something is require here for some reason...
-        # pointless = True
-        print('deserialize_bytearray')
-
-        # get length of length
-        collection_length_length = substr(data, 0, 1)
-
-        # get length of collection
-        collection_len = substr(data, 1, collection_length_length)
-
-        # create a new collection
-        new_collection = list(length=collection_len)
-
-        # calculate offset
-        offset = 1 + collection_length_length
-
-        # trim the length data
-        newdata = data[offset:]
-
-        for i in range(0, collection_len):
-
-            # get the data length length
-            itemlen_len = substr(newdata, 0, 1)
-
-            # get the length of the data
-            item_len = substr(newdata, 1, itemlen_len)
-
-            start = 1 + itemlen_len
-            end = start + item_len
-
-            # get the data
-            item = substr(newdata, start, item_len)
-
-            # store it in collection
-            new_collection[i] = item
-
-            # trim the data
-            newdata = newdata[end:]
-
-        return new_collection
+def attrs_is_valid(attrs, attrs_keys):
+    if not attrs:
+        return False
+    
+    for key in attrs_keys:
+        if not has_key(attrs, key):
+            return False    
+    return True

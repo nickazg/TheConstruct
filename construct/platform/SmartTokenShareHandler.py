@@ -1,6 +1,6 @@
-from boa.blockchain.vm.Neo.Runtime import CheckWitness, Notify
-from boa.blockchain.vm.Neo.Action import RegisterAction
-from boa.code.builtins import concat
+from boa.interop.Neo.Runtime import CheckWitness, Notify
+from boa.interop.Neo.Action import RegisterAction
+from boa.builtins import concat
 
 from construct.platform.SmartTokenShare import SmartTokenShare, sts_get_attr, sts_create, sts_get, get_total_in_circulation 
 from construct.common.StorageManager import StorageManager
